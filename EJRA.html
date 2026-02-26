@@ -1,1 +1,745 @@
+<!DOCTYPE html>
+<html lang="te" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <!-- Pinch to zoom disabled strictly -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>ఎజ్రా - 25 ముఖ్యమైన ఘట్టాలు</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Anek+Telugu:wght@300;400;500;600;700;800&family=Mallanna&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&display=swap" rel="stylesheet">
+    <!-- Icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'body': ['"Mallanna"', 'serif'],        
+                        'heading': ['"Anek Telugu"', 'sans-serif'],
+                        'brand': ['"Cinzel"', 'serif'],
+                    },
+                    colors: {
+                        gold: {
+                            400: '#facc15', // Bright Gold
+                            500: '#eab308', // Classic Gold
+                            600: '#ca8a04', // Deep Gold
+                        },
+                        paper: '#fffaf0', // Warm White
+                        bible: '#854d0e', // Leather Brown
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        /* --- TYPOGRAPHY SYSTEM --- */
+        :root {
+            --content-size: 20px; /* Default size */
+            --line-height: 2.2;
+        }
+
+        html { scroll-behavior: smooth; }
+        
+        /* NO SELECTION - APP FEEL */
+        .no-select {
+            -webkit-user-select: none; /* Safari */
+            -moz-user-select: none;    /* Firefox */
+            -ms-user-select: none;     /* IE10+/Edge */
+            user-select: none;         /* Standard */
+            -webkit-touch-callout: none; /* iOS Safari */
+        }
+
+        body { 
+            background-color: var(--paper); 
+            color: #292524;
+            font-family: 'Mallanna', serif;
+            line-height: var(--line-height);
+            transition: background-color 0.3s ease, color 0.3s ease;
+            overflow-x: hidden; /* Prevent horizontal scroll */
+        }
+
+        /* Dynamic Font Sizing Class */
+        .content-text { font-size: var(--content-size); }
+        h1, h2, h3, h4, .ref-title, .brand-text { font-family: 'Anek Telugu', sans-serif; }
+
+        /* --- DARK MODE RULES --- */
+        html.dark body { background-color: #0c0a09 !important; color: #e7e5e4 !important; }
+        html.dark .content-text, html.dark p, html.dark li { color: #d6d3d1 !important; }
+        html.dark h1, html.dark h2, html.dark h3, html.dark strong { color: #facc15 !important; }
+        html.dark .verse-card { background-color: #1c1917 !important; border-left-color: #facc15 !important; }
+        html.dark .info-grid { background-color: #1c1917 !important; border-color: #444 !important; }
+        
+        /* Settings Menu Dark Mode */
+        html.dark #settings-menu { background-color: #1c1917; border-color: #444; color: white; }
+        html.dark .setting-btn { background-color: #2d2d2d; color: white; border-color: #444; }
+
+        /* --- COMPONENTS --- */
+        
+        /* WOG Badge - Left Side */
+        .brand-badge {
+            position: fixed; top: 20px; left: 20px; z-index: 60;
+            background: #000; color: #facc15;
+            padding: 8px 16px; font-family: 'Cinzel', serif; font-weight: bold;
+            border: 2px solid #facc15; box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+            backdrop-filter: blur(5px);
+            border-radius: 4px;
+        }
+
+        /* Settings Toggle Button - Top Right */
+        .settings-toggle {
+            position: fixed; top: 20px; right: 20px; z-index: 61;
+            background: rgba(255, 255, 255, 0.9); 
+            color: #333;
+            width: 45px; height: 45px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            cursor: pointer;
+            transition: transform 0.2s;
+            border: 1px solid rgba(0,0,0,0.1);
+        }
+        .settings-toggle:active { transform: scale(0.95); }
+        html.dark .settings-toggle { background: #333; color: #fff; border-color: #555; }
+
+        /* Settings Menu Popover */
+        #settings-menu {
+            display: none; /* Hidden by default */
+            position: fixed; top: 75px; right: 20px; z-index: 60;
+            background: white;
+            padding: 15px;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            width: 220px;
+            border: 1px solid #e5e7eb;
+            animation: fadeIn 0.2s ease-out;
+        }
+        #settings-menu.active { display: block; }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .setting-btn {
+            padding: 8px; border-radius: 6px;
+            border: 1px solid #e5e7eb;
+            background: #f9fafb;
+            font-weight: bold;
+            transition: all 0.2s;
+        }
+        .setting-btn:active { transform: scale(0.95); }
+
+        .hero {
+            height: 70vh;
+            /* Ancient Scrolls / Rebuilding Theme */
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.85)), url('https://images.unsplash.com/photo-1541904838618-5a0dcab50785?q=80&w=2070&auto=format&fit=crop');
+            background-size: cover; background-position: center; background-attachment: fixed;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            text-align: center; color: white;
+        }
+
+        /* Stats Grid */
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            background: #fff;
+            padding: 2rem;
+            border-radius: 1rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            border: 1px solid #e7e5e4;
+            margin-bottom: 3rem;
+        }
+        .info-item h4 { font-size: 0.8rem; text-transform: uppercase; color: #854d0e; letter-spacing: 0.1em; }
+        .info-item p { font-size: 1.2rem; font-weight: bold; color: #000; font-family: 'Anek Telugu'; }
+        html.dark .info-item h4 { color: #facc15; }
+        html.dark .info-item p { color: #fff; }
+
+        /* Author Note Box */
+        .author-note {
+            background: #fff7ed; /* Light Orange/Amber */
+            border-left: 4px solid #ea580c;
+            padding: 1.5rem;
+            margin-bottom: 3rem;
+            border-radius: 0 8px 8px 0;
+            font-size: 0.95rem;
+            color: #431407;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+        }
+        html.dark .author-note {
+            background: #431407;
+            border-color: #f97316;
+            color: #ffedd5;
+        }
+
+        /* Commentary Block Structure */
+        .commentary-block { margin-bottom: 4rem; }
+        
+        .explanation-text {
+            color: #44403c;
+            margin-bottom: 1.5rem;
+            border-left: 3px solid transparent;
+            padding-left: 0;
+            line-height: 1.8;
+            text-align: justify;
+        }
+        html.dark .explanation-text { color: #a8a29e; }
+
+        /* Verse Card */
+        .verse-card {
+            background: #fff;
+            border-left: 6px solid #ea580c; /* Orange accent */
+            padding: 25px 30px;
+            border-radius: 0 12px 12px 0;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+            font-style: italic;
+            position: relative;
+        }
+        .verse-ref {
+            position: absolute; top: -12px; left: 20px;
+            background: #ea580c; color: white;
+            padding: 4px 12px; font-size: 0.8rem; font-weight: bold;
+            border-radius: 4px; font-family: 'Anek Telugu';
+        }
+        html.dark .verse-ref { background: #facc15; color: #000; }
+
+        /* Christology Box - DARK GRAY BACKGROUND */
+        .christ-box {
+            background: #262626; /* Dark Gray */
+            color: #ffffff;      /* White Text */
+            border: 1px solid #404040;
+            border-radius: 12px;
+            padding: 2rem;
+            margin: 3rem 0;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        }
+        /* Override specific colors inside Christ Box for readability */
+        .christ-box h3 { color: #facc15 !important; } /* Gold Heading */
+        .christ-box .highlight { color: #facc15 !important; } /* Gold Highlights */
+        .christ-box p, .christ-box li, .christ-box span { color: #e5e5e5; }
+
+        .drop-cap {
+            float: left; font-size: 4.5rem; line-height: 0.8;
+            margin-right: 1rem; margin-top: 0.2rem;
+            font-family: 'Anek Telugu'; font-weight: 800; color: #ea580c;
+        }
+        
+        #reading-progress {
+            position: fixed; top: 0; left: 0; height: 5px;
+            background: linear-gradient(to right, #ea580c, #facc15);
+            width: 0%; z-index: 200;
+        }
+
+        /* Overlay to close menu when clicking outside */
+        #menu-overlay {
+            display: none; position: fixed; inset: 0; z-index: 59;
+            background: transparent;
+        }
+        #menu-overlay.active { display: block; }
+
+    </style>
+</head>
+<body class="no-select">
+
+    <div id="reading-progress"></div>
+    
+    <!-- Brand Badge (Left Side) -->
+    <div class="brand-badge">WOG</div>
+
+    <!-- Settings Toggle Button (Right Side) -->
+    <button onclick="toggleMenu()" class="settings-toggle">
+        <i class="fas fa-font text-xl"></i>
+    </button>
+
+    <!-- Overlay for closing menu -->
+    <div id="menu-overlay" onclick="toggleMenu()"></div>
+
+    <!-- Settings Popup Menu -->
+    <div id="settings-menu">
+        <div class="mb-4">
+            <p class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-2">Text Size</p>
+            <div class="flex gap-2 items-center">
+                <button onclick="adjustFont(-1)" class="setting-btn flex-1 flex justify-center items-center h-10">
+                    <i class="fas fa-minus text-xs"></i>
+                </button>
+                <span class="text-sm font-bold w-8 text-center" id="font-display">Aa</span>
+                <button onclick="adjustFont(1)" class="setting-btn flex-1 flex justify-center items-center h-10">
+                    <i class="fas fa-plus text-xs"></i>
+                </button>
+            </div>
+        </div>
+
+        <div>
+            <p class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-2">Theme</p>
+            <button onclick="toggleTheme()" class="setting-btn w-full flex items-center justify-center gap-2 h-10">
+                <i class="fas fa-moon"></i>
+                <span id="theme-label-menu">Dark Mode</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- HERO -->
+    <header class="hero">
+        <span class="inline-block py-2 px-6 border border-white/40 rounded-full text-sm font-bold uppercase tracking-[0.3em] mb-8 bg-black/30 backdrop-blur-md">
+            The Return & The Rebuilding
+        </span>
+        <!-- Title Fixed -->
+        <h1 class="text-4xl md:text-7xl font-black mb-6 drop-shadow-2xl tracking-tight leading-tight px-4 break-words max-w-full" style="font-family: 'Anek Telugu'">
+            ఎజ్రా
+        </h1>
+        <p class="text-xl md:text-2xl font-light italic max-w-4xl px-4 text-white/90" style="font-family: 'Mallanna'">
+            "ఎజ్రా యెహోవా ధర్మశాస్త్రమును పరిశోధించి దానికి లోబడుటకును... తన హృదయమును దృఢపరచుకొనెను." (EZRA 7:10)
+        </p>
+    </header>
+
+    <main id="main-content" class="content-text max-w-4xl mx-auto px-6 py-16">
+
+        <!-- INFO GRID -->
+        <section class="info-grid">
+            <div class="info-item">
+                <h4>రచయిత</h4>
+                <p>ఎజ్రా (Ezra)</p>
+            </div>
+            <div class="info-item">
+                <h4>కాలం</h4>
+                <p>క్రీ.పూ. 538 - 450</p>
+            </div>
+            <div class="info-item">
+                <h4>స్థలం</h4>
+                <p>బబులోను & యెరూషలేము</p>
+            </div>
+            <div class="info-item">
+                <h4>అధ్యాయాలు</h4>
+                <p>10</p>
+            </div>
+            <div class="info-item">
+                <h4>కీలక అంశం</h4>
+                <p>పునరుద్ధరణ (Restoration)</p>
+            </div>
+        </section>
+
+        <!-- AUTHOR NOTE -->
+        <div class="author-note">
+            <h4 class="font-bold mb-2 flex items-center gap-2 text-lg">
+                <i class="fas fa-feather-alt"></i> గ్రంథ నేపథ్యం గురించి గమనిక:
+            </h4>
+            <p style="line-height: 1.6;">
+                <strong>ఎజ్రా (Ezra)</strong> అహరోను వంశానికి చెందిన ఒక యాజకుడు మరియు ధర్మశాస్త్రమందు నిష్ణాతుడైన శాస్త్రి (Scribe). 70 సంవత్సరాల బబులోను బానిసత్వం తర్వాత, ఇశ్రాయేలీయులు యెరూషలేముకు తిరిగి వచ్చినప్పుడు వారికి దేవుని వాక్యాన్ని బోధించి గొప్ప ఆధ్యాత్మిక మేలుకొలుపును (Revival) తెచ్చిన మహా దైవజనుడు. ఈ గ్రంథం రెండు దశలలో చెర నుండి తిరిగి రావడాన్ని వివరిస్తుంది. మొదటి భాగంలో (1-6 అధ్యా.) జెరుబ్బాబెలు నాయకత్వంలో దేవాలయం కట్టబడటం, రెండవ భాగంలో (7-10 అధ్యా.) ఎజ్రా నాయకత్వంలో ప్రజల హృదయాలు వాక్యంతో సరిచేయబడటం చూస్తాము.
+            </p>
+        </div>
+
+        <!-- INTRO -->
+        <article class="mb-16">
+            <h2 class="text-4xl font-bold mb-6 text-orange-900 dark:text-gold-500 pb-4 border-b-2 border-orange-200 dark:border-gray-800">
+                నిరాశ నుండి పునరుద్ధరణ వైపు...
+            </h2>
+            <p>
+                <span class="drop-cap">ఎ</span> జ్రా గ్రంథం ఇశ్రాయేలు చరిత్రలో ఒక క్రొత్త అధ్యాయానికి నాంది. దేవుడు యిర్మీయా ప్రవక్త ద్వారా ముందుగానే చెప్పినట్లుగా 70 ఏళ్ల బానిసత్వం ముగిసింది. దేవుడు అన్యరాజైన కోరేషు హృదయాన్ని ప్రేరేపించి, ఇశ్రాయేలీయులను తమ స్వదేశానికి పంపేలా చేశాడు. అపవాది ఎన్నో ఆటంకాలు కల్పించినప్పటికీ, రాజుల ఆజ్ఞలు మారుస్తూ, ప్రవక్తలను వాడుకుంటూ దేవుడు తన మందిర నిర్మాణాన్ని ఎలా పూర్తి చేయించాడో ఈ గ్రంథం కళ్ళకు కట్టినట్లు చూపుతుంది. విరిగిపోయిన గోడలు కట్టబడాలంటే ముందుగా విరిగిపోయిన హృదయాలు కట్టబడాలి అని ఎజ్రా ద్వారా దేవుడు మనకు నేర్పిస్తున్నాడు.
+            </p>
+        </article>
+
+        <!-- CHRIST IN EZRA -->
+        <div class="christ-box">
+            <h3 class="text-2xl font-bold mb-4 flex items-center gap-2">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#facc15" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M2 12h20"/></svg>
+                క్రీస్తును ఎక్కడ వెతకాలి?
+            </h3>
+            <p class="mb-4 text-sm opacity-80">ఈ గ్రంథంలో క్రీస్తుకు సంబంధించిన ముఖ్యమైన ఛాయలు (Types):</p>
+            <ul class="space-y-3 list-none">
+                <li class="flex gap-3">
+                    <span class="font-bold highlight">➤ జెరుబ్బాబెలు (Zerubbabel):</span>
+                    <span>ఇతను దావీదు వంశస్థుడు. శిథిలమైన యెరూషలేములో తిరిగి దేవాలయానికి పునాది వేసి నిర్మించిన నాయకుడు, భవిష్యత్తులో దేవుని సంఘాన్ని కట్టబోయే క్రీస్తుకు సాదృశ్యంగా ఉన్నాడు.</span>
+                </li>
+                <li class="flex gap-3">
+                    <span class="font-bold highlight">➤ ఎజ్రా (Ezra as Priest & Word):</span>
+                    <span>ఎజ్రా ధర్మశాస్త్రాన్ని బోధిస్తూ, ప్రజల పాపాల నిమిత్తం కన్నీరు కార్చి మధ్యవర్తిత్వం వహించిన గొప్ప యాజకుడు. ఇది మన ప్రధాన యాజకుడైన యేసుక్రీస్తు పరిచర్యను సూచిస్తుంది.</span>
+                </li>
+                <li class="flex gap-3">
+                    <span class="font-bold highlight">➤ పునాది రాయి (The Foundation):</span>
+                    <span>దేవాలయానికి తిరిగి వేయబడిన పునాది, నూతన నిబంధనలో క్రీస్తే మనకు మూలరాయి మరియు పునాది (Chief Cornerstone) అని తెలియజేస్తుంది.</span>
+                </li>
+            </ul>
+        </div>
+
+        <hr class="border-orange-200 dark:border-gray-800 my-12">
+
+        <!-- 25 POINTS -->
+        <h3 class="text-3xl font-bold mb-10 text-orange-800 dark:text-gold-400">ఎజ్రా: 25 ముఖ్యమైన ఘట్టాలు</h3>
+        
+        <!-- Point 1 -->
+        <div class="commentary-block">
+            <h4 class="text-xl font-bold mb-3 text-gray-800 dark:text-gray-200">1. కోరేషు రాజు ఆజ్ఞ (Decree of Cyrus)</h4>
+            <p class="explanation-text">
+                దేవుడు యిర్మీయా ద్వారా చెప్పిన 70 ఏళ్ల చెర ముగిసింది. పర్షియా రాజైన కోరేషు "పరలోకమందలి దేవుడు యెరూషలేములో తనకు మందిరము కట్టమని నాకు ఆజ్ఞాపించాడు" అని ప్రకటించాడు. దేవుడు తన చిత్తాన్ని నెరవేర్చుకోవడానికి రాజుల హృదయాలను ఎలాగైనా తిప్పగలడు.
+            </p>
+            <div class="verse-card">
+                <span class="verse-ref">ఎజ్రా 1:2</span>
+                "పరలోకమందలి దేవుడైన యెహోవా భూరాజులందరిని నా వశముచేసి, యూదా దేశమందున్న యెరూషలేములో తనకు మందిరము కట్టించుమని నాకు ఆజ్ఞాపించి యున్నాడు."
+            </div>
+        </div>
+
+        <!-- Point 2 -->
+        <div class="commentary-block">
+            <h4 class="text-xl font-bold mb-3 text-gray-800 dark:text-gray-200">2. దేవుని ప్రేరేపణ (God Stirs the Spirits)</h4>
+            <p class="explanation-text">
+                కోరేషు ఆజ్ఞ ఇవ్వగానే, ఎవరైతే దేవుని ఆత్మ చేత ప్రేరేపించబడ్డారో (యూదా, బెన్యామీను పెద్దలు, యాజకులు, లేవీయులు) వారు యెరూషలేము వెళ్ళడానికి సిద్ధపడ్డారు. దేవుని పని జరగాలంటే మనుషులు ఆత్మ చేత ప్రేరేపించబడటం (Stirred up) చాలా అవసరం.
+            </p>
+            <div class="verse-card">
+                <span class="verse-ref">ఎజ్రా 1:5</span>
+                "దేవునిచేత ప్రేరేపింపబడిన వారందరును యెరూషలేమునందు యెహోవాకు మందిరమును కట్టుటకై పోవలెనని ప్రయాణమైరి."
+            </div>
+        </div>
+
+        <!-- Point 3 -->
+        <div class="commentary-block">
+            <h4 class="text-xl font-bold mb-3 text-gray-800 dark:text-gray-200">3. ఆలయ ఉపకరణాల వాపసు (Return of Temple Articles)</h4>
+            <p class="explanation-text">
+                గతంలో నెబుకద్నెజరు రాజు యెరూషలేము దేవాలయం నుండి దోచుకెళ్లిన సుమారు 5,400 బంగారు, వెండి ఉపకరణాలను కోరేషు రాజు భద్రంగా తీసి యూదుల అధిపతియైన షేష్బజ్జరు చేతికి ఇచ్చాడు. దేవుడు తన వస్తువులను, ఆస్తులను సరైన సమయంలో మళ్ళీ తిరిగి తెచ్చుకుంటాడు.
+            </p>
+            <div class="verse-card">
+                <span class="verse-ref">ఎజ్రా 1:7</span>
+                "మరియు నెబుకద్నెజరు యెరూషలేములోనుండి తెచ్చి తన దేవతల గుడిలో ఉంచిన యెహోవా మందిరపు ఉపకరణములను రాజైన కోరేషు బయటికి తెప్పించెను."
+            </div>
+        </div>
+
+        <!-- Point 4 -->
+        <div class="commentary-block">
+            <h4 class="text-xl font-bold mb-3 text-gray-800 dark:text-gray-200">4. తిరిగి వచ్చిన వారి జాబితా (List of the Exiles)</h4>
+            <p class="explanation-text">
+                సుమారు 42,360 మంది యూదులు మొదటి విడతలో జెరుబ్బాబెలు నాయకత్వంలో బబులోను నుండి యెరూషలేముకు తిరిగి వచ్చారు. దేవుడు వారిని వదిలివేయలేదని, ప్రతి కుటుంబాన్ని పేరుపేరునా ఆయన గుర్తుంచుకున్నాడని రెండవ అధ్యాయపు జాబితా (Genealogy) స్పష్టం చేస్తుంది.
+            </p>
+            <div class="verse-card">
+                <span class="verse-ref">ఎజ్రా 2:1</span>
+                "బబులోను రాజైన నెబుకద్నెజరు బబులోను దేశమునకు చెరతీసికొనిపోయిన వారిలో... తమ స్వపురములకు వచ్చినవారు వీరే."
+            </div>
+        </div>
+
+        <!-- Point 5 -->
+        <div class="commentary-block">
+            <h4 class="text-xl font-bold mb-3 text-gray-800 dark:text-gray-200">5. యాజకత్వ పరిశీలన (Purity of the Priests)</h4>
+            <p class="explanation-text">
+                తిరిగి వచ్చినవారిలో కొందరు తాము యాజకులమని చెప్పుకున్నారు గానీ వారి వంశావళి పత్రాలు (Genealogy records) దొరకలేదు. పత్రాలు లేని కారణంగా వారు అపవిత్రులని ఎంచబడి యాజకత్వ సేవ చేయకుండా పక్కన పెట్టబడ్డారు. దేవుని సేవలో పవిత్రత, పిలుపు యొక్క స్పష్టత ఎంతో ముఖ్యం.
+            </p>
+            <div class="verse-card">
+                <span class="verse-ref">ఎజ్రా 2:62</span>
+                "వీరు వంశావళుల గ్రంథమందు తమ పేళ్లు వెదకినను అవి కనబడకపోయెను గనుక వారు అపవిత్రులని యెంచబడి యాజకత్వములో ఉండకుండ వెలివేయబడిరి."
+            </div>
+        </div>
+
+        <!-- Point 6 -->
+        <div class="commentary-block">
+            <h4 class="text-xl font-bold mb-3 text-gray-800 dark:text-gray-200">6. సంతోషకరమైన కానుకలు (Freewill Offerings)</h4>
+            <p class="explanation-text">
+                వారు యెరూషలేములోని పాడుబడిన దేవుని మందిర స్థలానికి రాగానే, నాయకులు ఆలయ నిర్మాణం కోసం తమకు ఉన్నదానిలో ఇష్టపూర్వకంగా గొప్ప కానుకలు (బంగారం, వెండి, యాజక వస్త్రాలు) ఇచ్చారు. దేవుని పని పట్ల వారికి ఉన్న మక్కువ ఇందులో కనబడుతుంది.
+            </p>
+            <div class="verse-card">
+                <span class="verse-ref">ఎజ్రా 2:68</span>
+                "పితరుల యిండ్లకు పెద్దలైనవారిలో కొందరు... మందిరమును దాని స్థలమునందు కట్టుటకై ఉత్సాహముగా కానుకలను ఇచ్చిరి."
+            </div>
+        </div>
+
+        <!-- Point 7 -->
+        <div class="commentary-block">
+            <h4 class="text-xl font-bold mb-3 text-gray-800 dark:text-gray-200">7. బలిపీఠం పునరుద్ధరణ (Rebuilding the Altar)</h4>
+            <p class="explanation-text">
+                యెరూషలేము చేరిన తర్వాత ఏడవ నెలలో జనులందరూ ఏకగ్రీవంగా కూడి, ఆలయ గోడల కంటే ముందుగా దేవుని బలిపీఠాన్ని పాత పునాదుల మీదే కట్టారు. తమ చుట్టూ ఉన్న అన్యజనులకు భయపడినప్పటికీ, ప్రార్థనతో, ఆరాధనతోనే వారు తమ క్రొత్త జీవితాన్ని ప్రారంభించారు.
+            </p>
+            <div class="verse-card">
+                <span class="verse-ref">ఎజ్రా 3:3</span>
+                "ఆ దేశపు జనుల భయము తమకుండినను వారు బలిపీఠమును దాని స్థానమందు నిలిపి, ఉదయ సాయంత్రములయందు దహనబలులను యెహోవాకు అర్పించిరి."
+            </div>
+        </div>
+
+        <!-- Point 8 -->
+        <div class="commentary-block">
+            <h4 class="text-xl font-bold mb-3 text-gray-800 dark:text-gray-200">8. పర్ణశాలల పండుగ (Feast of Tabernacles)</h4>
+            <p class="explanation-text">
+                బలిపీఠం కట్టిన వెంటనే వారు మోషే ధర్మశాస్త్రంలో వ్రాయబడినట్లుగా పర్ణశాలల పండుగను ఆచరించారు. ఎన్నో ఏళ్లుగా మర్చిపోయిన దేవుని ఆజ్ఞలను, పండుగలను తిరిగి పాటించడం ద్వారా వారు దేవుని వాక్యానికి పూర్తిగా లోబడుతున్నారని రుజువు చేసుకున్నారు.
+            </p>
+            <div class="verse-card">
+                <span class="verse-ref">ఎజ్రా 3:4</span>
+                "మరియు వ్రాయబడిన ప్రకారము వారు పర్ణశాలల పండుగను ఆచరించి, వంతులచొప్పున ప్రతిదినమునకు నిర్ణయింపబడిన దహనబలులను అర్పించిరి."
+            </div>
+        </div>
+
+        <!-- Point 9 -->
+        <div class="commentary-block">
+            <h4 class="text-xl font-bold mb-3 text-gray-800 dark:text-gray-200">9. దేవాలయ పునాది వేయుట (Laying the Foundation)</h4>
+            <p class="explanation-text">
+                వచ్చిన రెండవ సంవత్సరం, రెండవ నెలలో వారు దేవాలయానికి పునాది వేశారు. అప్పుడు యాజకులు యాజక వస్త్రాలు ధరించి, బూరలు పట్టుకుని, లేవీయులు తాళాలు పట్టుకుని దావీదు నియమించిన పద్ధతిలో మహా ఆనందంగా దేవుని స్తుతించారు.
+            </p>
+            <div class="verse-card">
+                <span class="verse-ref">ఎజ్రా 3:10</span>
+                "శిల్పకారులు యెహోవా మందిరమునకు పునాదివేయుచుండగా, ఇశ్రాయేలు రాజైన దావీదు నియమించిన క్రమముచొప్పున యెహోవాను స్తుతించుటకై యాజకులు తమ వస్త్రములను ధరించుకొని..."
+            </div>
+        </div>
+
+        <!-- Point 10 -->
+        <div class="commentary-block">
+            <h4 class="text-xl font-bold mb-3 text-gray-800 dark:text-gray-200">10. సంతోషం మరియు ఏడుపు (Shouts of Joy and Weeping)</h4>
+            <p class="explanation-text">
+                పునాది వేసినప్పుడు యవ్వనులు గొప్ప సంతోషంతో కేకలు వేశారు. కానీ మొదటి మందిరాన్ని (సొలొమోను కట్టిన మహా వైభవమైన గుడిని) చూసిన ముసలివారు, దాన్ని గుర్తుచేసుకుని బిగ్గరగా ఏడ్చారు. సంతోషపు శబ్దాలు, ఏడుపు శబ్దాలు కలిసిపోయి ఎంతో దూరం వినిపించాయి.
+            </p>
+            <div class="verse-card">
+                <span class="verse-ref">ఎజ్రా 3:12</span>
+                "సంతోషముచేత జనులు చేయు ఆర్బాటపు శబ్దమునకును జనుల యేడుపు శబ్దమునకును భేదము కనుగొనలేకపోయెను."
+            </div>
+        </div>
+
+        <!-- Point 11 -->
+        <div class="commentary-block">
+            <h4 class="text-xl font-bold mb-3 text-gray-800 dark:text-gray-200">11. శత్రువుల జిత్తులు (Enemies Offer "Help")</h4>
+            <p class="explanation-text">
+                యూదులు మందిరాన్ని కడుతున్నారని విని, చుట్టుపక్కల ఉన్న శత్రువులు (సమరయులు) మోసపూరితంగా "మేము కూడా మీతో కలిసి కడతాము, మేము కూడా మీ దేవుణ్ణి ఆరాధిస్తున్నాము" అని అడిగారు. అపవాది ఎప్పుడూ తనను తాను కాంతిదూతగా (స్నేహితుడిలా) మార్చుకుని ఆటంకం కలిగిస్తాడు.
+            </p>
+            <div class="verse-card">
+                <span class="verse-ref">ఎజ్రా 4:2</span>
+                "మమ్మును ఇచ్చటికి రప్పించిన అష్షూరురాజైన ఏసర్‌హద్దోను దినములు మొదలుకొని మేము ఆయనకే బలులర్పింపచున్నాము గనుక మీతో కూడ మేమును కట్టుదుమన్నప్పుడు..."
+            </div>
+        </div>
+
+        <!-- Point 12 -->
+        <div class="commentary-block">
+            <h4 class="text-xl font-bold mb-3 text-gray-800 dark:text-gray-200">12. రాజీపడని నాయకత్వం (Zerubbabel's Refusal)</h4>
+            <p class="explanation-text">
+                శత్రువుల జిత్తులను గ్రహించిన జెరుబ్బాబెలు మరియు యెహోషువ ఏమాత్రం రాజీపడలేదు. "మా దేవునికి మందిరం కట్టడానికి మీకూ మాకూ పాలు లేదు, కోరేషు రాజు మాకు ఇచ్చిన ఆజ్ఞ ప్రకారం మేమే కట్టుకుంటాం" అని తెగేసి చెప్పారు. సత్యం ఎన్నడూ అసత్యంతో చేతులు కలపకూడదు.
+            </p>
+            <div class="verse-card">
+                <span class="verse-ref">ఎజ్రా 4:3</span>
+                "మా దేవునికి మందిరము కట్టుటలో మీకును మాకును నిమిత్తము లేదు... మేమే యెహోవాకు మందిరమును కట్టుదుము."
+            </div>
+        </div>
+
+        <!-- Point 13 -->
+        <div class="commentary-block">
+            <h4 class="text-xl font-bold mb-3 text-gray-800 dark:text-gray-200">13. పనులకు ఆటంకం (Work is Opposed)</h4>
+            <p class="explanation-text">
+                శత్రువుల సహాయం వద్దనగానే వారి అసలు స్వరూపం బయటపడింది. యూదులను భయపెట్టడం, వారి చేతులు సడలించడం ప్రారంభించారు. కోరేషు బ్రతికినంత కాలం రాజు అధికారులకు లంచాలిచ్చి దేవుని పనిని ఆపడానికి కుట్రలు చేస్తూనే ఉన్నారు.
+            </p>
+            <div class="verse-card">
+                <span class="verse-ref">ఎజ్రా 4:4</span>
+                "ఆ దేశపు జనులు యూదా జనుల చేతులు సడలించి, వారు కట్టకుండ వారిని భయపెట్టి..."
+            </div>
+        </div>
+
+        <!-- Point 14 -->
+        <div class="commentary-block">
+            <h4 class="text-xl font-bold mb-3 text-gray-800 dark:text-gray-200">14. అర్తహషష్టకు తప్పుడు ఉత్తరం (False Letter to Artaxerxes)</h4>
+            <p class="explanation-text">
+                కొంతకాలం తర్వాత రాజైన అర్తహషష్టకు శత్రువులు ఒక తప్పుడు ఉత్తరం రాశారు. "ఈ యెరూషలేము ఒకప్పుడు రాజులపై తిరుగుబాటు చేసిన పట్టణం, ఈ గోడలు కడితే నీకు పన్నులు కట్టరు, నీ రాజ్యానికి నష్టం" అని అబద్ధాలు కల్పించి ఫిర్యాదు చేశారు.
+            </p>
+            <div class="verse-card">
+                <span class="verse-ref">ఎజ్రా 4:12</span>
+                "ఆ యూదులు యెరూషలేమునకు వచ్చి ఆ తిరుగుబాటుచేయు దుష్ట పట్టణమును కట్టుచున్నారు."
+            </div>
+        </div>
+
+        <!-- Point 15 -->
+        <div class="commentary-block">
+            <h4 class="text-xl font-bold mb-3 text-gray-800 dark:text-gray-200">15. ఆలయ నిర్మాణం నిలిపివేత (Work Stopped)</h4>
+            <p class="explanation-text">
+                రాజు ఆ ఉత్తరం చదివి, పాత రికార్డులు వెతికించి అది నిజమేనని నమ్మి, పనిని ఆపివేయమని ఆజ్ఞాపించాడు. అప్పుడు శత్రువులు బలవంతంగా, అధికారంతో వెళ్లి దేవాలయ నిర్మాణాన్ని ఆపేశారు. పని దాదాపు 15 ఏళ్లకు పైగా ఆగిపోయింది.
+            </p>
+            <div class="verse-card">
+                <span class="verse-ref">ఎజ్రా 4:24</span>
+                "యెరూషలేములోనున్న దేవుని మందిరపు పని నిలిచిపోయెను; పారసీకదేశపు రాజైన దర్యావేషు ఏలుబడియందు రెండవ సంవత్సరమువరకు అది నిలిచియే యుండెను."
+            </div>
+        </div>
+
+        <!-- Point 16 -->
+        <div class="commentary-block">
+            <h4 class="text-xl font-bold mb-3 text-gray-800 dark:text-gray-200">16. ప్రవక్తల ప్రోత్సాహం (Prophets Haggai and Zechariah)</h4>
+            <p class="explanation-text">
+                పని ఆగిపోయి ప్రజలు తమ సొంత ఇళ్లను కట్టుకోవడంలో పడిపోయి నిరుత్సాహంలో ఉన్నప్పుడు, దేవుడు హగ్గయి, జెకర్యా అనే ఇద్దరు ప్రవక్తలను పంపాడు. వారు దేవుని వాక్యంతో ఇశ్రాయేలీయులను హెచ్చరించి, ప్రోత్సహించారు. ఆగిపోయిన దేవుని పనిని వాక్యమే మళ్లీ పుట్టిస్తుంది.
+            </p>
+            <div class="verse-card">
+                <span class="verse-ref">ఎజ్రా 5:1</span>
+                "అప్పుడు ప్రవక్తలైన హగ్గయియు ఇద్దో కుమారుడైన జెకర్యాయును, యూదా యెరూషలేములలో ఉన్న యూదులకు ఇశ్రాయేలు దేవుని నామమున ప్రవచించిరి."
+            </div>
+        </div>
+
+        <!-- Point 17 -->
+        <div class="commentary-block">
+            <h4 class="text-xl font-bold mb-3 text-gray-800 dark:text-gray-200">17. పని తిరిగి ప్రారంభం (Work Resumes)</h4>
+            <p class="explanation-text">
+                ప్రవక్తల మాట వినగానే, జెరుబ్బాబెలు మరియు యెహోషువ ఏమాత్రం భయపడకుండా దేవుని మందిర నిర్మాణాన్ని తిరిగి ప్రారంభించారు. దేవుని ప్రవక్తలు వారికి అండగా నిలిచి సహాయం చేశారు. శత్రువుల ఆజ్ఞ కంటే దేవుని ఆజ్ఞకే వారు లోబడ్డారు.
+            </p>
+            <div class="verse-card">
+                <span class="verse-ref">ఎజ్రా 5:2</span>
+                "జెరుబ్బాబెలును... యెహోషువయును లేచి యెరూషలేములో నున్న దేవుని మందిరమును కట్టనారంభించిరి; దేవుని ప్రవక్తలు వారికి తోడైయుండి వారికి సహాయము చేసిరి."
+            </div>
+        </div>
+
+        <!-- Point 18 -->
+        <div class="commentary-block">
+            <h4 class="text-xl font-bold mb-3 text-gray-800 dark:text-gray-200">18. తత్నయి విచారణ (Tattenai's Inquiry)</h4>
+            <p class="explanation-text">
+                పని మళ్లీ మొదలవగానే నది అవతల ఉన్న అధికారియైన తత్నయి వచ్చి "ఈ మందిరం కట్టమని మీకు ఆజ్ఞ ఇచ్చింది ఎవరు?" అని విచారణ చేశాడు. అప్పుడు యూదులు "మేము ఆకాశానికి, భూమికి దేవుడైనవాడి సేవకులం, కోరేషు రాజు మాకు ఆజ్ఞ ఇచ్చాడు" అని ధైర్యంగా జవాబిచ్చారు.
+            </p>
+            <div class="verse-card">
+                <span class="verse-ref">ఎజ్రా 5:11</span>
+                "మేము ఆకాశమునకును భూమికిని దేవుడైనవాని సేవకులమై యుండి... కట్టుచున్నాము."
+            </div>
+        </div>
+
+        <!-- Point 19 -->
+        <div class="commentary-block">
+            <h4 class="text-xl font-bold mb-3 text-gray-800 dark:text-gray-200">19. దేవుని కనుదృష్టి (God's Eye on the Elders)</h4>
+            <p class="explanation-text">
+                తత్నయి దర్యావేషు రాజుకు ఒక ఉత్తరం రాశాడు. అయితే రాజు నుండి జవాబు వచ్చేవరకు పనిని ఆపకూడదని యూదులు తీర్మానించుకున్నారు. దేవుని కనుదృష్టి యూదుల పెద్దల మీద ఉండి వారిని కాపాడింది. తన పనిని నమ్మకంగా చేసేవారిని దేవుడు కంటికి రెప్పలా కాపాడుకుంటాడు.
+            </p>
+            <div class="verse-card">
+                <span class="verse-ref">ఎజ్రా 5:5</span>
+                "యూదుల పెద్దలమీద దేవుని కనుదృష్టి నిలిచెను గనుక... వారు ఆ పనిని ఆపకపోయిరి."
+            </div>
+        </div>
+
+        <!-- Point 20 -->
+        <div class="commentary-block">
+            <h4 class="text-xl font-bold mb-3 text-gray-800 dark:text-gray-200">20. దర్యావేషు రాజు ఆజ్ఞ (Decree of Darius)</h4>
+            <p class="explanation-text">
+                దర్యావేషు రాజు పాత గ్రంథాలను వెతికించి కోరేషు ఆజ్ఞను చూశాడు. "వాళ్ల పనికి ఆటంకం కలిగించవద్దు, పైగా మన ఖజానా (పన్నుల) నుండే వారికి రోజువారి ఖర్చులు ఇవ్వండి" అని తత్నయికి అద్భుతమైన ఆజ్ఞ ఇచ్చాడు. దేవుడు శత్రువుల ఆటంకాన్ని గొప్ప ఆశీర్వాదంగా మార్చాడు.
+            </p>
+            <div class="verse-card">
+                <span class="verse-ref">ఎజ్రా 6:7</span>
+                "దేవుని మందిరపు పనిని ఆపక, యూదులకధిపతియు యూదుల పెద్దలును దేవుని మందిరమును దాని స్థలమందు కట్టనియ్యుడి."
+            </div>
+        </div>
+
+        <!-- Point 21 -->
+        <div class="commentary-block">
+            <h4 class="text-xl font-bold mb-3 text-gray-800 dark:text-gray-200">21. దేవాలయ నిర్మాణం పూర్తి (Temple Completed)</h4>
+            <p class="explanation-text">
+                ప్రవక్తల ప్రోత్సాహంతో, రాజుల ఆజ్ఞతో దర్యావేషు ఏలుబడిలో ఆరవ సంవత్సరంలో దేవుని మందిర నిర్మాణం దిగ్విజయంగా పూర్తయింది. దేవుని పనికి ఆటంకాలు వస్తాయి, కానీ ఆ పని ఎన్నటికీ ఆగిపోదు, ఖచ్చితంగా పూర్తవుతుంది అని ఇది నిరూపించింది.
+            </p>
+            <div class="verse-card">
+                <span class="verse-ref">ఎజ్రా 6:15</span>
+                "రాజైన దర్యావేషు ఏలుబడియందు ఆరవ సంవత్సరము అదారు నెల మూడవ దినమునకు మందిరము కట్టి ముగింపబడెను."
+            </div>
+        </div>
+
+        <!-- Point 22 -->
+        <div class="commentary-block">
+            <h4 class="text-xl font-bold mb-3 text-gray-800 dark:text-gray-200">22. ఆలయ ప్రతిష్ఠాపన (Dedication of the Temple)</h4>
+            <p class="explanation-text">
+                ఇశ్రాయేలీయులు గొప్ప ఆనందంతో ఈ దేవుని మందిరాన్ని ప్రతిష్ఠించారు. వందలాది పశువులను, ఇశ్రాయేలు 12 గోత్రాల నిమిత్తం 12 మేకపోతులను పాపపరిహారార్థ బలిగా అర్పించారు. బబులోను చెర నుండి తిరిగి వచ్చినందుకు పస్కా పండుగను ఎంతో ఘనంగా ఆచరించారు.
+            </p>
+            <div class="verse-card">
+                <span class="verse-ref">ఎజ్రా 6:16</span>
+                "ఇశ్రాయేలీయులును యాజకులును లేవీయులును చెరలోనుండి తిరిగి వచ్చిన తక్కినవారును ఆనందముతో దేవుని మందిర ప్రతిష్ఠాచారమును జరిగించిరి."
+            </div>
+        </div>
+
+        <!-- Point 23 -->
+        <div class="commentary-block">
+            <h4 class="text-xl font-bold mb-3 text-gray-800 dark:text-gray-200">23. ఎజ్రా యెరూషలేముకు వచ్చుట (Ezra Arrives in Jerusalem)</h4>
+            <p class="explanation-text">
+                దేవుని మందిరం కట్టబడిన దాదాపు 60 ఏళ్ల తర్వాత, వాక్యంలో నిష్ణాతుడైన ఎజ్రా, రాజు అర్తహషష్ట ఆజ్ఞతో రెండవ విడత ప్రజలను తీసుకుని యెరూషలేముకు వచ్చాడు. "అతని దేవుడైన యెహోవా కరుణాకటాక్షములు అతనిమీద నుండెను". దేవుని వాక్యాన్ని నేర్చుకోవడానికి, దానికి లోబడటానికి, బోధించడానికి ఎజ్రా తన హృదయాన్ని దృఢపరచుకున్నాడు.
+            </p>
+            <div class="verse-card">
+                <span class="verse-ref">ఎజ్రా 7:10</span>
+                "ఎజ్రా యెహోవా ధర్మశాస్త్రమును పరిశోధించి దానికి లోబడుటకును, ఇశ్రాయేలీయులకు కట్టడలను విధులను నేర్పుటకును తన హృదయమును దృఢపరచుకొనెను."
+            </div>
+        </div>
+
+        <!-- Point 24 -->
+        <div class="commentary-block">
+            <h4 class="text-xl font-bold mb-3 text-gray-800 dark:text-gray-200">24. ఉపవాసం మరియు ప్రార్థన (Fasting at Ahava Canal)</h4>
+            <p class="explanation-text">
+                యెరూషలేముకు సుదీర్ఘ ప్రయాణం చేసే ముందు ఎజ్రా అహవా నది దగ్గర ఉపవాసం ప్రకటించాడు. "మా దేవుడు మాకు తోడుగా ఉంటాడని రాజుతో చెప్పాను కాబట్టి, ఇప్పుడు మార్గమధ్యంలో సైన్యాన్ని రక్షణగా అడగడానికి సిగ్గుపడ్డాను" అన్నాడు. వారు దేవునిపై ఆధారపడి ప్రార్థించగా దేవుడు వారిని మార్గమంతా శత్రువుల చేతిలో పడకుండా కాపాడాడు.
+            </p>
+            <div class="verse-card">
+                <span class="verse-ref">ఎజ్రా 8:23</span>
+                "ఆలాగున మేము ఉపవాసముండి మా దేవుని వేడుకొనగా ఆయన మా మొర నాలకించెను."
+            </div>
+        </div>
+
+        <!-- Point 25 -->
+        <div class="commentary-block">
+            <h4 class="text-xl font-bold mb-3 text-gray-800 dark:text-gray-200">25. పాపపు ఒప్పుకోలు - సంస్కరణ (Intermarriage and Repentance)</h4>
+            <p class="explanation-text">
+                యెరూషలేముకు రాగానే, ఇశ్రాయేలీయులు అన్య స్త్రీలను పెళ్లి చేసుకుని పాపం చేశారని, నాయకులు కూడా అందులో పాలుపంచుకున్నారని ఎజ్రాకు తెలిసింది. వెంటనే అతను బట్టలు చింపుకుని, కన్నీటితో మోకాళ్ళూని దేవునికి ప్రార్థించాడు. అతని దుఃఖం చూసి ప్రజలందరూ ఏడ్చి, తమ పాపాలను విడిచిపెట్టి దేవునితో క్రొత్త నిబంధన చేసుకున్నారు. ఒక నాయకుడి కన్నీరు ఒక దేశపు పాపాన్ని కడిగివేసింది.
+            </p>
+            <div class="verse-card">
+                <span class="verse-ref">ఎజ్రా 10:1</span>
+                "ఎజ్రా కన్నీరు విడుచుచు, దేవుని మందిరము ఎదుట సాగిలపడి ప్రార్థన చేయుచు పాపమును ఒప్పుకొనుచుండగా... మహా సమూహముగా కూడెను, జనులు బహుగా ఏడ్చుచుండిరి."
+            </div>
+        </div>
+
+        <div class="bg-orange-50 dark:bg-gray-800 p-8 rounded-xl border border-orange-200 dark:border-gray-700 text-center mt-16">
+            <h3 class="text-2xl font-bold mb-4 text-orange-900 dark:text-gold-500">తరువాత ఏంటి?</h3>
+            <p class="mb-6">యెరూషలేములో దేవాలయం కట్టబడింది, ఎజ్రా ద్వారా వాక్యపు పునరుద్ధరణ జరిగింది. కానీ యెరూషలేము చుట్టూ ఉన్న ప్రాకారాలు (గోడలు) ఇంకా కూలిపోయి, ఊరు నిందలపాలై ఉంది. ఆ గోడలను కట్టడానికి ఒక నాయకుడు దేవుని చేత పిలువబడ్డాడు. అదే తదుపరి గ్రంథమైన "నెహెమ్యా" (Nehemiah) చరిత్ర.</p>
+            <div class="inline-block px-8 py-3 bg-black text-white dark:bg-gold-500 dark:text-black font-bold uppercase tracking-widest rounded-full cursor-pointer hover:scale-105 transition-transform">
+                ఎజ్రా 1వ అధ్యాయం చదవండి
+            </div>
+        </div>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-black text-white py-16 text-center border-t-4 border-gold-500">
+        <h2 class="text-3xl font-brand text-gold-500 mb-6">Word of God (WOG)</h2>
+        <p class="text-gray-400 mb-8 max-w-lg mx-auto">సత్యవాక్యమును సరిగా ఉపదేశించువానిగాను, సిగ్గుపడనక్కరలేని పనివానిగాను నిన్నునీవే దేవునికి కనపరచుకొనుటకు జాగ్రత్తపడుము. 2 తిమోతికి 2:15</p>
+        <p class="text-6xl font-brand text-white/10 tracking-widest mt-8">EZRA</p>
+        <p class="text-xs text-gray-600 mt-8">© 2026 WOG Ministries. All Rights Reserved.</p>
+    </footer>
+
+    <script>
+        // --- SETTINGS MENU LOGIC ---
+        const root = document.documentElement;
+        const menu = document.getElementById('settings-menu');
+        const overlay = document.getElementById('menu-overlay');
+        const themeLabel = document.getElementById('theme-label-menu');
+        let currentSize = 20;
+
+        // Toggle Menu Visibility
+        function toggleMenu() {
+            menu.classList.toggle('active');
+            overlay.classList.toggle('active');
+        }
+
+        // Font Adjustment (Restricted to buttons only)
+        function adjustFont(dir) {
+            if (dir === 1 && currentSize < 32) currentSize += 2;
+            if (dir === -1 && currentSize > 16) currentSize -= 2;
+            root.style.setProperty('--content-size', currentSize + 'px');
+        }
+
+        // Initialize Theme from LocalStorage
+        if (localStorage.theme === 'dark') {
+            root.classList.add('dark');
+            if(themeLabel) themeLabel.innerText = 'Light Mode';
+        }
+
+        // Theme Toggle Function
+        function toggleTheme() {
+            if (root.classList.contains('dark')) {
+                root.classList.remove('dark');
+                localStorage.theme = 'light';
+                if(themeLabel) themeLabel.innerText = 'Dark Mode';
+            } else {
+                root.classList.add('dark');
+                localStorage.theme = 'dark';
+                if(themeLabel) themeLabel.innerText = 'Light Mode';
+            }
+        }
+
+        // Scroll Progress Bar
+        window.onscroll = function() {
+            let winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            let height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            let scrolled = (winScroll / height) * 100;
+            document.getElementById("reading-progress").style.width = scrolled + "%";
+        };
+    </script>
+</body>
+</html>
