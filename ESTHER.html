@@ -1,0 +1,747 @@
+
+
+<!DOCTYPE html>
+<html lang="te" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <!-- Pinch to zoom disabled strictly -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>ఎస్తేరు - 25 ముఖ్యమైన ఘట్టాలు</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Anek+Telugu:wght@300;400;500;600;700;800&family=Mallanna&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&display=swap" rel="stylesheet">
+    <!-- Icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'body': ['"Mallanna"', 'serif'],        
+                        'heading': ['"Anek Telugu"', 'sans-serif'],
+                        'brand': ['"Cinzel"', 'serif'],
+                    },
+                    colors: {
+                        gold: {
+                            400: '#facc15', // Bright Gold
+                            500: '#eab308', // Classic Gold
+                            600: '#ca8a04', // Deep Gold
+                        },
+                        paper: '#fffaf0', // Warm White
+                        bible: '#854d0e', // Leather Brown
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        /* --- TYPOGRAPHY SYSTEM --- */
+        :root {
+            --content-size: 20px; /* Default size */
+            --line-height: 2.2;
+        }
+
+        html { scroll-behavior: smooth; }
+        
+        /* NO SELECTION - APP FEEL */
+        .no-select {
+            -webkit-user-select: none; /* Safari */
+            -moz-user-select: none;    /* Firefox */
+            -ms-user-select: none;     /* IE10+/Edge */
+            user-select: none;         /* Standard */
+            -webkit-touch-callout: none; /* iOS Safari */
+        }
+
+        body { 
+            background-color: var(--paper); 
+            color: #292524;
+            font-family: 'Mallanna', serif;
+            line-height: var(--line-height);
+            transition: background-color 0.3s ease, color 0.3s ease;
+            overflow-x: hidden; /* Prevent horizontal scroll */
+        }
+
+        /* Dynamic Font Sizing Class */
+        .content-text { font-size: var(--content-size); }
+        h1, h2, h3, h4, .ref-title, .brand-text { font-family: 'Anek Telugu', sans-serif; }
+
+        /* --- DARK MODE RULES --- */
+        html.dark body { background-color: #0c0a09 !important; color: #e7e5e4 !important; }
+        html.dark .content-text, html.dark p, html.dark li { color: #d6d3d1 !important; }
+        html.dark h1, html.dark h2, html.dark h3, html.dark strong { color: #facc15 !important; }
+        html.dark .verse-card { background-color: #1c1917 !important; border-left-color: #facc15 !important; }
+        html.dark .info-grid { background-color: #1c1917 !important; border-color: #444 !important; }
+        
+        /* Settings Menu Dark Mode */
+        html.dark #settings-menu { background-color: #1c1917; border-color: #444; color: white; }
+        html.dark .setting-btn { background-color: #2d2d2d; color: white; border-color: #444; }
+
+        /* --- COMPONENTS --- */
+        
+        /* WOG Badge - Left Side */
+        .brand-badge {
+            position: fixed; top: 20px; left: 20px; z-index: 60;
+            background: #000; color: #facc15;
+            padding: 8px 16px; font-family: 'Cinzel', serif; font-weight: bold;
+            border: 2px solid #facc15; box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+            backdrop-filter: blur(5px);
+            border-radius: 4px;
+        }
+
+        /* Settings Toggle Button - Top Right */
+        .settings-toggle {
+            position: fixed; top: 20px; right: 20px; z-index: 61;
+            background: rgba(255, 255, 255, 0.9); 
+            color: #333;
+            width: 45px; height: 45px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            cursor: pointer;
+            transition: transform 0.2s;
+            border: 1px solid rgba(0,0,0,0.1);
+        }
+        .settings-toggle:active { transform: scale(0.95); }
+        html.dark .settings-toggle { background: #333; color: #fff; border-color: #555; }
+
+        /* Settings Menu Popover */
+        #settings-menu {
+            display: none; /* Hidden by default */
+            position: fixed; top: 75px; right: 20px; z-index: 60;
+            background: white;
+            padding: 15px;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            width: 220px;
+            border: 1px solid #e5e7eb;
+            animation: fadeIn 0.2s ease-out;
+        }
+        #settings-menu.active { display: block; }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .setting-btn {
+            padding: 8px; border-radius: 6px;
+            border: 1px solid #e5e7eb;
+            background: #f9fafb;
+            font-weight: bold;
+            transition: all 0.2s;
+        }
+        .setting-btn:active { transform: scale(0.95); }
+
+        .hero {
+            height: 70vh;
+            /* Persian Empire / Royal Palace Theme */
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.85)), url('https://images.unsplash.com/photo-1574345229560-6321f5fb1bba?q=80&w=2070&auto=format&fit=crop');
+            background-size: cover; background-position: center; background-attachment: fixed;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            text-align: center; color: white;
+        }
+
+        /* Stats Grid */
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            background: #fff;
+            padding: 2rem;
+            border-radius: 1rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            border: 1px solid #e7e5e4;
+            margin-bottom: 3rem;
+        }
+        .info-item h4 { font-size: 0.8rem; text-transform: uppercase; color: #854d0e; letter-spacing: 0.1em; }
+        .info-item p { font-size: 1.2rem; font-weight: bold; color: #000; font-family: 'Anek Telugu'; }
+        html.dark .info-item h4 { color: #facc15; }
+        html.dark .info-item p { color: #fff; }
+
+        /* Author Note Box */
+        .author-note {
+            background: #fff7ed; /* Light Orange/Amber */
+            border-left: 4px solid #ea580c;
+            padding: 1.5rem;
+            margin-bottom: 3rem;
+            border-radius: 0 8px 8px 0;
+            font-size: 0.95rem;
+            color: #431407;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+        }
+        html.dark .author-note {
+            background: #431407;
+            border-color: #f97316;
+            color: #ffedd5;
+        }
+
+        /* Commentary Block Structure */
+        .commentary-block { margin-bottom: 4rem; }
+        
+        .explanation-text {
+            color: #44403c;
+            margin-bottom: 1.5rem;
+            border-left: 3px solid transparent;
+            padding-left: 0;
+            line-height: 1.8;
+            text-align: justify;
+        }
+        html.dark .explanation-text { color: #a8a29e; }
+
+        /* Verse Card */
+        .verse-card {
+            background: #fff;
+            border-left: 6px solid #ea580c; /* Orange accent */
+            padding: 25px 30px;
+            border-radius: 0 12px 12px 0;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+            font-style: italic;
+            position: relative;
+        }
+        .verse-ref {
+            position: absolute; top: -12px; left: 20px;
+            background: #ea580c; color: white;
+            padding: 4px 12px; font-size: 0.8rem; font-weight: bold;
+            border-radius: 4px; font-family: 'Anek Telugu';
+        }
+        html.dark .verse-ref { background: #facc15; color: #000; }
+
+        /* Christology Box - DARK GRAY BACKGROUND */
+        .christ-box {
+            background: #262626; /* Dark Gray */
+            color: #ffffff;      /* White Text */
+            border: 1px solid #404040;
+            border-radius: 12px;
+            padding: 2rem;
+            margin: 3rem 0;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        }
+        /* Override specific colors inside Christ Box for readability */
+        .christ-box h3 { color: #facc15 !important; } /* Gold Heading */
+        .christ-box .highlight { color: #facc15 !important; } /* Gold Highlights */
+        .christ-box p, .christ-box li, .christ-box span { color: #e5e5e5; }
+
+        .drop-cap {
+            float: left; font-size: 4.5rem; line-height: 0.8;
+            margin-right: 1rem; margin-top: 0.2rem;
+            font-family: 'Anek Telugu'; font-weight: 800; color: #ea580c;
+        }
+        
+        #reading-progress {
+            position: fixed; top: 0; left: 0; height: 5px;
+            background: linear-gradient(to right, #ea580c, #facc15);
+            width: 0%; z-index: 200;
+        }
+
+        /* Overlay to close menu when clicking outside */
+        #menu-overlay {
+            display: none; position: fixed; inset: 0; z-index: 59;
+            background: transparent;
+        }
+        #menu-overlay.active { display: block; }
+
+    </style>
+</head>
+<body class="no-select">
+
+    <div id="reading-progress"></div>
+    
+    <!-- Brand Badge (Left Side) -->
+    <div class="brand-badge">WOG</div>
+
+    <!-- Settings Toggle Button (Right Side) -->
+    <button onclick="toggleMenu()" class="settings-toggle">
+        <i class="fas fa-font text-xl"></i>
+    </button>
+
+    <!-- Overlay for closing menu -->
+    <div id="menu-overlay" onclick="toggleMenu()"></div>
+
+    <!-- Settings Popup Menu -->
+    <div id="settings-menu">
+        <div class="mb-4">
+            <p class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-2">Text Size</p>
+            <div class="flex gap-2 items-center">
+                <button onclick="adjustFont(-1)" class="setting-btn flex-1 flex justify-center items-center h-10">
+                    <i class="fas fa-minus text-xs"></i>
+                </button>
+                <span class="text-sm font-bold w-8 text-center" id="font-display">Aa</span>
+                <button onclick="adjustFont(1)" class="setting-btn flex-1 flex justify-center items-center h-10">
+                    <i class="fas fa-plus text-xs"></i>
+                </button>
+            </div>
+        </div>
+
+        <div>
+            <p class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-2">Theme</p>
+            <button onclick="toggleTheme()" class="setting-btn w-full flex items-center justify-center gap-2 h-10">
+                <i class="fas fa-moon"></i>
+                <span id="theme-label-menu">Dark Mode</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- HERO -->
+    <header class="hero">
+        <span class="inline-block py-2 px-6 border border-white/40 rounded-full text-sm font-bold uppercase tracking-[0.3em] mb-8 bg-black/30 backdrop-blur-md">
+            The Queen & The Providence
+        </span>
+        <!-- Title Fixed -->
+        <h1 class="text-4xl md:text-7xl font-black mb-6 drop-shadow-2xl tracking-tight leading-tight px-4 break-words max-w-full" style="font-family: 'Anek Telugu'">
+            ఎస్తేరు
+        </h1>
+        <p class="text-xl md:text-2xl font-light italic max-w-4xl px-4 text-white/90" style="font-family: 'Mallanna'">
+            "నీవు ఈ సమయమునుబట్టియే రాజ్యమునకు వచ్చితివేమో, యెవరు ఎరుగుదురు?" (ESTHER 4:14)
+        </p>
+    </header>
+
+    <main id="main-content" class="content-text max-w-4xl mx-auto px-6 py-16">
+
+        <!-- INFO GRID -->
+        <section class="info-grid">
+            <div class="info-item">
+                <h4>రచయిత</h4>
+                <p>తెలియదు (మొర్దెకై?)</p>
+            </div>
+            <div class="info-item">
+                <h4>కాలం</h4>
+                <p>క్రీ.పూ. 483 - 473</p>
+            </div>
+            <div class="info-item">
+                <h4>స్థలం</h4>
+                <p>షూషను కోట (పర్షియా)</p>
+            </div>
+            <div class="info-item">
+                <h4>అధ్యాయాలు</h4>
+                <p>10</p>
+            </div>
+            <div class="info-item">
+                <h4>కీలక అంశం</h4>
+                <p>దేవుని అదృశ్య హస్తం</p>
+            </div>
+        </section>
+
+        <!-- AUTHOR NOTE -->
+        <div class="author-note">
+            <h4 class="font-bold mb-2 flex items-center gap-2 text-lg">
+                <i class="fas fa-feather-alt"></i> గ్రంథ నేపథ్యం గురించి గమనిక:
+            </h4>
+            <p style="line-height: 1.6;">
+                <strong>ఎస్తేరు (Esther)</strong> గ్రంథం బైబిల్‌లో ఎంతో ప్రత్యేకమైనది. ఎందుకంటే మొత్తం 10 అధ్యాయాల్లో ఎక్కడా <strong>"దేవుడు" (God)</strong> అనే పదం నేరుగా కనబడదు! ప్రార్థన, ఉపవాసం లాంటివి ఉన్నా దేవుని పేరు ప్రస్తావించబడలేదు. ఎజ్రా, నెహెమ్యాల కాలంలో కొందరు యూదులు యెరూషలేముకు తిరిగి వెళ్ళిపోయారు, కానీ చాలా మంది పర్షియా సామ్రాజ్యంలోనే ఉండిపోయారు. అలా ఉండిపోయిన వారిని అపవాది పూర్తిగా నాశనం చేయాలని కుట్ర పన్నినప్పుడు, పరిస్థితులను తనకు అనుకూలంగా మార్చుకుని (Divine Providence), ఒక అనాథ పిల్లను వాడుకుని దేవుడు తన ప్రజలను ఎలా రక్షించాడో ఈ గ్రంథం ఒక థ్రిల్లర్ కథలాగా వివరిస్తుంది.
+            </p>
+        </div>
+
+        <!-- INTRO -->
+        <article class="mb-16">
+            <h2 class="text-4xl font-bold mb-6 text-orange-900 dark:text-gold-500 pb-4 border-b-2 border-orange-200 dark:border-gray-800">
+                తెర వెనుక దేవుని పని...
+            </h2>
+            <p>
+                <span class="drop-cap">మ</span> న జీవితంలో దేవుడు ఎక్కడ ఉన్నాడో కనబడని చీకటి సమయాలు వస్తుంటాయి. కానీ ఆయన ఎప్పుడూ తెర వెనుక ఉండి మన మేలు కోసమే సమస్తాన్ని జరిగిస్తుంటాడని ఎస్తేరు గ్రంథం రుజువు చేస్తుంది. రాజుకు నిద్రపట్టకపోవడం, హామానుకు కోపం రావడం, ఎస్తేరుకు అందం ఉండటం... ఇవేవీ యాదృచ్ఛికంగా జరిగినవి కావు (Not coincidence). పర్షియా రాజైన అహష్వేరోషు ఏలుబడిలో జరిగిన ఈ అద్భుతమైన చరిత్ర, ఒక మరణ శాసనం నుండి యావత్తు యూదా జనాంగం ఎలా విడిపించబడి పూరీము పండుగను ఎలా చేసుకున్నారో వివరిస్తుంది.
+            </p>
+        </article>
+
+        <!-- CHRIST IN ESTHER -->
+        <div class="christ-box">
+            <h3 class="text-2xl font-bold mb-4 flex items-center gap-2">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#facc15" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M2 12h20"/></svg>
+                క్రీస్తును ఎక్కడ వెతకాలి?
+            </h3>
+            <p class="mb-4 text-sm opacity-80">ఈ గ్రంథంలో క్రీస్తుకు సంబంధించిన గొప్ప ఛాయలు (Types of Christ):</p>
+            <ul class="space-y-3 list-none">
+                <li class="flex gap-3">
+                    <span class="font-bold highlight">➤ ప్రాణం పెట్టిన మధ్యవర్తి (The Mediator):</span>
+                    <span>పిలువబడకుండా రాజు దగ్గరకు వెళితే మరణశిక్ష అని తెలిసినా, "నేను నశించినను నశించెదను" అని తన ప్రాణాలను పణంగా పెట్టి యూదుల కోసం వెళ్ళిన ఎస్తేరు... మన పాపాల నిమిత్తం తన ప్రాణం పెట్టి మన తరపున తండ్రి దగ్గర మధ్యవర్తిగా నిలిచిన క్రీస్తుకు సాదృశ్యం.</span>
+                </li>
+                <li class="flex gap-3">
+                    <span class="font-bold highlight">➤ ఉరికొయ్య (The Gallows/Cross):</span>
+                    <span>మొర్దెకైని (యూదులను) ఉరి తీయడానికి హామాను తయారుచేసిన 50 మూరల ఉరికొయ్యకు హామానే ఉరితీయబడ్డాడు. ఇది, సాతాను క్రీస్తును చంపడానికి ఉపయోగించిన సిలువ ద్వారానే, సాతాను తల చితగ్గొట్టబడి క్రీస్తు మరణాన్ని ఎలా జయించాడో సూచిస్తుంది.</span>
+                </li>
+                <li class="flex gap-3">
+                    <span class="font-bold highlight">➤ రక్షణ శాసనం (The New Decree):</span>
+                    <span>ముందున్న మరణ శాసనాన్ని కాదని, ప్రాణాలు కాపాడుకోవడానికి రాజు ఇచ్చిన క్రొత్త ఆజ్ఞ సువార్తను (Gospel) సూచిస్తుంది. పాపం వలన వచ్చే మరణం నుండి క్రీస్తు ద్వారా జీవం అనబడే క్రొత్త నిబంధన మనకు వచ్చింది.</span>
+                </li>
+            </ul>
+        </div>
+
+        <hr class="border-orange-200 dark:border-gray-800 my-12">
+
+        <!-- 25 POINTS -->
+        <h3 class="text-3xl font-bold mb-10 text-orange-800 dark:text-gold-400">ఎస్తేరు: 25 ముఖ్యమైన ఘట్టాలు</h3>
+        
+        <!-- Point 1 -->
+        <div class="commentary-block">
+            <h4 class="text-xl font-bold mb-3 text-gray-800 dark:text-gray-200">1. అహష్వేరోషు విందు (The King's Great Banquet)</h4>
+            <p class="explanation-text">
+                పర్షియా చక్రవర్తియైన అహష్వేరోషు (Xerxes) ఇండియా నుండి ఇతియోపియా వరకు 127 సంస్థానాలను పాలిస్తున్నాడు. తన ఐశ్వర్యాన్ని, రాజమహిమను చూపించడానికి అధికారులందరికీ ఆరు నెలల పాటు గొప్ప విందును ఏర్పాటు చేశాడు. గ్రంథం ఈ మహా విందు, సంతోషాలతోనే ప్రారంభమవుతుంది.
+            </p>
+            <div class="verse-card">
+                <span class="verse-ref">ఎస్తేరు 1:4</span>
+                "అనేక దినములు అనగా నూట ఎనుబది దినములు తన మహాత్మ్యమును తన రాజ్యప్రభావమును తన ఘనతను... కనబరచుచుండెను."
+            </div>
+        </div>
+
+        <!-- Point 2 -->
+        <div class="commentary-block">
+            <h4 class="text-xl font-bold mb-3 text-gray-800 dark:text-gray-200">2. రాణి వష్తి తిరస్కారం (Queen Vashti Deposed)</h4>
+            <p class="explanation-text">
+                విందు చివరిలో రాజు మద్యం సేవించి సంతోషంగా ఉన్నప్పుడు, రాణియైన వష్తి తన కిరీటాన్ని ధరించి వచ్చి అందరికీ తన అందాన్ని చూపించాలని రాజు ఆజ్ఞాపించాడు. ఆమె రాజు మాటను ధిక్కరించి, రానని చెప్పింది. దానితో రాజుకు తీవ్రమైన కోపం వచ్చి రాణి పదవి నుండి ఆమెను తొలగించాడు.
+            </p>
+            <div class="verse-card">
+                <span class="verse-ref">ఎస్తేరు 1:12</span>
+                "నపుంసకులచేత రాణియైన వష్తికి తెలుపబడిన రాజు ఆజ్ఞను ఆమె విని రానొల్లకపోయెను."
+            </div>
+        </div>
+
+        <!-- Point 3 -->
+        <div class="commentary-block">
+            <h4 class="text-xl font-bold mb-3 text-gray-800 dark:text-gray-200">3. క్రొత్త రాణి కోసం అన్వేషణ (Search for a New Queen)</h4>
+            <p class="explanation-text">
+                రాజు కోపం చల్లారిన తర్వాత, అధికారులు ఒక సలహా ఇచ్చారు: "దేశంలో ఉన్న అత్యంత సుందరమైన కన్యకలందరినీ షూషను కోటకు తీసుకురండి, వారిలో రాజు దృష్టికి ఇష్టమైన కన్యకను వష్తికి బదులుగా రాణిగా చేద్దాం." ఇది ఎస్తేరు రాణి అవ్వడానికి దేవుడు తెర వెనుక చేసిన ఏర్పాటు.
+            </p>
+            <div class="verse-card">
+                <span class="verse-ref">ఎస్తేరు 2:2</span>
+                "రాజుతో పరిచర్యచేయు వారు–రూపవతులైన యౌవనకన్యకలను రాజుకొరకు విచారింపవలెను."
+            </div>
+        </div>
+
+        <!-- Point 4 -->
+        <div class="commentary-block">
+            <h4 class="text-xl font-bold mb-3 text-gray-800 dark:text-gray-200">4. మొర్దెకై మరియు అనాథ పిల్ల (Mordecai and Esther)</h4>
+            <p class="explanation-text">
+                షూషను కోటలో మొర్దెకై అనే ఒక యూదుడు ఉన్నాడు (బబులోను చెరలో వచ్చిన వారిలో ఒకడు). అతనికి తల్లిదండ్రులు లేని హదస్సా (ఎస్తేరు) అనే పినతండ్రి కుమార్తె ఉంది. ఆమె చాలా రూపవతి. మొర్దెకై ఆమెను తన సొంత కూతురిలాగా ఎంతో ప్రేమగా పెంచుతున్నాడు.
+            </p>
+            <div class="verse-card">
+                <span class="verse-ref">ఎస్తేరు 2:7</span>
+                "ఆ చిన్నది రూపవతియై బహు సుందరమైనది గనుక... మొర్దెకై ఆమెను తన కుమార్తెగా పెంచుకొనెను."
+            </div>
+        </div>
+
+        <!-- Point 5 -->
+        <div class="commentary-block">
+            <h4 class="text-xl font-bold mb-3 text-gray-800 dark:text-gray-200">5. ఎస్తేరు అలంకరణ - అనుగ్రహం (Esther Gains Favor)</h4>
+            <p class="explanation-text">
+                రాజాజ్ఞ ప్రకారం ఎస్తేరును కూడా రాజభవనానికి తీసుకువెళ్లారు. అంతఃపుర పాలకుడైన హేగైకి ఆమె మీద దయ పుట్టింది. ఎస్తేరు తానొక యూదురాలినన్న సంగతి మొర్దెకై మాట ప్రకారం ఎవరికీ చెప్పలేదు. సుమారు ఒక సంవత్సరం పాటు ఎస్తేరు రాజు ముందుకు వెళ్ళడానికి ప్రత్యేకమైన సుగంధ ద్రవ్యాలతో సిద్దపరచబడింది.
+            </p>
+            <div class="verse-card">
+                <span class="verse-ref">ఎస్తేరు 2:9</span>
+                "ఆ చిన్నది అతని దృష్టికి ఇష్టమైనదై అతని దయపొందెను గనుక ఆమెకు అలంకార సామగ్రిని భోజన పదార్థములను... త్వరగా ఇచ్చెను."
+            </div>
+        </div>
+
+        <!-- Point 6 -->
+        <div class="commentary-block">
+            <h4 class="text-xl font-bold mb-3 text-gray-800 dark:text-gray-200">6. ఎస్తేరుకు కిరీటం (Esther Crowned Queen)</h4>
+            <p class="explanation-text">
+                ఎస్తేరు వంతు వచ్చినప్పుడు ఆమె రాజు ముందుకు వెళ్ళింది. స్త్రీలందరి కంటే ఎస్తేరు రాజుకు ఎంతో ఇష్టమైంది. ఆమె రాజు దయను, కటాక్షాన్ని పొందింది. రాజు స్వయంగా రాజకిరీటాన్ని ఆమె తల మీద పెట్టి వష్తి స్థానంలో మహా సామ్రాజ్యానికి రాణిగా చేశాడు. దేవుడు ఒక అనాథ పిల్లను ఎలా హెచ్చించాడో చూడండి!
+            </p>
+            <div class="verse-card">
+                <span class="verse-ref">ఎస్తేరు 2:17</span>
+                "స్త్రీలందరికంటె ఎస్తేరు రాజునకు ఇష్టమాయెను... అతడు రాజకిరీటమును ఆమె తలమీదపెట్టి వష్తికి బదులుగా ఆమెను రాణిగా చేసెను."
+            </div>
+        </div>
+
+        <!-- Point 7 -->
+        <div class="commentary-block">
+            <h4 class="text-xl font-bold mb-3 text-gray-800 dark:text-gray-200">7. రాజు ప్రాణాలు కాపాడిన మొర్దెకై (Mordecai Saves the King)</h4>
+            <p class="explanation-text">
+                మొర్దెకై గుమ్మం దగ్గర కూర్చున్నప్పుడు, బిగ్తాను, తెరెషు అనే ఇద్దరు అధికారులు రాజు మీద కుట్ర పన్ని చంపాలనుకోవడం విన్నాడు. ఆ విషయం వెంటనే ఎస్తేరుకు చెప్పాడు, ఆమె రాజుకు తెలియజేసింది. విచారణలో అది నిజమే అని తేలి ఆ ఇద్దరినీ ఉరితీశారు. ఈ విషయం దినవృత్తాంతముల గ్రంథంలో (చరిత్రలో) రాయబడింది. ఇది భవిష్యత్తులో మొర్దెకైకి ప్రాణాధారమవుతుంది.
+            </p>
+            <div class="verse-card">
+                <span class="verse-ref">ఎస్తేరు 2:22</span>
+                "ఈ సంగతి మొర్దెకైకి తెలిసి అతడు రాణియైన ఎస్తేరునకు దాని తెలియజేయగా, ఎస్తేరు మొర్దెకై పేరట రాజునకు దాని తెలియజేసెను."
+            </div>
+        </div>
+
+        <!-- Point 8 -->
+        <div class="commentary-block">
+            <h4 class="text-xl font-bold mb-3 text-gray-800 dark:text-gray-200">8. హామానుకు ఉన్నత పదవి (Haman Promoted)</h4>
+            <p class="explanation-text">
+                కొంతకాలం తర్వాత అహష్వేరోషు రాజు హామాను అను అగాగీయుణ్ణి ఘనపరిచి, అందరు అధికారుల కంటే వాడికి ఉన్నతమైన (Prime Minister లాంటి) పదవి ఇచ్చాడు. రాజు ఆజ్ఞ ప్రకారం గుమ్మం దగ్గర ఉన్న సేవకులందరూ హామానుకు వంగి నమస్కరించాలి.
+            </p>
+            <div class="verse-card">
+                <span class="verse-ref">ఎస్తేరు 3:1</span>
+                "రాజైన అహష్వేరోషు అగాగీయుడును... హామానును గొప్పచేసి అతని ఘనపరచి..."
+            </div>
+        </div>
+
+        <!-- Point 9 -->
+        <div class="commentary-block">
+            <h4 class="text-xl font-bold mb-3 text-gray-800 dark:text-gray-200">9. మోకరిల్లని మొర్దెకై (Mordecai Refuses to Bow)</h4>
+            <p class="explanation-text">
+                కానీ మొర్దెకై యూదుడు కాబట్టి కేవలం దేవునికి తప్ప మనుషులకు వంగి నమస్కరించడం (Bow down) ఒప్పుకోలేదు. "నేను యూదుడను" అని చెప్పి హామానుకు నమస్కరించలేదు. రోజులు గడుస్తున్నా అతను వంగకపోవడం చూసి హామానుకు కోపం కట్టలు తెంచుకుంది.
+            </p>
+            <div class="verse-card">
+                <span class="verse-ref">ఎస్తేరు 3:2</span>
+                "అయితే మొర్దెకై వంగకయు నమస్కరింపకయు నుండెను."
+            </div>
+        </div>
+
+        <!-- Point 10 -->
+        <div class="commentary-block">
+            <h4 class="text-xl font-bold mb-3 text-gray-800 dark:text-gray-200">10. హామాను పన్నిన భయంకర కుట్ర (Haman's Plot)</h4>
+            <p class="explanation-text">
+                తనకు నమస్కరించని మొర్దెకై మీద కోపంతో, కేవలం మొర్దెకైని మాత్రమే చంపితే సరిపోదని, పర్షియా సామ్రాజ్యంలో (127 సంస్థానాలలో) ఉన్న అతని జాతివారైన యూదులందరినీ ఒక్కరోజులో నాశనం చేయాలని హామాను నిర్ణయించుకున్నాడు. వారిని చంపడానికి 'పూరు' (Pur - చీటి) వేశాడు.
+            </p>
+            <div class="verse-card">
+                <span class="verse-ref">ఎస్తేరు 3:6</span>
+                "మొర్దెకై జాతీయులు ఇట్టివారని అతనికి తెలుపబడగా అతడు మొర్దెకైని మాత్రము చంపుట స్వల్పకార్యమని యెంచి... యూదులందరిని నాశనము చేయుటకు ఉద్దేశించెను."
+            </div>
+        </div>
+
+        <!-- Point 11 -->
+        <div class="commentary-block">
+            <h4 class="text-xl font-bold mb-3 text-gray-800 dark:text-gray-200">11. నాశనపు ఆజ్ఞ మరియు ముద్ర (The Decree & Signet Ring)</h4>
+            <p class="explanation-text">
+                హామాను రాజు దగ్గరకు వెళ్ళి, "ఒక జాతివారు నీ ఆజ్ఞలు పాటించడం లేదు, వారిని నాశనం చేయడానికి నాకు అధికారం ఇవ్వు, నేను పదివేల మణుగుల వెండి నీ ఖజానాలో కడతాను" అన్నాడు. రాజు దాన్ని నమ్మి, తన చేతి ఉంగరాన్ని హామానుకు ఇచ్చాడు. 12వ నెల 13వ రోజున యూదులందరినీ చంపి వారి ఆస్తి దోచుకోవాలని ఆజ్ఞ దేశమంతటా వెళ్ళింది.
+            </p>
+            <div class="verse-card">
+                <span class="verse-ref">ఎస్తేరు 3:10</span>
+                "అప్పుడు రాజు తన చేతినుండి ఉంగరము తీసి... యూదుల శత్రువగు హామాను చేతికిచ్చి..."
+            </div>
+        </div>
+
+        <!-- Point 12 -->
+        <div class="commentary-block">
+            <h4 class="text-xl font-bold mb-3 text-gray-800 dark:text-gray-200">12. యూదుల మహా దుఃఖం (Jews in Great Mourning)</h4>
+            <p class="explanation-text">
+                ఈ మరణ శాసనం వినగానే, దేశంలో ఉన్న యూదులందరూ గొప్ప దుఃఖంలో మునిగిపోయారు. ఉపవాసాలు ఉండి, కన్నీరు కార్చుతూ గోనెపట్ట కట్టుకుని బూడిదలో కూర్చున్నారు. మొర్దెకై కూడా బట్టలు చింపుకుని, నగర మధ్యలో బిగ్గరగా ఏడుస్తూ రాజభవనం గుమ్మం వరకు వచ్చాడు.
+            </p>
+            <div class="verse-card">
+                <span class="verse-ref">ఎస్తేరు 4:3</span>
+                "రాజాజ్ఞయు శాసనమును ఏ సంస్థానమునకు వచ్చెనో, ఆ సంస్థానములోని యూదులు బహుగా దుఃఖించుచు ఉపవాసముండి యేడ్చుచు రొమ్ముకొట్టుకొనుచునుండిరి."
+            </div>
+        </div>
+
+        <!-- Point 13 -->
+        <div class="commentary-block">
+            <h4 class="text-xl font-bold mb-3 text-gray-800 dark:text-gray-200">13. ఎస్తేరుకు మొర్దెకై సందేశం (Mordecai's Message to Esther)</h4>
+            <p class="explanation-text">
+                ఎస్తేరుకు ఈ ఆజ్ఞ గురించి తెలియదు. హతాకు అనే సేవకుడి ద్వారా మొర్దెకై ఆమెకు ఆ శాసనం నకలు (Copy) పంపి, "నీవు రాజు దగ్గరకు వెళ్లి నీ జాతి ప్రాణాల కోసం బతిమలాడుకో" అని సందేశం పంపాడు.
+            </p>
+            <div class="verse-card">
+                <span class="verse-ref">ఎస్తేరు 4:8</span>
+                "ఆమె రాజునొద్దకు పోయి తన జనుల నిమిత్తము అతనితో మనవిచేసికొనవలెననియు, బతిమాలుకొనవలెననియు అతడు ఆమెకు ఆజ్ఞాపించెను."
+            </div>
+        </div>
+
+        <!-- Point 14 -->
+        <div class="commentary-block">
+            <h4 class="text-xl font-bold mb-3 text-gray-800 dark:text-gray-200">14. ఎస్తేరు సంశయం - మరణ దండన (Esther's Hesitation)</h4>
+            <p class="explanation-text">
+                "పిలువబడకుండా రాజు లోపలి గదిలోకి ఎవరు వెళ్ళినా మరణశిక్ష విధించబడుతుంది. రాజు తన బంగారు దండం చాచితేనే బ్రతుకుతారు. నేను రాజు దగ్గరకు వెళ్ళక 30 రోజులైంది" అని ఎస్తేరు భయపడుతూ జవాబు పంపింది.
+            </p>
+            <div class="verse-card">
+                <span class="verse-ref">ఎస్తేరు 4:11</span>
+                "పిలువబడకుండ పురుషుడేగాని స్త్రీయేగాని లోపలి ఆవరణముననున్న రాజునొద్దకు ప్రవేశించినయెడల, బ్రతుకునట్లు రాజు వారిమీదికి తన బంగారు దండమును చాచితేనే తప్ప..."
+            </div>
+        </div>
+
+        <!-- Point 15 -->
+        <div class="commentary-block">
+            <h4 class="text-xl font-bold mb-3 text-gray-800 dark:text-gray-200">15. "ఈ సమయమును బట్టియేమో!" (For Such a Time as This)</h4>
+            <p class="explanation-text">
+                అప్పుడు మొర్దెకై చారిత్రాత్మకమైన జవాబు పంపాడు: "నీవు అంతఃపురంలో ఉన్నావని నీ ప్రాణాలు దక్కుతాయని అనుకోకు. నీవు మౌనంగా ఉంటే యూదులకు సహాయం వేరొక దిక్కునుండి వస్తుంది కానీ నువ్వు నీ ఇల్లు నశిస్తారు. నీవు ఈ సమయమును బట్టియే రాజ్యమునకు వచ్చితివేమో, ఎవరు ఎరుగుదురు?" అని హెచ్చరించాడు.
+            </p>
+            <div class="verse-card">
+                <span class="verse-ref">ఎస్తేరు 4:14</span>
+                "నీవు ఈ సమయమునుబట్టియే రాజ్యమునకు వచ్చితివేమో, యెవరు ఎరుగుదురు అని మొర్దెకై ఎస్తేరునకు వర్తమానము పంపెను."
+            </div>
+        </div>
+
+        <!-- Point 16 -->
+        <div class="commentary-block">
+            <h4 class="text-xl font-bold mb-3 text-gray-800 dark:text-gray-200">16. "నేను నశించినను నశించెదను" (If I Perish, I Perish)</h4>
+            <p class="explanation-text">
+                మొర్దెకై మాటలతో ఎస్తేరులో ధైర్యం వచ్చింది. "నా కోసం షూషనులో ఉన్న యూదులందరినీ ఉపవాసం ఉండమనండి. నేను, నా పనికత్తెలు కూడా మూడు రోజులు అన్నపానాలు మానేస్తాము. ఆ తర్వాత చట్టవిరుద్ధమైనా సరే రాజు దగ్గరకు వెళతాను. నేను నశించినను నశించెదను" అని తెగించింది.
+            </p>
+            <div class="verse-card">
+                <span class="verse-ref">ఎస్తేరు 4:16</span>
+                "నియమము మీరి రాజునొద్దకు ప్రవేశించుదును; నేను నశించినను నశించెదను..."
+            </div>
+        </div>
+
+        <!-- Point 17 -->
+        <div class="commentary-block">
+            <h4 class="text-xl font-bold mb-3 text-gray-800 dark:text-gray-200">17. బంగారు దండం - కటాక్షం (The Golden Scepter)</h4>
+            <p class="explanation-text">
+                మూడవ రోజు ఎస్తేరు రాజ వస్త్రాలు ధరించి రాజు ఎదురుగా నిలబడింది. దేవుడు రాజు హృదయాన్ని మార్చాడు! ఆమెను చూడగానే రాజుకు కటాక్షం (దయ) కలిగి, తన చేతిలో ఉన్న బంగారు దండాన్ని ఆమె వైపు చాచాడు. ఆమె ప్రాణాలు దక్కాయి. "నీకేమి కావాలి రాణి? నా రాజ్యంలో సగమైనా ఇస్తాను" అన్నాడు.
+            </p>
+            <div class="verse-card">
+                <span class="verse-ref">ఎస్తేరు 5:2</span>
+                "రాణియైన ఎస్తేరు ఆవరణములో నిలువబడుట రాజు చూచినప్పుడు ఆమెయందు అతనికి కటాక్షము కలిగెను గనుక రాజు తన చేతిలోనున్న బంగారు దండమును ఎస్తేరుతట్టు చాచెను."
+            </div>
+        </div>
+
+        <!-- Point 18 -->
+        <div class="commentary-block">
+            <h4 class="text-xl font-bold mb-3 text-gray-800 dark:text-gray-200">18. ఎస్తేరు మొదటి విందు (Esther's First Banquet)</h4>
+            <p class="explanation-text">
+                తన జనులను కాపాడమని వెంటనే అడగకుండా, ఎస్తేరు జ్ఞానంతో వ్యవహరించింది. "నేను చేసే విందుకు రాజు, హామాను ఈ రోజు రావాలి" అని అడిగింది. విందులో రాజు మళ్లీ "నీకేమి కావాలి?" అనగా, "రేపు కూడా నేను చేసే విందుకు రండి, అప్పుడు నా కోరిక చెబుతాను" అని తెలివిగా సమయం తీసుకుంది.
+            </p>
+            <div class="verse-card">
+                <span class="verse-ref">ఎస్తేరు 5:8</span>
+                "రాజునకును హామానునకును నేను చేయబోవు విందుకు రేపు మీరు రావలెను, రేపటి దినమున రాజు సెలవిచ్చినట్లు నా మనవిని తెలియజేతును."
+            </div>
+        </div>
+
+        <!-- Point 19 -->
+        <div class="commentary-block">
+            <h4 class="text-xl font-bold mb-3 text-gray-800 dark:text-gray-200">19. 50 మూరల ఉరికొయ్య (The 50 Cubit Gallows)</h4>
+            <p class="explanation-text">
+                విందు నుండి బయటకు వస్తున్న హామానుకు గుమ్మం దగ్గర ఉన్న మొర్దెకై వంగకపోవడం చూసి తీవ్ర కోపం వచ్చింది. ఇంటికి వెళ్లి భార్యతో, స్నేహితులతో ఈ అవమానాన్ని చెప్పగా, వారు "50 మూరల (75 అడుగుల) ఎత్తైన ఉరికొయ్య చేయించి, రేపు ఉదయాన్నే మొర్దెకైని దాని మీద ఉరి తీయమని రాజుని అడుగు" అని సలహా ఇచ్చారు.
+            </p>
+            <div class="verse-card">
+                <span class="verse-ref">ఎస్తేరు 5:14</span>
+                "ఏబది మూరల యెత్తుగల యొక ఉరికొయ్యను చేయించుము... మొర్దెకై దానికి ఉరితీయబడునట్లు రాజుతో మనవి చేయుమనగా..."
+            </div>
+        </div>
+
+        <!-- Point 20 -->
+        <div class="commentary-block">
+            <h4 class="text-xl font-bold mb-3 text-gray-800 dark:text-gray-200">20. రాజుకు నిద్రపట్టని రాత్రి (The Sleepless Night)</h4>
+            <p class="explanation-text">
+                దేవుని అదృశ్య హస్తం ఇక్కడే అద్భుతంగా పని చేసింది. ఆ రాత్రి రాజుకు ఎంతకీ నిద్ర పట్టలేదు. కాలక్షేపం కోసం రాజ్యపు చరిత్ర పుస్తకాలు చదివించగా, గతంలో ఇద్దరు అధికారులు రాజును చంపాలనుకున్నప్పుడు మొర్దెకై ఆ ప్రాణాలు కాపాడాడన్న విషయం చదివారు. అతనికి ఏమైనా బహుమానం ఇచ్చారా అని అడగగా, ఏమి ఇవ్వలేదని చెప్పారు.
+            </p>
+            <div class="verse-card">
+                <span class="verse-ref">ఎస్తేరు 6:1</span>
+                "ఆ రాత్రియందు రాజునకు నిద్రపట్టక పోయినందున, వృత్తాంతముల గ్రంథమును అనగా దినవృత్తాంతములను తెప్పించి తన యెదుట చదివించెను."
+            </div>
+        </div>
+
+        <!-- Point 21 -->
+        <div class="commentary-block">
+            <h4 class="text-xl font-bold mb-3 text-gray-800 dark:text-gray-200">21. హామానుకు పరాభవం (Haman Honors Mordecai)</h4>
+            <p class="explanation-text">
+                సరిగ్గా అప్పుడే మొర్దెకైని ఉరి తీయడానికి పర్మిషన్ కోసం హామాను వచ్చాడు. "రాజు ఘనపరచాలని కోరుకునే వ్యక్తికి ఏమి చేయాలి?" అని రాజు అడగగా, 'నన్నే కదా ఘనపరచేది' అని గర్వంతో హామాను... "రాజవస్త్రాలు, రాజు గుర్రం ఇచ్చి ఊరేగించాలి" అన్నాడు. రాజు వెంటనే "వెళ్ళి గుమ్మం దగ్గర ఉన్న యూదుడైన మొర్దెకైకి నువ్వు చెప్పినట్లే చేసి ఊరేగించు" అని ఆజ్ఞాపించాడు. హామానుకు ఇది మహా అవమానం.
+            </p>
+            <div class="verse-card">
+                <span class="verse-ref">ఎస్తేరు 6:10</span>
+                "నీవు చెప్పినట్లు ఆ వస్త్రమును ఆ గుఱ్ఱమును తీసికొనిపోయి రాజు గుమ్మమునందు కూర్చున్న యూదుడగు మొర్దెకైకి ఆలాగుననే చేయుము."
+            </div>
+        </div>
+
+        <!-- Point 22 -->
+        <div class="commentary-block">
+            <h4 class="text-xl font-bold mb-3 text-gray-800 dark:text-gray-200">22. ఎస్తేరు రెండవ విందు - నిజం వెల్లడి (Esther Pleads for Her People)</h4>
+            <p class="explanation-text">
+                రెండవ రోజు విందులో, రాజు "నీ మనవి ఏమిటి ఎస్తేరు?" అని అడిగాడు. అప్పుడు ఎస్తేరు ఏడుస్తూ, "నా ప్రాణాన్ని, నా జాతి ప్రాణాలను నాకు బహుమానంగా దయచేయుము. మమ్మల్ని అందరినీ హతమార్చడానికి ఒకరు అమ్మేశారు" అన్నది. "ఎవరా దుర్మార్గుడు?" అని రాజు కోపంతో అడుగగా, ఎస్తేరు హామాను వైపు చూపించి "ఈ దుష్టుడైన హామానే" అని బదులిచ్చింది.
+            </p>
+            <div class="verse-card">
+                <span class="verse-ref">ఎస్తేరు 7:6</span>
+                "ఎస్తేరు ఆ పగవాడును శత్రువును ఈ దుష్టుడైన హామానే అనగా హామాను రాజు నెదుటను రాణియెదుటను భయపడెను."
+            </div>
+        </div>
+
+        <!-- Point 23 -->
+        <div class="commentary-block">
+            <h4 class="text-xl font-bold mb-3 text-gray-800 dark:text-gray-200">23. తన ఉరికొయ్యకే హామాను ఉరి (Haman Hanged on His Gallows)</h4>
+            <p class="explanation-text">
+                రాజు కోపంతో బయటకు వెళ్ళగా, ప్రాణభయంతో హామాను ఎస్తేరు కూర్చున్న మంచం మీద పడి బతిమలాడుకోసాగాడు. రాజు లోపలికి వచ్చి, నా ఇంట్లోనే నా రాణి మీద పడతాడా అని ఉగ్రతుడయ్యాడు. అప్పుడు హర్బోనా అనే అధికారి, "మొర్దెకై కోసం హామాను 50 మూరల ఉరికొయ్య చేయించాడు" అని చెప్పగా, "దాని మీదే హామానును ఉరితీయండి" అని రాజు ఆజ్ఞాపించాడు.
+            </p>
+            <div class="verse-card">
+                <span class="verse-ref">ఎస్తేరు 7:10</span>
+                "మొర్దెకైకొరకు హామాను చేయించిన ఉరికొయ్యమీదనే వానిని ఉరితీసిరి; అంతట రాజు కోపము చల్లారెను."
+            </div>
+        </div>
+
+        <!-- Point 24 -->
+        <div class="commentary-block">
+            <h4 class="text-xl font-bold mb-3 text-gray-800 dark:text-gray-200">24. ప్రాణరక్షణకు క్రొత్త శాసనం (The New Decree)</h4>
+            <p class="explanation-text">
+                హామాను చనిపోయినా వాడు పంపిన మరణ శాసనం ఇంకా అమలులోనే ఉంది (పర్షియా చట్టం మార్చడానికి వీలుపడదు). అప్పుడు రాజు మొర్దెకైకి తన ఉంగరాన్నిచ్చి, యూదులను కాపాడటానికి మరొక ఆజ్ఞ రాయమన్నాడు. "12వ నెల 13వ రోజున ఎవరైతే యూదుల మీద దాడికి వస్తారో, వారిని తిరిగి చంపే అధికారం యూదులకు ఉంటుంది" అని క్రొత్త శాసనం రాసి దేశమంతటా వేగంగా పంపించారు.
+            </p>
+            <div class="verse-card">
+                <span class="verse-ref">ఎస్తేరు 8:11</span>
+                "ఈ పత్రికలమూలముగా రాజు, ప్రతి పట్టణమందున్న యూదులు కూడుకొనుటకును తమ ప్రాణములను కాపాడుకొనుటకును... సెలవిచ్చెను."
+            </div>
+        </div>
+
+        <!-- Point 25 -->
+        <div class="commentary-block">
+            <h4 class="text-xl font-bold mb-3 text-gray-800 dark:text-gray-200">25. పూరీము పండుగ - మహా ఆనందం (The Feast of Purim)</h4>
+            <p class="explanation-text">
+                నిర్ణయించిన రోజున యూదులు తమ శత్రువుల మీద గొప్ప విజయం సాధించారు. హామాను పదిమంది కుమారులు కూడా చంపబడ్డారు. శ్రమపోయి ఆనందం వచ్చిన ఈ రోజును జ్ఞాపకం చేసుకుంటూ, ప్రతి సంవత్సరం రెండు రోజుల పాటు "పూరీము" (Purim - చీటీలు) పండుగ చేసుకోవాలని మొర్దెకై, ఎస్తేరులు నిర్ణయించారు. నేటికీ యూదులు ఈ పండుగను సంతోషంతో జరుపుకుంటారు.
+            </p>
+            <div class="verse-card">
+                <span class="verse-ref">ఎస్తేరు 9:22</span>
+                "దుఃఖముపోయి సంతోషమును, ఏడ్పుదినముపోయి పండుగ దినమును వచ్చిన ఆ నెలయందు... సంతోషముగా విందుచేయవలెననియు..."
+            </div>
+        </div>
+
+        <div class="bg-orange-50 dark:bg-gray-800 p-8 rounded-xl border border-orange-200 dark:border-gray-700 text-center mt-16">
+            <h3 class="text-2xl font-bold mb-4 text-orange-900 dark:text-gold-500">తరువాత ఏంటి?</h3>
+            <p class="mb-6">బైబిల్‌లో చారిత్రక గ్రంథాలు (Historical Books) ఎస్తేరుతో ముగుస్తాయి. దీని తర్వాత "పద్య/కావ్య గ్రంథాలు" (Poetic/Wisdom Books) ప్రారంభమవుతాయి. వాటిలో మొట్టమొదటిది, మానవుని బాధను (Suffering), దేవుని సార్వభౌమత్వాన్ని లోతుగా చర్చించే అత్యంత ప్రాచీనమైన మరియు అద్భుతమైన గ్రంథం... "యోబు" (Job).</p>
+            <div class="inline-block px-8 py-3 bg-black text-white dark:bg-gold-500 dark:text-black font-bold uppercase tracking-widest rounded-full cursor-pointer hover:scale-105 transition-transform">
+                ఎస్తేరు 1వ అధ్యాయం చదవండి
+            </div>
+        </div>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-black text-white py-16 text-center border-t-4 border-gold-500">
+        <h2 class="text-3xl font-brand text-gold-500 mb-6">Word of God (WOG)</h2>
+        <p class="text-gray-400 mb-8 max-w-lg mx-auto">సత్యవాక్యమును సరిగా ఉపదేశించువానిగాను, సిగ్గుపడనక్కరలేని పనివానిగాను నిన్నునీవే దేవునికి కనపరచుకొనుటకు జాగ్రత్తపడుము. 2 తిమోతికి 2:15</p>
+        <p class="text-6xl font-brand text-white/10 tracking-widest mt-8">ESTHER</p>
+        <p class="text-xs text-gray-600 mt-8">© 2026 WOG Ministries. All Rights Reserved.</p>
+    </footer>
+
+    <script>
+        // --- SETTINGS MENU LOGIC ---
+        const root = document.documentElement;
+        const menu = document.getElementById('settings-menu');
+        const overlay = document.getElementById('menu-overlay');
+        const themeLabel = document.getElementById('theme-label-menu');
+        let currentSize = 20;
+
+        // Toggle Menu Visibility
+        function toggleMenu() {
+            menu.classList.toggle('active');
+            overlay.classList.toggle('active');
+        }
+
+        // Font Adjustment (Restricted to buttons only)
+        function adjustFont(dir) {
+            if (dir === 1 && currentSize < 32) currentSize += 2;
+            if (dir === -1 && currentSize > 16) currentSize -= 2;
+            root.style.setProperty('--content-size', currentSize + 'px');
+        }
+
+        // Initialize Theme from LocalStorage
+        if (localStorage.theme === 'dark') {
+            root.classList.add('dark');
+            if(themeLabel) themeLabel.innerText = 'Light Mode';
+        }
+
+        // Theme Toggle Function
+        function toggleTheme() {
+            if (root.classList.contains('dark')) {
+                root.classList.remove('dark');
+                localStorage.theme = 'light';
+                if(themeLabel) themeLabel.innerText = 'Dark Mode';
+            } else {
+                root.classList.add('dark');
+                localStorage.theme = 'dark';
+                if(themeLabel) themeLabel.innerText = 'Light Mode';
+            }
+        }
+
+        // Scroll Progress Bar
+        window.onscroll = function() {
+            let winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            let height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            let scrolled = (winScroll / height) * 100;
+            document.getElementById("reading-progress").style.width = scrolled + "%";
+        };
+    </script>
+</body>
+</html>
