@@ -1,1 +1,745 @@
+<!DOCTYPE html>
+<html lang="te" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <!-- Pinch to zoom disabled strictly -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>2 దినవృత్తాంతములు - 25 ముఖ్యమైన ఘట్టాలు</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Anek+Telugu:wght@300;400;500;600;700;800&family=Mallanna&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&display=swap" rel="stylesheet">
+    <!-- Icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'body': ['"Mallanna"', 'serif'],        
+                        'heading': ['"Anek Telugu"', 'sans-serif'],
+                        'brand': ['"Cinzel"', 'serif'],
+                    },
+                    colors: {
+                        gold: {
+                            400: '#facc15', // Bright Gold
+                            500: '#eab308', // Classic Gold
+                            600: '#ca8a04', // Deep Gold
+                        },
+                        paper: '#fffaf0', // Warm White
+                        bible: '#854d0e', // Leather Brown
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        /* --- TYPOGRAPHY SYSTEM --- */
+        :root {
+            --content-size: 20px; /* Default size */
+            --line-height: 2.2;
+        }
+
+        html { scroll-behavior: smooth; }
+        
+        /* NO SELECTION - APP FEEL */
+        .no-select {
+            -webkit-user-select: none; /* Safari */
+            -moz-user-select: none;    /* Firefox */
+            -ms-user-select: none;     /* IE10+/Edge */
+            user-select: none;         /* Standard */
+            -webkit-touch-callout: none; /* iOS Safari */
+        }
+
+        body { 
+            background-color: var(--paper); 
+            color: #292524;
+            font-family: 'Mallanna', serif;
+            line-height: var(--line-height);
+            transition: background-color 0.3s ease, color 0.3s ease;
+            overflow-x: hidden; /* Prevent horizontal scroll */
+        }
+
+        /* Dynamic Font Sizing Class */
+        .content-text { font-size: var(--content-size); }
+        h1, h2, h3, h4, .ref-title, .brand-text { font-family: 'Anek Telugu', sans-serif; }
+
+        /* --- DARK MODE RULES --- */
+        html.dark body { background-color: #0c0a09 !important; color: #e7e5e4 !important; }
+        html.dark .content-text, html.dark p, html.dark li { color: #d6d3d1 !important; }
+        html.dark h1, html.dark h2, html.dark h3, html.dark strong { color: #facc15 !important; }
+        html.dark .verse-card { background-color: #1c1917 !important; border-left-color: #facc15 !important; }
+        html.dark .info-grid { background-color: #1c1917 !important; border-color: #444 !important; }
+        
+        /* Settings Menu Dark Mode */
+        html.dark #settings-menu { background-color: #1c1917; border-color: #444; color: white; }
+        html.dark .setting-btn { background-color: #2d2d2d; color: white; border-color: #444; }
+
+        /* --- COMPONENTS --- */
+        
+        /* WOG Badge - Left Side */
+        .brand-badge {
+            position: fixed; top: 20px; left: 20px; z-index: 60;
+            background: #000; color: #facc15;
+            padding: 8px 16px; font-family: 'Cinzel', serif; font-weight: bold;
+            border: 2px solid #facc15; box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+            backdrop-filter: blur(5px);
+            border-radius: 4px;
+        }
+
+        /* Settings Toggle Button - Top Right */
+        .settings-toggle {
+            position: fixed; top: 20px; right: 20px; z-index: 61;
+            background: rgba(255, 255, 255, 0.9); 
+            color: #333;
+            width: 45px; height: 45px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            cursor: pointer;
+            transition: transform 0.2s;
+            border: 1px solid rgba(0,0,0,0.1);
+        }
+        .settings-toggle:active { transform: scale(0.95); }
+        html.dark .settings-toggle { background: #333; color: #fff; border-color: #555; }
+
+        /* Settings Menu Popover */
+        #settings-menu {
+            display: none; /* Hidden by default */
+            position: fixed; top: 75px; right: 20px; z-index: 60;
+            background: white;
+            padding: 15px;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            width: 220px;
+            border: 1px solid #e5e7eb;
+            animation: fadeIn 0.2s ease-out;
+        }
+        #settings-menu.active { display: block; }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .setting-btn {
+            padding: 8px; border-radius: 6px;
+            border: 1px solid #e5e7eb;
+            background: #f9fafb;
+            font-weight: bold;
+            transition: all 0.2s;
+        }
+        .setting-btn:active { transform: scale(0.95); }
+
+        .hero {
+            height: 70vh;
+            /* Temple Columns / Ancient Glory Theme */
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.85)), url('https://images.unsplash.com/photo-1502472935894-0cfb2413b632?q=80&w=2070&auto=format&fit=crop');
+            background-size: cover; background-position: center; background-attachment: fixed;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            text-align: center; color: white;
+        }
+
+        /* Stats Grid */
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            background: #fff;
+            padding: 2rem;
+            border-radius: 1rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            border: 1px solid #e7e5e4;
+            margin-bottom: 3rem;
+        }
+        .info-item h4 { font-size: 0.8rem; text-transform: uppercase; color: #854d0e; letter-spacing: 0.1em; }
+        .info-item p { font-size: 1.2rem; font-weight: bold; color: #000; font-family: 'Anek Telugu'; }
+        html.dark .info-item h4 { color: #facc15; }
+        html.dark .info-item p { color: #fff; }
+
+        /* Author Note Box - Requested Feature */
+        .author-note {
+            background: #fff7ed; /* Light Orange/Amber */
+            border-left: 4px solid #ea580c;
+            padding: 1.5rem;
+            margin-bottom: 3rem;
+            border-radius: 0 8px 8px 0;
+            font-size: 0.95rem;
+            color: #431407;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+        }
+        html.dark .author-note {
+            background: #431407;
+            border-color: #f97316;
+            color: #ffedd5;
+        }
+
+        /* Commentary Block Structure */
+        .commentary-block { margin-bottom: 4rem; }
+        
+        .explanation-text {
+            color: #44403c;
+            margin-bottom: 1.5rem;
+            border-left: 3px solid transparent;
+            padding-left: 0;
+            line-height: 1.8;
+            text-align: justify;
+        }
+        html.dark .explanation-text { color: #a8a29e; }
+
+        /* Verse Card */
+        .verse-card {
+            background: #fff;
+            border-left: 6px solid #ea580c; /* Orange accent */
+            padding: 25px 30px;
+            border-radius: 0 12px 12px 0;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+            font-style: italic;
+            position: relative;
+        }
+        .verse-ref {
+            position: absolute; top: -12px; left: 20px;
+            background: #ea580c; color: white;
+            padding: 4px 12px; font-size: 0.8rem; font-weight: bold;
+            border-radius: 4px; font-family: 'Anek Telugu';
+        }
+        html.dark .verse-ref { background: #facc15; color: #000; }
+
+        /* Christology Box - DARK GRAY BACKGROUND */
+        .christ-box {
+            background: #262626; /* Dark Gray */
+            color: #ffffff;      /* White Text */
+            border: 1px solid #404040;
+            border-radius: 12px;
+            padding: 2rem;
+            margin: 3rem 0;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        }
+        /* Override specific colors inside Christ Box for readability */
+        .christ-box h3 { color: #facc15 !important; } /* Gold Heading */
+        .christ-box .highlight { color: #facc15 !important; } /* Gold Highlights */
+        .christ-box p, .christ-box li, .christ-box span { color: #e5e5e5; }
+
+        .drop-cap {
+            float: left; font-size: 4.5rem; line-height: 0.8;
+            margin-right: 1rem; margin-top: 0.2rem;
+            font-family: 'Anek Telugu'; font-weight: 800; color: #ea580c;
+        }
+        
+        #reading-progress {
+            position: fixed; top: 0; left: 0; height: 5px;
+            background: linear-gradient(to right, #ea580c, #facc15);
+            width: 0%; z-index: 200;
+        }
+
+        /* Overlay to close menu when clicking outside */
+        #menu-overlay {
+            display: none; position: fixed; inset: 0; z-index: 59;
+            background: transparent;
+        }
+        #menu-overlay.active { display: block; }
+
+    </style>
+</head>
+<body class="no-select">
+
+    <div id="reading-progress"></div>
+    
+    <!-- Brand Badge (Left Side) -->
+    <div class="brand-badge">WOG</div>
+
+    <!-- Settings Toggle Button (Right Side) -->
+    <button onclick="toggleMenu()" class="settings-toggle">
+        <i class="fas fa-font text-xl"></i>
+    </button>
+
+    <!-- Overlay for closing menu -->
+    <div id="menu-overlay" onclick="toggleMenu()"></div>
+
+    <!-- Settings Popup Menu -->
+    <div id="settings-menu">
+        <div class="mb-4">
+            <p class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-2">Text Size</p>
+            <div class="flex gap-2 items-center">
+                <button onclick="adjustFont(-1)" class="setting-btn flex-1 flex justify-center items-center h-10">
+                    <i class="fas fa-minus text-xs"></i>
+                </button>
+                <span class="text-sm font-bold w-8 text-center" id="font-display">Aa</span>
+                <button onclick="adjustFont(1)" class="setting-btn flex-1 flex justify-center items-center h-10">
+                    <i class="fas fa-plus text-xs"></i>
+                </button>
+            </div>
+        </div>
+
+        <div>
+            <p class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-2">Theme</p>
+            <button onclick="toggleTheme()" class="setting-btn w-full flex items-center justify-center gap-2 h-10">
+                <i class="fas fa-moon"></i>
+                <span id="theme-label-menu">Dark Mode</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- HERO -->
+    <header class="hero">
+        <span class="inline-block py-2 px-6 border border-white/40 rounded-full text-sm font-bold uppercase tracking-[0.3em] mb-8 bg-black/30 backdrop-blur-md">
+            Temple, Kings & The Exile
+        </span>
+        <!-- Title Fixed -->
+        <h1 class="text-4xl md:text-7xl font-black mb-6 drop-shadow-2xl tracking-tight leading-tight px-4 break-words max-w-full" style="font-family: 'Anek Telugu'">
+            2 దినవృత్తాంతములు
+        </h1>
+        <p class="text-xl md:text-2xl font-light italic max-w-4xl px-4 text-white/90" style="font-family: 'Mallanna'">
+            "నా పేరు పెట్టబడిన నా జనులు తమ్ముతాము తగ్గించుకొని ప్రార్థనచేసి... నేను పరలోకమునుండి విని వారి పాపమును క్షమించి వారి దేశమును స్వస్థపరచుదును" (2 CHRONICLES 7:14)
+        </p>
+    </header>
+
+    <main id="main-content" class="content-text max-w-4xl mx-auto px-6 py-16">
+
+        <!-- INFO GRID -->
+        <section class="info-grid">
+            <div class="info-item">
+                <h4>రచయిత</h4>
+                <p>ఎజ్రా (సాంప్రదాయం)</p>
+            </div>
+            <div class="info-item">
+                <h4>కాలం</h4>
+                <p>క్రీ.పూ. 970 - 538</p>
+            </div>
+            <div class="info-item">
+                <h4>స్థలం</h4>
+                <p>యెరూషలేము & యూదా</p>
+            </div>
+            <div class="info-item">
+                <h4>అధ్యాయాలు</h4>
+                <p>36</p>
+            </div>
+            <div class="info-item">
+                <h4>కీలక అంశం</h4>
+                <p>దేవాలయం & పశ్చాత్తాపం</p>
+            </div>
+        </section>
+
+        <!-- AUTHOR NOTE - SPECIAL REQUEST -->
+        <div class="author-note">
+            <h4 class="font-bold mb-2 flex items-center gap-2 text-lg">
+                <i class="fas fa-feather-alt"></i> గ్రంథ నేపథ్యం గురించి గమనిక:
+            </h4>
+            <p style="line-height: 1.6;">
+                2 దినవృత్తాంతములు (2 Chronicles) మొదటి గ్రంథానికి కొనసాగింపు. రాజుల (Kings) గ్రంథాలలో ఇశ్రాయేలు (ఉత్తర), యూదా (దక్షిణ) రాజ్యాల గురించి సమాంతరంగా చెబితే, ఈ దినవృత్తాంతముల గ్రంథం <strong>కేవలం యూదా (దక్షిణ) రాజ్యం</strong> మీదనే దృష్టి పెడుతుంది. ఎందుకంటే యూదా గోత్రం ద్వారానే దావీదు నిబంధన, దేవాలయ ఆరాధన, మరియు భవిష్యత్తులో మెస్సీయ రాకడ ముడిపడి ఉన్నాయి. రాజులు దేవునికి విధేయులైతే ఆశీర్వాదం, విడిచిపెడితే శిక్ష (చెర) ఎలా వస్తుందో ఈ చరిత్ర స్పష్టంగా తెలియజేస్తుంది.
+            </p>
+        </div>
+
+        <!-- INTRO -->
+        <article class="mb-16">
+            <h2 class="text-4xl font-bold mb-6 text-orange-900 dark:text-gold-500 pb-4 border-b-2 border-orange-200 dark:border-gray-800">
+                మహిమ నుండి పతనానికి... మళ్లీ నిరీక్షణ వైపు
+            </h2>
+            <p>
+                <span class="drop-cap">2</span> దినవృత్తాంతములు గ్రంథం సొలొమోను మహావైభవంగా దేవాలయాన్ని నిర్మించడం, దేవుని మహిమ ఆ ఆలయాన్ని నింపడం అనే గొప్ప ఘట్టాలతో మొదలవుతుంది. ఆ తర్వాత రాజ్యం చీలిపోయి, యూదా రాజుల వరుస పాలన వస్తుంది. ఆసా, యెహోషాపాతు, హిజ్కియా, యోషీయా వంటి రాజుల కాలంలో గొప్ప ఆధ్యాత్మిక సంస్కరణలు జరిగాయి. కానీ మెజారిటీ రాజులు విగ్రహారాధనలో మునిగిపోయారు. ప్రవక్తలను తృణీకరించారు. చివరికి వారి పాపం పండి బబులోను చెరకు వెళ్లారు. కానీ దేవుడు వాగ్దానం చేసినట్లుగానే, 70 ఏళ్ల తర్వాత తిరిగి రావడానికి కోరేషు ఇచ్చిన ఆజ్ఞతో ఈ గ్రంథం నిరీక్షణతో ముగుస్తుంది.
+            </p>
+        </article>
+
+        <!-- CHRIST IN 2 CHRONICLES -->
+        <div class="christ-box">
+            <h3 class="text-2xl font-bold mb-4 flex items-center gap-2">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#facc15" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M2 12h20"/></svg>
+                క్రీస్తును ఎక్కడ వెతకాలి?
+            </h3>
+            <p class="mb-4 text-sm opacity-80">ఈ గ్రంథంలో క్రీస్తుకు సంబంధించిన ముఖ్యమైన ఛాయలు (Types):</p>
+            <ul class="space-y-3 list-none">
+                <li class="flex gap-3">
+                    <span class="font-bold highlight">➤ దేవాలయం (The Temple):</span>
+                    <span>ఈ గ్రంథమంతా దేవాలయం చుట్టే తిరుగుతుంది. దేవుడు నివసించే ఆ దేవాలయం క్రీస్తుకు సజీవ సాదృశ్యం. 'వాక్యము శరీరధారియై మన మధ్య నివసించెను (Tabernacled)' (యోహాను 1:14). క్రీస్తే మనకు నిజమైన దేవాలయం.</span>
+                </li>
+                <li class="flex gap-3">
+                    <span class="font-bold highlight">➤ మంచి రాజులు (The Good Kings):</span>
+                    <span>దేవుని వాక్యాన్ని తిరిగి స్థాపించిన హిజ్కియా, యోషీయా వంటి రాజులు... నిజమైన శాంతిని, సంస్కరణను తెచ్చే రాజుల రాజు అయిన క్రీస్తు (King of Kings) కు ముందు ఛాయలుగా ఉన్నారు.</span>
+                </li>
+                <li class="flex gap-3">
+                    <span class="font-bold highlight">➤ నిరీక్షణ ఆజ్ఞ (Decree of Hope):</span>
+                    <span>గ్రంథం చివరలో బానిసత్వం నుండి విడిపిస్తూ పర్షియా రాజు కోరేషు ఇచ్చిన ఆజ్ఞ, పాపపు బానిసత్వం నుండి క్రీస్తు మనకు ఇచ్చే గొప్ప విడుదలకు (Salvation) సూచన.</span>
+                </li>
+            </ul>
+        </div>
+
+        <hr class="border-orange-200 dark:border-gray-800 my-12">
+
+        <!-- 25 POINTS -->
+        <h3 class="text-3xl font-bold mb-10 text-orange-800 dark:text-gold-400">2 దినవృత్తాంతములు: 25 ముఖ్యమైన ఘట్టాలు</h3>
+        
+        <!-- Point 1 -->
+        <div class="commentary-block">
+            <h4 class="text-xl font-bold mb-3 text-gray-800 dark:text-gray-200">1. సొలొమోను జ్ఞానమును అడుగుట (Solomon Asks for Wisdom)</h4>
+            <p class="explanation-text">
+                సొలొమోను రాజ్యాధికారంలోకి వచ్చినప్పుడు దేవుడు ప్రత్యక్షమై 'నీకేమి కావలెనో అడుగుము' అన్నాడు. సొలొమోను ఐశ్వర్యాన్ని, శత్రువుల నాశనాన్ని అడగకుండా, దేవుని ప్రజలను సరిగ్గా పాలించడానికి జ్ఞానాన్ని (Wisdom) అడిగాడు. దేవుడు సంతోషించి, అతడు అడగని ఐశ్వర్యాన్ని, ఘనతను కూడా మెండుగా అనుగ్రహించాడు.
+            </p>
+            <div class="verse-card">
+                <span class="verse-ref">2 దినవృత్తాంతములు 1:10</span>
+                "ఈ నీ గొప్ప జనులకు న్యాయము తీర్చగలవాడెవడు? నేను ఈ జనుల యెదుటనుండి వచ్చుచు పోవుచు నుండుటకు తగిన జ్ఞానమును తెలివిని నాకు దయచేయుము."
+            </div>
+        </div>
+
+        <!-- Point 2 -->
+        <div class="commentary-block">
+            <h4 class="text-xl font-bold mb-3 text-gray-800 dark:text-gray-200">2. దేవాలయ నిర్మాణ సన్నాహాలు (Temple Preparations)</h4>
+            <p class="explanation-text">
+                తండ్రి అయిన దావీదు దేవుని నామానికి ఒక ఘనమైన మందిరం కట్టాలని ఆశపడ్డాడు. సొలొమోను ఆ పనిని ప్రారంభించాడు. లెబానోను నుండి శ్రేష్ఠమైన దేవదారు మ్రానులను తెప్పించాడు. టూరు రాజైన హీరాముతో స్నేహం చేసి గొప్ప శిల్పులను, పనివారిని రప్పించాడు. దేవునికి ఇచ్చేది అత్యుత్తమమైనదిగా ఉండాలని సొలొమోను భావించాడు.
+            </p>
+            <div class="verse-card">
+                <span class="verse-ref">2 దినవృత్తాంతములు 2:1</span>
+                "యెహోవా నామము ఘనపరచబడుటకై యొక మందిరమును... కట్టించుటకు సొలొమోను నిశ్చయించుకొనెను."
+            </div>
+        </div>
+
+        <!-- Point 3 -->
+        <div class="commentary-block">
+            <h4 class="text-xl font-bold mb-3 text-gray-800 dark:text-gray-200">3. మోరీయా కొండపై దేవాలయం (Temple on Mount Moriah)</h4>
+            <p class="explanation-text">
+                సొలొమోను దేవాలయాన్ని యెరూషలేములోని 'మోరీయా కొండ' మీద కట్టడం ప్రారంభించాడు. ఇది ఎంతో చారిత్రక ప్రాముఖ్యత గల స్థలం. ఇక్కడే అబ్రాహాము ఇస్సాకును బలి అర్పించబోయాడు, ఇక్కడే దావీదుకు దేవుడు ప్రత్యక్షమై తెగులును ఆపాడు (ఓర్నాను కల్లము). బలికి, క్షమాపణకు ఇది కేంద్ర స్థానమైంది.
+            </p>
+            <div class="verse-card">
+                <span class="verse-ref">2 దినవృత్తాంతములు 3:1</span>
+                "సొలొమోను యెరూషలేములో తన తండ్రియైన దావీదునకు యెహోవా ప్రత్యక్షమైన మోరీయా కొండయందు... యెహోవాకు మందిరమును కట్ట నారంభించెను."
+            </div>
+        </div>
+
+        <!-- Point 4 -->
+        <div class="commentary-block">
+            <h4 class="text-xl font-bold mb-3 text-gray-800 dark:text-gray-200">4. ఆలయ ఉపకరణాలు (Temple Furnishings)</h4>
+            <p class="explanation-text">
+                దేవాలయం లోపల ఇత్తడి బలిపీఠం, పది ఇత్తడి తొట్లు, సముద్రం అని పిలువబడే పెద్ద ఇత్తడి తొట్టి (యాజకులు కడుక్కోవడానికి), పది బంగారు దీపవృక్షాలు, పది బల్లలు ఏర్పాటు చేయబడ్డాయి. సమస్తము దేవుడు ఇచ్చిన నమూనా ప్రకారమే అత్యంత విలువైన బంగారంతో, నిష్ణాతులైన పనివారితో చేయబడ్డాయి. ఆరాధనలో పవిత్రతకు ఈ ఉపకరణాలు సాదృశ్యాలు.
+            </p>
+            <div class="verse-card">
+                <span class="verse-ref">2 దినవృత్తాంతములు 4:19</span>
+                "దేవుని మందిరమందుండు ఉపకరణములన్నిటిని... నిష్కళంకమైన బంగారుతో చేయబడిన దీపస్తంభములను వాటి ప్రదీపములను అతడు చేయించెను."
+            </div>
+        </div>
+
+        <!-- Point 5 -->
+        <div class="commentary-block">
+            <h4 class="text-xl font-bold mb-3 text-gray-800 dark:text-gray-200">5. మందసమును లోపల ఉంచుట (Bringing the Ark)</h4>
+            <p class="explanation-text">
+                నిర్మాణం పూర్తయిన తర్వాత, యాజకులు దేవుని నిబంధన మందసాన్ని అతి పరిశుద్ధ స్థలంలో (కెరూబుల రెక్కల కింద) ఉంచారు. అప్పుడు గాయకులు, వాద్యకారులు ఏకగ్రీవంగా "యెహోవా దయాళుడు, ఆయన కృప నిరంతరముండును" అని పాడి ఆరాధించారు. దేవుని మందిరానికి మందసమే గుండెకాయ వంటిది.
+            </p>
+            <div class="verse-card">
+                <span class="verse-ref">2 దినవృత్తాంతములు 5:13</span>
+                "బూరలు ఊదువారును పాటలు పాడువారును ఏకశబ్దముతో యెహోవాను స్తుతించుచు... ఆయన దయాళుడు ఆయన కృప నిరంతరముండునని పాడిరి."
+            </div>
+        </div>
+
+        <!-- Point 6 -->
+        <div class="commentary-block">
+            <h4 class="text-xl font-bold mb-3 text-gray-800 dark:text-gray-200">6. సొలొమోను ప్రార్థన (Solomon's Prayer)</h4>
+            <p class="explanation-text">
+                సొలొమోను ఇత్తడి పీఠంపై మోకాళ్ళూని, ఆకాశం వైపు చేతులెత్తి మహా అద్భుతమైన ప్రార్థన చేశాడు. "ఆకాశ మహాకాశములు నిన్ను పట్టజాలవు. అయినను ఇశ్రాయేలీయులు పాపం చేసినా, కరువు వచ్చినా, శత్రువు దాడి చేసినా... వారు ఈ మందిరం వైపు తిరిగి ప్రార్థిస్తే, పరలోకం నుండి వారి ప్రార్థన విని క్షమించు" అని వేడుకున్నాడు.
+            </p>
+            <div class="verse-card">
+                <span class="verse-ref">2 దినవృత్తాంతములు 6:14</span>
+                "ఇశ్రాయేలీయుల దేవా యెహోవా, ఆకాశమందైనను భూమిమీదనైనను నీవంటి దేవుడు లేడు..."
+            </div>
+        </div>
+
+        <!-- Point 7 -->
+        <div class="commentary-block">
+            <h4 class="text-xl font-bold mb-3 text-gray-800 dark:text-gray-200">7. అగ్ని దిగి వచ్చుట (Fire Comes Down)</h4>
+            <p class="explanation-text">
+                సొలొమోను ప్రార్థన ముగించగానే, ఆకాశం నుండి అగ్ని దిగి వచ్చి దహనబలులను కాల్చివేసింది. దేవుని తేజస్సు ఆ మందిరాన్ని ఎంతగా నింపిందంటే, యాజకులు కూడా లోపలికి ప్రవేశించలేకపోయారు. ప్రజలందరూ నేలమట్టుకు సాగిలపడి దేవుణ్ణి ఆరాధించారు. ఇది దేవుడు ఆ మందిరాన్ని అంగీకరించాడనడానికి గొప్ప రుజువు.
+            </p>
+            <div class="verse-card">
+                <span class="verse-ref">2 దినవృత్తాంతములు 7:1</span>
+                "సొలొమోను ప్రార్థన చేయుట చాలింపగా అగ్ని ఆకాశమునుండి దిగివచ్చి దహనబలులను బలులను దహించెను, యెహోవా తేజస్సు మందిరమును నింపెను."
+            </div>
+        </div>
+
+        <!-- Point 8 -->
+        <div class="commentary-block">
+            <h4 class="text-xl font-bold mb-3 text-gray-800 dark:text-gray-200">8. దేవుని అద్భుత వాగ్దానం (God's Great Promise)</h4>
+            <p class="explanation-text">
+                రాత్రిపూట దేవుడు సొలొమోనుకు కనబడి బైబిల్‌లోనే అత్యంత ప్రసిద్ధమైన వాగ్దానం చేశాడు: "నా పేరు పెట్టబడిన నా జనులు తమ్ముతాము తగ్గించుకొని ప్రార్థన చేసి, తమ చెడు మార్గములను విడిచిన యెడల... నేను వారి పాపమును క్షమించి దేశాన్ని బాగుచేస్తాను". పశ్చాత్తాపం ద్వారా ఏ దేశమైనా రక్షింపబడుతుందని ఇది చెబుతుంది.
+            </p>
+            <div class="verse-card">
+                <span class="verse-ref">2 దినవృత్తాంతములు 7:14</span>
+                "నా పేరు పెట్టబడిన నా జనులు తమ్ముతాము తగ్గించుకొని ప్రార్థనచేసి నన్ను వెదకి తమ చెడుమార్గములను విడిచినయెడల, ఆకాశమునుండి నేను వారి ప్రార్థనను విని వారి పాపమును క్షమించి వారి దేశమును స్వస్థపరచుదును."
+            </div>
+        </div>
+
+        <!-- Point 9 -->
+        <div class="commentary-block">
+            <h4 class="text-xl font-bold mb-3 text-gray-800 dark:text-gray-200">9. షేబ రాణి ఆశ్చర్యం (Queen of Sheba)</h4>
+            <p class="explanation-text">
+                సొలొమోను జ్ఞానం, వైభవం భూదిగంతాలకు వ్యాపించింది. షేబ దేశపు రాణి స్వయంగా వచ్చి కఠినమైన ప్రశ్నలు అడిగింది. సొలొమోను జ్ఞానం, మందిర నిర్మాణం, అతని ఆస్థానపు పద్ధతి చూసి ఆమె 'సొమ్మసిల్లిపోయింది' (Breathless). "నేను విన్న దానిలో సగం కూడా నాకు చెప్పబడలేదు" అని దేవుని నామాన్ని మహిమపరిచింది.
+            </p>
+            <div class="verse-card">
+                <span class="verse-ref">2 దినవృత్తాంతములు 9:4</span>
+                "అతని జ్ఞానమును, అతడు కట్టించిన మందిరమును... చూచి ఆమె విస్మయమొందెను."
+            </div>
+        </div>
+
+        <!-- Point 10 -->
+        <div class="commentary-block">
+            <h4 class="text-xl font-bold mb-3 text-gray-800 dark:text-gray-200">10. రాజ్య విభజన (Division of the Kingdom)</h4>
+            <p class="explanation-text">
+                సొలొమోను కుమారుడైన రెహబాము రాజయ్యాక, ప్రజలు "నీ తండ్రి మాపై పెట్టిన భారమైన కాడిని తగ్గించు" అని అడిగారు. వృద్ధుల సలహా వినకుండా, యవ్వనుల సలహాతో "నేను నా తండ్రి కంటే కఠినంగా ఉంటాను" అని రెహబాము గర్వంగా జవాబిచ్చాడు. దీంతో 10 గోత్రాలు విడిపోయి ఉత్తర ఇశ్రాయేలు రాజ్యంగా ఏర్పడ్డాయి. అహంకారం ఎంతటి నష్టాన్ని తెస్తుందో ఇది నిదర్శనం.
+            </p>
+            <div class="verse-card">
+                <span class="verse-ref">2 దినవృత్తాంతములు 10:15</span>
+                "ఆ రాజు జనుల మనవిని ఆలకింపక పోయెను... యెహోవా ఈలాగున సంభవించునట్లు చేసెను."
+            </div>
+        </div>
+
+        <!-- Point 11 -->
+        <div class="commentary-block">
+            <h4 class="text-xl font-bold mb-3 text-gray-800 dark:text-gray-200">11. షీషకు దాడి (Shishak's Attack)</h4>
+            <p class="explanation-text">
+                రెహబాము రాజ్యం స్థిరపడగానే, దేవుని ధర్మశాస్త్రాన్ని విడిచిపెట్టాడు. శిక్షగా ఐగుప్తు రాజైన షీషకు యెరూషలేముపై దాడి చేసి, దేవాలయంలోని విలువైన వస్తువులన్నింటినీ దోచుకెళ్లాడు. షెమయా ప్రవక్త ద్వారా దేవుడు హెచ్చరించినప్పుడు రాజు, నాయకులు పశ్చాత్తాపపడ్డారు. కాబట్టి దేవుడు వారిని పూర్తిగా నాశనం చేయకుండా కొంత రక్షణ దయచేశాడు.
+            </p>
+            <div class="verse-card">
+                <span class="verse-ref">2 దినవృత్తాంతములు 12:9</span>
+                "ఐగుప్తురాజైన షీషకు యెరూషలేముమీదికి వచ్చి యెహోవా మందిరపు నిధులను రాజనగరు నిధులను దోచుకొనెను."
+            </div>
+        </div>
+
+        <!-- Point 12 -->
+        <div class="commentary-block">
+            <h4 class="text-xl font-bold mb-3 text-gray-800 dark:text-gray-200">12. అబీయా విశ్వాసము (Abijah's Faith)</h4>
+            <p class="explanation-text">
+                రెహబాము కుమారుడైన అబీయా యూదా రాజైనప్పుడు, ఇశ్రాయేలు రాజైన యరొబాము 8 లక్షల మందితో దండెత్తి వచ్చాడు. అబీయాకు 4 లక్షల మందే ఉన్నారు. అబీయా పర్వతం మీద నిలబడి "మేము మా పితరుల దేవునిపై ఆధారపడ్డాము, మాకు విరోధంగా పోరాడొద్దు" అని చెప్పాడు. వారు దేవునికి మొరపెట్టగా, దేవుడు యరొబామును మొత్తాడు, యూదాకు గొప్ప విజయం దక్కింది.
+            </p>
+            <div class="verse-card">
+                <span class="verse-ref">2 దినవృత్తాంతములు 13:18</span>
+                "యూదావారు తమ పితరుల దేవుడైన యెహోవాను ఆశ్రయించినందున వారు బలపొందిరి."
+            </div>
+        </div>
+
+        <!-- Point 13 -->
+        <div class="commentary-block">
+            <h4 class="text-xl font-bold mb-3 text-gray-800 dark:text-gray-200">13. ఆసా సంస్కరణలు (Asa's Reforms)</h4>
+            <p class="explanation-text">
+                ఆసా మహారాజు దేవుని దృష్టికి అనుకూలమైన పనులు చేశాడు. అన్య దేవతల బలిపీఠాలను పడగొట్టాడు. కూషీయుడైన జెరహు 10 లక్షల మంది సైన్యంతో దాడి చేసినప్పుడు ఆసా, "యెహోవా, అనేకులకైనా బలహీనులకైనా సహాయం చేయడం నీకు కష్టం కాదు, మనుష్యులను నీపై జయం పొందనివ్వొద్దు" అని ప్రార్థించాడు. దేవుడు శత్రువులను తరిమికొట్టాడు.
+            </p>
+            <div class="verse-card">
+                <span class="verse-ref">2 దినవృత్తాంతములు 14:11</span>
+                "మా దేవా యెహోవా, మాకు సహాయము చేయుము, నిన్నే నమ్ముకొనియున్నాము... మనుష్యులను నీ పైన జయమొందనియ్యకుము."
+            </div>
+        </div>
+
+        <!-- Point 14 -->
+        <div class="commentary-block">
+            <h4 class="text-xl font-bold mb-3 text-gray-800 dark:text-gray-200">14. యెహోషాపాతు భక్తి (Jehoshaphat's Devotion)</h4>
+            <p class="explanation-text">
+                యెహోషాపాతు దేవుని మార్గాలలో హృదయపూర్వకంగా నడిచాడు. దేశమంతటా అధికారులను, లేవీయులను పంపి దేవుని ధర్మశాస్త్రాన్ని ప్రజలకు బోధించాడు. ఆయన భక్తిని చూసి చుట్టుపక్కల దేశాలకు యెహోవా భయం పట్టుకుంది, ఎవరూ యూదాపై యుద్ధానికి రాలేదు. వాక్యం నేర్పించడం దేశానికి ఎంత క్షేమమో ఇది చూపిస్తుంది.
+            </p>
+            <div class="verse-card">
+                <span class="verse-ref">2 దినవృత్తాంతములు 17:6</span>
+                "అతని హృదయము యెహోవా మార్గములయందు ఉత్సాహముగలదాయెను."
+            </div>
+        </div>
+
+        <!-- Point 15 -->
+        <div class="commentary-block">
+            <h4 class="text-xl font-bold mb-3 text-gray-800 dark:text-gray-200">15. ఆహాబుతో వియ్యము (Alliance with Ahab)</h4>
+            <p class="explanation-text">
+                యెహోషాపాతు చేసిన పెద్ద తప్పు, దుర్మార్గుడైన ఇశ్రాయేలు రాజు ఆహాబుతో వియ్యమొందడం. ఆహాబు పిలుపుమేరకు యుద్ధానికి వెళ్ళాడు. మీకాయా ప్రవక్త వద్దని చెప్పినా వినలేదు. ఆ యుద్ధంలో ఆహాబు చనిపోయాడు, యెహోషాపాతు తృటిలో ప్రాణాపాయం నుండి తప్పించుకున్నాడు. భక్తిహీనులతో స్నేహం ఎప్పుడూ ప్రమాదమే.
+            </p>
+            <div class="verse-card">
+                <span class="verse-ref">2 దినవృత్తాంతములు 18:1</span>
+                "యెహోషాపాతు అత్యధికమైన ఐశ్వర్యమును ఘనతయు గలవాడై ఆహాబుతో వియ్యమొందెను."
+            </div>
+        </div>
+
+        <!-- Point 16 -->
+        <div class="commentary-block">
+            <h4 class="text-xl font-bold mb-3 text-gray-800 dark:text-gray-200">16. కీర్తనలతో యుద్ధము (Praise Wins the Battle)</h4>
+            <p class="explanation-text">
+                మోయాబు, అమ్మోను వారు యూదా మీద గొప్ప దండుగా వచ్చినప్పుడు, యెహోషాపాతు భయపడి ఉపవాసం ప్రకటించాడు. "మా దేవా, ఈ గొప్ప సైన్యముతో యుద్ధము చేయుటకు మాకు శక్తి చాలదు, నీవే మా దిక్కు" అని ప్రార్థించాడు. సైన్యానికి ముందు గాయకులను నిలబెట్టాడు. వారు స్తుతిస్తుండగానే దేవుడు శత్రువుల మధ్య పగ పుట్టించి వారే ఒకరినొకరు చంపుకునేలా చేశాడు. ఆరాధన ఒక ఆయుధం.
+            </p>
+            <div class="verse-card">
+                <span class="verse-ref">2 దినవృత్తాంతములు 20:22</span>
+                "వారు పాడుటకును స్తుతించుటకును మొదలుపెట్టగా... వారు హతులైరి."
+            </div>
+        </div>
+
+        <!-- Point 17 -->
+        <div class="commentary-block">
+            <h4 class="text-xl font-bold mb-3 text-gray-800 dark:text-gray-200">17. యోవాషు ముగింపు (Joash's Tragic End)</h4>
+            <p class="explanation-text">
+                యాజకుడైన యెహోయాదా బ్రతికినంత కాలం యోవాషు దేవుని మార్గంలో నడిచి ఆలయాన్ని బాగుచేశాడు. కానీ యెహోయాదా చనిపోయాక యూదా అధికారుల మాట విని విగ్రహారాధనలో పడ్డాడు. తనను పెంచిన యెహోయాదా కొడుకు జెకర్యాను రాళ్ళతో కొట్టి చంపించాడు. దేవుడు సిరియన్లను పంపి యోవాషును శిక్షించాడు, సొంత సేవకులే అతనిని చంపారు. ప్రారంభం కంటే ముగింపు ముఖ్యం.
+            </p>
+            <div class="verse-card">
+                <span class="verse-ref">2 దినవృత్తాంతములు 24:20</span>
+                "మీరు యెహోవాను విసర్జించితిరి గనుక ఆయన మిమ్మును విసర్జించి యున్నాడనెను."
+            </div>
+        </div>
+
+        <!-- Point 18 -->
+        <div class="commentary-block">
+            <h4 class="text-xl font-bold mb-3 text-gray-800 dark:text-gray-200">18. ఉజ్జియా గర్వము (Uzziah's Pride)</h4>
+            <p class="explanation-text">
+                ఉజ్జియా చాలా మంచి రాజు. దేవుడు అతనికి గొప్ప పేరు, సైన్యం, వ్యవసాయం ఇచ్చి అద్భుతంగా ఆశీర్వదించాడు. కానీ అతడు బలవంతుడయ్యాక గర్వించి, యాజకులు మాత్రమే చేయవలసిన ధూపార్పణ చేయడానికి దేవుని మందిరంలోకి చొరబడ్డాడు. యాజకులు వారించినా వినలేదు. వెంటనే అతని నుదుటి మీద కుష్టురోగం పుట్టింది. చనిపోయేవరకు కుష్టురోగిగానే ఒక ప్రత్యేక ఇంట్లో ఉన్నాడు.
+            </p>
+            <div class="verse-card">
+                <span class="verse-ref">2 దినవృత్తాంతములు 26:16</span>
+                "అతడు బలవంతుడైనప్పుడు అతని మనస్సు మిక్కిలి గర్వించెను గనుక అతడు చెడిపోయెను."
+            </div>
+        </div>
+
+        <!-- Point 19 -->
+        <div class="commentary-block">
+            <h4 class="text-xl font-bold mb-3 text-gray-800 dark:text-gray-200">19. ఆహాజు విగ్రహారాధన (Ahaz's Idolatry)</h4>
+            <p class="explanation-text">
+                ఆహాజు యూదా రాజులందరిలో అత్యంత చెడ్డవాడు. బయలు విగ్రహాలను పూజించాడు, తన సొంత కుమారులను అగ్నిగుండా (బలి) దాటించాడు. దేవుని మందిరపు తలుపులు మూసివేశాడు. దేవుడు ఇశ్రాయేలు (ఉత్తర) వారి చేతికి అతన్ని అప్పగించాడు. ఒకే రోజులో యూదాలో 1,20,000 మంది చనిపోయారు. కష్టాలలో దేవుని వెతకాల్సింది పోయి, సిరియా దేవుళ్ళను పూజించి పూర్తిగా చెడిపోయాడు.
+            </p>
+            <div class="verse-card">
+                <span class="verse-ref">2 దినవృత్తాంతములు 28:22</span>
+                "ఈ ఆహాజు తనకు శ్రమ కలిగిన కాలమున యెహోవామీద మరి యెక్కువగా ద్రోహము చేసెను."
+            </div>
+        </div>
+
+        <!-- Point 20 -->
+        <div class="commentary-block">
+            <h4 class="text-xl font-bold mb-3 text-gray-800 dark:text-gray-200">20. హిజ్కియా ఆలయ శుద్ధి (Hezekiah Cleanses the Temple)</h4>
+            <p class="explanation-text">
+                ఆహాజు కొడుకైన హిజ్కియా తండ్రికి భిన్నంగా దేవుని వైపు తిరిగాడు. రాజైన మొదటి నెలలోనే తన తండ్రి మూసివేసిన మందిరపు తలుపులు తెరిచి, లేవీయులను పిలిచి "ముందు మిమ్మల్ని మీరు ప్రతిష్ఠించుకొని, ఆలయంలో ఉన్న చెత్తను తీసివేయండి" అని ఆజ్ఞాపించాడు. గొప్ప ఆరాధన, బలులతో దేవునితో క్రొత్త నిబంధన చేశాడు. ఉజ్జీవానికి (Revival) ఇదే పునాది.
+            </p>
+            <div class="verse-card">
+                <span class="verse-ref">2 దినవృత్తాంతములు 29:5</span>
+                "మిమ్మును మీరు ప్రతిష్ఠించుకొనుడి, మీ పితరుల దేవుడైన యెహోవా మందిరమును ప్రతిష్ఠించి పరిశుద్ధస్థలములోనుండి అపవిత్రమైనదానిని వెలుపలికి తీసివేయుడి."
+            </div>
+        </div>
+
+        <!-- Point 21 -->
+        <div class="commentary-block">
+            <h4 class="text-xl font-bold mb-3 text-gray-800 dark:text-gray-200">21. గొప్ప పస్కా పండుగ (The Great Passover)</h4>
+            <p class="explanation-text">
+                హిజ్కియా యూదా వారినే కాకుండా, విడిపోయిన ఇశ్రాయేలు (ఉత్తర) గోత్రాలకు కూడా ఉత్తరాలు పంపి యెరూషలేముకు వచ్చి పస్కా పండుగ ఆచరించమని ఆహ్వానించాడు. కొందరు అపహాస్యం చేసినా, చాలామంది వినయంగా వచ్చారు. సొలొమోను దినముల తర్వాత యెరూషలేములో ఇంత గొప్ప ఆనందం జరగలేదు. దేవుడు ప్రజల ప్రార్థన విని వారిని స్వస్థపరిచాడు.
+            </p>
+            <div class="verse-card">
+                <span class="verse-ref">2 దినవృత్తాంతములు 30:26</span>
+                "యెరూషలేమునందు మహా ఆనందము కలిగెను; ఇశ్రాయేలురాజైన దావీదు కుమారుడగు సొలొమోను దినములు మొదలుకొని యెరూషలేమునందు అట్టి పండుగ ఆచరింపబడలేదు."
+            </div>
+        </div>
+
+        <!-- Point 22 -->
+        <div class="commentary-block">
+            <h4 class="text-xl font-bold mb-3 text-gray-800 dark:text-gray-200">22. సన్హెరీబు ముట్టడి (Sennacherib's Defeat)</h4>
+            <p class="explanation-text">
+                అష్షూరు రాజు సన్హెరీబు దాడి చేసి దేవుణ్ణి దూషించినప్పుడు, హిజ్కియా ప్రజలతో "మాంస సంబంధమైన బాహువే అతనికి అండ, మనకు సహాయము చేయడానికి మన దేవుడైన యెహోవా మనకు తోడుగా ఉన్నాడు" అని ధైర్యం చెప్పాడు. యెషయా ప్రవక్తతో కలిసి ప్రార్థించాడు. దేవుడు ఒక దూతను పంపి అష్షూరు సైన్యాన్ని పూర్తిగా నాశనం చేశాడు.
+            </p>
+            <div class="verse-card">
+                <span class="verse-ref">2 దినవృత్తాంతములు 32:8</span>
+                "మాంససంబంధమైన బాహువే అతనికి అండ, మనకు సహాయము చేయుటకును మన యుద్ధములను జరిగించుటకును మన దేవుడైన యెహోవా మనకు తోడుగా ఉన్నాడనెను."
+            </div>
+        </div>
+
+        <!-- Point 23 -->
+        <div class="commentary-block">
+            <h4 class="text-xl font-bold mb-3 text-gray-800 dark:text-gray-200">23. మనష్షే పశ్చాత్తాపం (Manasseh's Repentance)</h4>
+            <p class="explanation-text">
+                హిజ్కియా కుమారుడైన మనష్షే దారుణమైన విగ్రహారాధన చేశాడు. ఫలితంగా అష్షూరు రాజులు వచ్చి అతన్ని సంకెళ్ళతో బంధించి బబులోనుకు ఈడ్చుకెళ్లారు. ఆ భయంకర శ్రమలో మనష్షే పూర్తిగా తగ్గించుకుని తన దేవునికి ప్రార్థించాడు. దేవుడు అతని ప్రార్థన విని విడిపించి తిరిగి సింహాసనం ఇచ్చాడు. పశ్చాత్తాపపడితే దేవుడు ఎంతటి ఘోర పాపినైనా క్షమిస్తాడని మనష్షే జీవితం చెబుతుంది.
+            </p>
+            <div class="verse-card">
+                <span class="verse-ref">2 దినవృత్తాంతములు 33:12</span>
+                "తనకు శ్రమ కలుగగా అతడు తన దేవుడైన యెహోవాను వేడుకొని, తన పితరుల దేవుని సన్నిధిని తన్నుతాను బహుగా తగ్గించుకొని..."
+            </div>
+        </div>
+
+        <!-- Point 24 -->
+        <div class="commentary-block">
+            <h4 class="text-xl font-bold mb-3 text-gray-800 dark:text-gray-200">24. యోషీయా మరియు ధర్మశాస్త్రం (Josiah and the Law)</h4>
+            <p class="explanation-text">
+                యోషీయా రాజు 8 ఏళ్ల వయసులో రాజై, దేవుని మార్గంలో నడిచాడు. ఆలయాన్ని బాగు చేస్తుండగా దేవుని ధర్మశాస్త్ర గ్రంథం దొరికింది. దానిని చదివి వినిపించినప్పుడు, బట్టలు చింపుకుని పశ్చాత్తాప పడ్డాడు. వాక్యపు వెలుగులో దేశంలోని విగ్రహాలన్నింటినీ తొలగించి, దేవునితో ప్రజల నిబంధనను పునరుద్ధరించాడు. దేవుని వాక్యానికి మనల్ని మార్చే శక్తి ఉంది.
+            </p>
+            <div class="verse-card">
+                <span class="verse-ref">2 దినవృత్తాంతములు 34:14</span>
+                "యాజకుడైన హిల్కీయాకు మోషేద్వారా ఇయ్యబడిన యెహోవా ధర్మశాస్త్ర గ్రంథము ఒకటి దొరకెను."
+            </div>
+        </div>
+
+        <!-- Point 25 -->
+        <div class="commentary-block">
+            <h4 class="text-xl font-bold mb-3 text-gray-800 dark:text-gray-200">25. బబులోను చెర మరియు కోరేషు ఆజ్ఞ (Exile and Cyrus's Decree)</h4>
+            <p class="explanation-text">
+                చివరి రాజుల కాలంలో ప్రజలు దేవుని ప్రవక్తలను హేళన చేశారు, వినలేదు. దేవుని కోపం రగులుకుంది, ఇక ప్రతివికారం లేదు. బబులోను రాజు నెబుకద్నెజరు వచ్చి యెరూషలేము ఆలయాన్ని కాల్చివేసి, ప్రజలను 70 ఏళ్ల బానిసత్వానికి తీసుకెళ్లాడు. కానీ దేవుడు వారిని వదిలివేయలేదు. 70 ఏళ్ల తర్వాత పర్షియా రాజైన కోరేషు, యూదులను తిరిగి వెళ్ళి దేవుని ఆలయాన్ని కట్టుకోమని ఆజ్ఞ ఇవ్వడంతో ఈ గ్రంథం నిరీక్షణతో ముగుస్తుంది.
+            </p>
+            <div class="verse-card">
+                <span class="verse-ref">2 దినవృత్తాంతములు 36:23</span>
+                "తన మందిరమును కట్టించుకొనుమని ఆయన నాకు ఆజ్ఞాపించి యున్నాడు; కావున మీలో ఎవరు ఆయన జనులై యున్నారో వారు బయలుదేరవచ్చును..."
+            </div>
+        </div>
+
+        <div class="bg-orange-50 dark:bg-gray-800 p-8 rounded-xl border border-orange-200 dark:border-gray-700 text-center mt-16">
+            <h3 class="text-2xl font-bold mb-4 text-orange-900 dark:text-gold-500">తరువాత ఏంటి?</h3>
+            <p class="mb-6">70 సంవత్సరాల కఠోర బానిసత్వం (Exile) ముగిసింది. కోరేషు ఆజ్ఞ ప్రకారం కొందరు యూదులు యెరూషలేముకు తిరిగి వస్తున్నారు. నాశనమైన నగరంలో వారు తిరిగి ఆలయాన్ని ఎలా నిర్మించారు? దేవుని ధర్మశాస్త్రం తిరిగి ఎలా స్థాపించబడింది? ఆ పునరుద్ధరణ (Restoration) చరిత్రే తదుపరి గ్రంథమైన "ఎజ్రా" (Ezra).</p>
+            <div class="inline-block px-8 py-3 bg-black text-white dark:bg-gold-500 dark:text-black font-bold uppercase tracking-widest rounded-full cursor-pointer hover:scale-105 transition-transform">
+                2 దినవృత్తాంతములు 1వ అధ్యాయం చదవండి
+            </div>
+        </div>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-black text-white py-16 text-center border-t-4 border-gold-500">
+        <h2 class="text-3xl font-brand text-gold-500 mb-6">Word of God (WOG)</h2>
+        <p class="text-gray-400 mb-8 max-w-lg mx-auto">సత్యవాక్యమును సరిగా ఉపదేశించువానిగాను, సిగ్గుపడనక్కరలేని పనివానిగాను నిన్నునీవే దేవునికి కనపరచుకొనుటకు జాగ్రత్తపడుము. 2 తిమోతికి 2:15</p>
+        <p class="text-6xl font-brand text-white/10 tracking-widest mt-8">2 CHRONICLES</p>
+        <p class="text-xs text-gray-600 mt-8">© 2026 WOG Ministries. All Rights Reserved.</p>
+    </footer>
+
+    <script>
+        // --- SETTINGS MENU LOGIC ---
+        const root = document.documentElement;
+        const menu = document.getElementById('settings-menu');
+        const overlay = document.getElementById('menu-overlay');
+        const themeLabel = document.getElementById('theme-label-menu');
+        let currentSize = 20;
+
+        // Toggle Menu Visibility
+        function toggleMenu() {
+            menu.classList.toggle('active');
+            overlay.classList.toggle('active');
+        }
+
+        // Font Adjustment (Restricted to buttons only)
+        function adjustFont(dir) {
+            if (dir === 1 && currentSize < 32) currentSize += 2;
+            if (dir === -1 && currentSize > 16) currentSize -= 2;
+            root.style.setProperty('--content-size', currentSize + 'px');
+        }
+
+        // Initialize Theme from LocalStorage
+        if (localStorage.theme === 'dark') {
+            root.classList.add('dark');
+            if(themeLabel) themeLabel.innerText = 'Light Mode';
+        }
+
+        // Theme Toggle Function
+        function toggleTheme() {
+            if (root.classList.contains('dark')) {
+                root.classList.remove('dark');
+                localStorage.theme = 'light';
+                if(themeLabel) themeLabel.innerText = 'Dark Mode';
+            } else {
+                root.classList.add('dark');
+                localStorage.theme = 'dark';
+                if(themeLabel) themeLabel.innerText = 'Light Mode';
+            }
+        }
+
+        // Scroll Progress Bar
+        window.onscroll = function() {
+            let winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            let height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            let scrolled = (winScroll / height) * 100;
+            document.getElementById("reading-progress").style.width = scrolled + "%";
+        };
+    </script>
+</body>
+</html>
