@@ -1,1 +1,745 @@
+<!DOCTYPE html>
+<html lang="te" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <!-- Pinch to zoom disabled strictly -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>1 దినవృత్తాంతములు - 25 ముఖ్యమైన ఘట్టాలు</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Anek+Telugu:wght@300;400;500;600;700;800&family=Mallanna&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&display=swap" rel="stylesheet">
+    <!-- Icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'body': ['"Mallanna"', 'serif'],        
+                        'heading': ['"Anek Telugu"', 'sans-serif'],
+                        'brand': ['"Cinzel"', 'serif'],
+                    },
+                    colors: {
+                        gold: {
+                            400: '#facc15', // Bright Gold
+                            500: '#eab308', // Classic Gold
+                            600: '#ca8a04', // Deep Gold
+                        },
+                        paper: '#fffaf0', // Warm White
+                        bible: '#854d0e', // Leather Brown
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        /* --- TYPOGRAPHY SYSTEM --- */
+        :root {
+            --content-size: 20px; /* Default size */
+            --line-height: 2.2;
+        }
+
+        html { scroll-behavior: smooth; }
+        
+        /* NO SELECTION - APP FEEL */
+        .no-select {
+            -webkit-user-select: none; /* Safari */
+            -moz-user-select: none;    /* Firefox */
+            -ms-user-select: none;     /* IE10+/Edge */
+            user-select: none;         /* Standard */
+            -webkit-touch-callout: none; /* iOS Safari */
+        }
+
+        body { 
+            background-color: var(--paper); 
+            color: #292524;
+            font-family: 'Mallanna', serif;
+            line-height: var(--line-height);
+            transition: background-color 0.3s ease, color 0.3s ease;
+            overflow-x: hidden; /* Prevent horizontal scroll */
+        }
+
+        /* Dynamic Font Sizing Class */
+        .content-text { font-size: var(--content-size); }
+        h1, h2, h3, h4, .ref-title, .brand-text { font-family: 'Anek Telugu', sans-serif; }
+
+        /* --- DARK MODE RULES --- */
+        html.dark body { background-color: #0c0a09 !important; color: #e7e5e4 !important; }
+        html.dark .content-text, html.dark p, html.dark li { color: #d6d3d1 !important; }
+        html.dark h1, html.dark h2, html.dark h3, html.dark strong { color: #facc15 !important; }
+        html.dark .verse-card { background-color: #1c1917 !important; border-left-color: #facc15 !important; }
+        html.dark .info-grid { background-color: #1c1917 !important; border-color: #444 !important; }
+        
+        /* Settings Menu Dark Mode */
+        html.dark #settings-menu { background-color: #1c1917; border-color: #444; color: white; }
+        html.dark .setting-btn { background-color: #2d2d2d; color: white; border-color: #444; }
+
+        /* --- COMPONENTS --- */
+        
+        /* WOG Badge - Left Side */
+        .brand-badge {
+            position: fixed; top: 20px; left: 20px; z-index: 60;
+            background: #000; color: #facc15;
+            padding: 8px 16px; font-family: 'Cinzel', serif; font-weight: bold;
+            border: 2px solid #facc15; box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+            backdrop-filter: blur(5px);
+            border-radius: 4px;
+        }
+
+        /* Settings Toggle Button - Top Right */
+        .settings-toggle {
+            position: fixed; top: 20px; right: 20px; z-index: 61;
+            background: rgba(255, 255, 255, 0.9); 
+            color: #333;
+            width: 45px; height: 45px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            cursor: pointer;
+            transition: transform 0.2s;
+            border: 1px solid rgba(0,0,0,0.1);
+        }
+        .settings-toggle:active { transform: scale(0.95); }
+        html.dark .settings-toggle { background: #333; color: #fff; border-color: #555; }
+
+        /* Settings Menu Popover */
+        #settings-menu {
+            display: none; /* Hidden by default */
+            position: fixed; top: 75px; right: 20px; z-index: 60;
+            background: white;
+            padding: 15px;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            width: 220px;
+            border: 1px solid #e5e7eb;
+            animation: fadeIn 0.2s ease-out;
+        }
+        #settings-menu.active { display: block; }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .setting-btn {
+            padding: 8px; border-radius: 6px;
+            border: 1px solid #e5e7eb;
+            background: #f9fafb;
+            font-weight: bold;
+            transition: all 0.2s;
+        }
+        .setting-btn:active { transform: scale(0.95); }
+
+        .hero {
+            height: 70vh;
+            /* Ancient Scrolls / Majestic Temple Prep Theme */
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.8)), url('https://images.unsplash.com/photo-1614850523459-c2f4c699c52e?q=80&w=2070&auto=format&fit=crop');
+            background-size: cover; background-position: center; background-attachment: fixed;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            text-align: center; color: white;
+        }
+
+        /* Stats Grid */
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            background: #fff;
+            padding: 2rem;
+            border-radius: 1rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            border: 1px solid #e7e5e4;
+            margin-bottom: 3rem;
+        }
+        .info-item h4 { font-size: 0.8rem; text-transform: uppercase; color: #854d0e; letter-spacing: 0.1em; }
+        .info-item p { font-size: 1.2rem; font-weight: bold; color: #000; font-family: 'Anek Telugu'; }
+        html.dark .info-item h4 { color: #facc15; }
+        html.dark .info-item p { color: #fff; }
+
+        /* Author Note Box - Requested Feature */
+        .author-note {
+            background: #fff7ed; /* Light Orange/Amber */
+            border-left: 4px solid #ea580c;
+            padding: 1.5rem;
+            margin-bottom: 3rem;
+            border-radius: 0 8px 8px 0;
+            font-size: 0.95rem;
+            color: #431407;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+        }
+        html.dark .author-note {
+            background: #431407;
+            border-color: #f97316;
+            color: #ffedd5;
+        }
+
+        /* Commentary Block Structure */
+        .commentary-block { margin-bottom: 4rem; }
+        
+        .explanation-text {
+            color: #44403c;
+            margin-bottom: 1.5rem;
+            border-left: 3px solid transparent;
+            padding-left: 0;
+            line-height: 1.8;
+            text-align: justify;
+        }
+        html.dark .explanation-text { color: #a8a29e; }
+
+        /* Verse Card */
+        .verse-card {
+            background: #fff;
+            border-left: 6px solid #ea580c; /* Orange accent */
+            padding: 25px 30px;
+            border-radius: 0 12px 12px 0;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+            font-style: italic;
+            position: relative;
+        }
+        .verse-ref {
+            position: absolute; top: -12px; left: 20px;
+            background: #ea580c; color: white;
+            padding: 4px 12px; font-size: 0.8rem; font-weight: bold;
+            border-radius: 4px; font-family: 'Anek Telugu';
+        }
+        html.dark .verse-ref { background: #facc15; color: #000; }
+
+        /* Christology Box - DARK GRAY BACKGROUND */
+        .christ-box {
+            background: #262626; /* Dark Gray */
+            color: #ffffff;      /* White Text */
+            border: 1px solid #404040;
+            border-radius: 12px;
+            padding: 2rem;
+            margin: 3rem 0;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        }
+        /* Override specific colors inside Christ Box for readability */
+        .christ-box h3 { color: #facc15 !important; } /* Gold Heading */
+        .christ-box .highlight { color: #facc15 !important; } /* Gold Highlights */
+        .christ-box p, .christ-box li, .christ-box span { color: #e5e5e5; }
+
+        .drop-cap {
+            float: left; font-size: 4.5rem; line-height: 0.8;
+            margin-right: 1rem; margin-top: 0.2rem;
+            font-family: 'Anek Telugu'; font-weight: 800; color: #ea580c;
+        }
+        
+        #reading-progress {
+            position: fixed; top: 0; left: 0; height: 5px;
+            background: linear-gradient(to right, #ea580c, #facc15);
+            width: 0%; z-index: 200;
+        }
+
+        /* Overlay to close menu when clicking outside */
+        #menu-overlay {
+            display: none; position: fixed; inset: 0; z-index: 59;
+            background: transparent;
+        }
+        #menu-overlay.active { display: block; }
+
+    </style>
+</head>
+<body class="no-select">
+
+    <div id="reading-progress"></div>
+    
+    <!-- Brand Badge (Left Side) -->
+    <div class="brand-badge">WOG</div>
+
+    <!-- Settings Toggle Button (Right Side) -->
+    <button onclick="toggleMenu()" class="settings-toggle">
+        <i class="fas fa-font text-xl"></i>
+    </button>
+
+    <!-- Overlay for closing menu -->
+    <div id="menu-overlay" onclick="toggleMenu()"></div>
+
+    <!-- Settings Popup Menu -->
+    <div id="settings-menu">
+        <div class="mb-4">
+            <p class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-2">Text Size</p>
+            <div class="flex gap-2 items-center">
+                <button onclick="adjustFont(-1)" class="setting-btn flex-1 flex justify-center items-center h-10">
+                    <i class="fas fa-minus text-xs"></i>
+                </button>
+                <span class="text-sm font-bold w-8 text-center" id="font-display">Aa</span>
+                <button onclick="adjustFont(1)" class="setting-btn flex-1 flex justify-center items-center h-10">
+                    <i class="fas fa-plus text-xs"></i>
+                </button>
+            </div>
+        </div>
+
+        <div>
+            <p class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-2">Theme</p>
+            <button onclick="toggleTheme()" class="setting-btn w-full flex items-center justify-center gap-2 h-10">
+                <i class="fas fa-moon"></i>
+                <span id="theme-label-menu">Dark Mode</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- HERO -->
+    <header class="hero">
+        <span class="inline-block py-2 px-6 border border-white/40 rounded-full text-sm font-bold uppercase tracking-[0.3em] mb-8 bg-black/30 backdrop-blur-md">
+            The Royal Lineage & The Temple
+        </span>
+        <!-- Title Fixed -->
+        <h1 class="text-4xl md:text-7xl font-black mb-6 drop-shadow-2xl tracking-tight leading-tight px-4 break-words max-w-full" style="font-family: 'Anek Telugu'">
+            1 దినవృత్తాంతములు
+        </h1>
+        <p class="text-xl md:text-2xl font-light italic max-w-4xl px-4 text-white/90" style="font-family: 'Mallanna'">
+            "యెహోవా, మహాత్మ్యమును పరాక్రమమును ప్రభావమును తేజస్సును ఘనతయు నీకే చెందుచున్నవి" (1 CHRONICLES 29:11)
+        </p>
+    </header>
+
+    <main id="main-content" class="content-text max-w-4xl mx-auto px-6 py-16">
+
+        <!-- INFO GRID -->
+        <section class="info-grid">
+            <div class="info-item">
+                <h4>రచయిత</h4>
+                <p>ఎజ్రా (సాంప్రదాయం)</p>
+            </div>
+            <div class="info-item">
+                <h4>కాలం</h4>
+                <p>క్రీ.పూ. 1000 - 970</p>
+            </div>
+            <div class="info-item">
+                <h4>స్థలం</h4>
+                <p>యెరూషలేము</p>
+            </div>
+            <div class="info-item">
+                <h4>అధ్యాయాలు</h4>
+                <p>29</p>
+            </div>
+            <div class="info-item">
+                <h4>కీలక అంశం</h4>
+                <p>దావీదు నిబంధన & ఆరాధన</p>
+            </div>
+        </section>
+
+        <!-- AUTHOR NOTE - SPECIAL REQUEST -->
+        <div class="author-note">
+            <h4 class="font-bold mb-2 flex items-center gap-2 text-lg">
+                <i class="fas fa-feather-alt"></i> గ్రంథ నేపథ్యం గురించి గమనిక:
+            </h4>
+            <p style="line-height: 1.6;">
+                1 దినవృత్తాంతములు (1 Chronicles) బబులోను చెర నుండి తిరిగి వచ్చిన యూదుల కోసం వ్రాయబడింది. యూదులు 70 ఏళ్లు బానిసలుగా ఉండి తమ మూలాలను, దేవుని వాగ్దానాలను మర్చిపోయే స్థితిలో ఉన్నప్పుడు, సాంప్రదాయం ప్రకారం <strong>యాజకుడైన ఎజ్రా (Ezra)</strong> దీనిని సంకలనం చేశాడు. సమూయేలు, రాజుల గ్రంథాలలో ఉన్న చరిత్రే ఇందులో ఉన్నప్పటికీ, ఇది పాపాల గురించి కాకుండా <strong>ఆరాధన, దేవాలయం, మరియు దావీదు వంశంపై (మెస్సీయ రాకడ కొరకు)</strong> ఎక్కువ దృష్టి పెడుతుంది. దేవుడు మనల్ని విడిచిపెట్టలేదు అని యూదులకు ధైర్యం చెప్పడమే దీని ముఖ్య ఉద్దేశం.
+            </p>
+        </div>
+
+        <!-- INTRO -->
+        <article class="mb-16">
+            <h2 class="text-4xl font-bold mb-6 text-orange-900 dark:text-gold-500 pb-4 border-b-2 border-orange-200 dark:border-gray-800">
+                మూలాలను వెతుక్కుంటూ...
+            </h2>
+            <p>
+                <span class="drop-cap">1</span> దినవృత్తాంతములు మొదటి అధ్యాయం మానవ చరిత్రలో మొదటి వ్యక్తయిన ఆదాముతో మొదలవుతుంది. మొదటి 9 అధ్యాయాలు పూర్తిగా వంశావళులతో (Genealogies) నిండి ఉంటాయి. దేవుడు చరిత్రను, వ్యక్తులను మర్చిపోడు అని ఇది చూపిస్తుంది. ఆ తర్వాత, సౌలు మరణంతో ఈ గ్రంథం దావీదు జీవితంలోకి ప్రవేశిస్తుంది. దావీదు చేసిన యుద్ధాలు, మందసాన్ని యెరూషలేముకు తీసుకురావడం, దేవాలయ నిర్మాణానికి అతను చేసిన గొప్ప సన్నాహాలు మరియు దేవునితో చేసిన ఆరాధన ఈ గ్రంథంలో అద్భుతంగా వివరించబడ్డాయి.
+            </p>
+        </article>
+
+        <!-- CHRIST IN 1 CHRONICLES -->
+        <div class="christ-box">
+            <h3 class="text-2xl font-bold mb-4 flex items-center gap-2">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#facc15" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M2 12h20"/></svg>
+                క్రీస్తును ఎక్కడ వెతకాలి?
+            </h3>
+            <p class="mb-4 text-sm opacity-80">ఈ గ్రంథం మొత్తంలో రాబోయే మెస్సీయ (క్రీస్తు) ఛాయలు స్పష్టంగా కనిపిస్తాయి:</p>
+            <ul class="space-y-3 list-none">
+                <li class="flex gap-3">
+                    <span class="font-bold highlight">➤ దావీదు కుమారుడు (Son of David):</span>
+                    <span>17వ అధ్యాయంలో దేవుడు దావీదుతో "నీ సంతానపు సింహాసనము నిత్యము స్థిరపరచబడును" అని చేసిన నిబంధన క్రీస్తుకే వర్తిస్తుంది. యేసు "దావీదు కుమారునిగా" పిలవబడ్డాడు.</span>
+                </li>
+                <li class="flex gap-3">
+                    <span class="font-bold highlight">➤ దేవాలయ ఆరాధన (Temple Worship):</span>
+                    <span>దావీదు దేవాలయానికి చేసిన సన్నాహాలు, నియమించిన యాజకులు, గాయకులు - ఇవన్నీ మన ప్రధాన యాజకుడైన క్రీస్తుకు మరియు ఆయనలో మనం చేసే నిజమైన ఆరాధనకు సాదృశ్యాలు.</span>
+                </li>
+                <li class="flex gap-3">
+                    <span class="font-bold highlight">➤ వంశావళులు (The Genealogies):</span>
+                    <span>ఆదాము నుండి అబ్రాహాము, ఇస్సాకు, యాకోబు, యూదా గుండా దావీదు వరకు వచ్చిన పవిత్రమైన రక్త సంబంధమైన దారం (Bloodline) క్రీస్తు జననం కోసమే భద్రపరచబడింది.</span>
+                </li>
+            </ul>
+        </div>
+
+        <hr class="border-orange-200 dark:border-gray-800 my-12">
+
+        <!-- 25 POINTS -->
+        <h3 class="text-3xl font-bold mb-10 text-orange-800 dark:text-gold-400">1 దినవృత్తాంతములు: 25 ముఖ్యమైన ఘట్టాలు</h3>
+        
+        <!-- Point 1 -->
+        <div class="commentary-block">
+            <h4 class="text-xl font-bold mb-3 text-gray-800 dark:text-gray-200">1. ఆదాము నుండి ఇశ్రాయేలు వరకు (Adam to Israel)</h4>
+            <p class="explanation-text">
+                గ్రంథం బైబిల్ లోని మొట్టమొదటి మానవుడైన ఆదాము పేరుతో ప్రారంభమవుతుంది. ఆదాము, షేతు, ఎనోషు, నోవహు, అబ్రాహాము, ఇస్సాకు, యాకోబు (ఇశ్రాయేలు) వరకు దేవుడు ఒక ప్రత్యేక జనాంగాన్ని (Godly line) ఎలా కాపాడుకుంటూ వచ్చాడో ఈ వంశావళులు చూపిస్తాయి. దేవుని ప్రణాళికలో ఏదీ యాదృచ్ఛికం కాదు.
+            </p>
+            <div class="verse-card">
+                <span class="verse-ref">1 దినవృత్తాంతములు 1:1-2</span>
+                "ఆదాము షేతు ఎనోషు కేయినాను మహలలేలు యెరెదు..."
+            </div>
+        </div>
+
+        <!-- Point 2 -->
+        <div class="commentary-block">
+            <h4 class="text-xl font-bold mb-3 text-gray-800 dark:text-gray-200">2. యూదా గోత్రం & దావీదు వంశం (Tribe of Judah & David)</h4>
+            <p class="explanation-text">
+                ఇశ్రాయేలు 12 మంది కుమారులలో యూదా గోత్రానికి అత్యంత ప్రాముఖ్యత ఇవ్వబడింది. ఎందుకంటే, రాజులైన దావీదు, సొలొమోను మరియు చివరికి మెస్సీయ (యేసుక్రీస్తు) రావలసిన గోత్రం ఇదే. యూదా వంశావళిని వివరంగా వ్రాస్తూ, పాత నిబంధన దేవుని వాగ్దానాన్ని ఎలా నెరవేరుస్తుందో రచయిత స్పష్టం చేశాడు.
+            </p>
+            <div class="verse-card">
+                <span class="verse-ref">1 దినవృత్తాంతములు 2:15</span>
+                "ఆరవవాడు ఓజెము, ఏడవవాడు దావీదు."
+            </div>
+        </div>
+
+        <!-- Point 3 -->
+        <div class="commentary-block">
+            <h4 class="text-xl font-bold mb-3 text-gray-800 dark:text-gray-200">3. యాబేజు ప్రార్థన (Prayer of Jabez)</h4>
+            <p class="explanation-text">
+                వంశావళుల మధ్యలో ఉన్నట్టుండి ఒక చిన్న, కానీ అద్భుతమైన ప్రార్థన కనిపిస్తుంది. యాబేజు (అంటే దుఃఖం) అనే పేరున్న ఒక వ్యక్తి దేవునికి ప్రార్థించి, "నన్ను ఆశీర్వదించి నా సరిహద్దులు విశాలపరచి, కీడు నాకు రాకుండా కాపాడు" అని అడిగాడు. దేవుడు అతను అడిగినవి దయచేశాడు. మన గతాన్ని, పేరును దేవుడు మన ప్రార్థన ద్వారా మార్చగలడు.
+            </p>
+            <div class="verse-card">
+                <span class="verse-ref">1 దినవృత్తాంతములు 4:10</span>
+                "యాబేజు... కీడువలన నాకు దుఃఖము కలుగకుండ నీ హస్తము నాకు తోడుగా ఉండ దయచేయుమని ప్రార్థింపగా, దేవుడు అతడు మనవిచేసిన దానిని అతనికి దయచేసెను."
+            </div>
+        </div>
+
+        <!-- Point 4 -->
+        <div class="commentary-block">
+            <h4 class="text-xl font-bold mb-3 text-gray-800 dark:text-gray-200">4. లేవీయుల వంశావళి & ఆరాధన (Levites & Worship)</h4>
+            <p class="explanation-text">
+                యూదా గోత్రం తర్వాత, లేవీ గోత్రానికి ఈ గ్రంథంలో ఎక్కువ ప్రాధాన్యత ఉంది. బబులోను చెర నుండి తిరిగి వచ్చిన ప్రజలకు దేవాలయంలో ఆరాధన చేయడానికి ఎవరు అర్హులో తెలుసుకోవడం ముఖ్యం. యాజకులు, గాయకులు, మరియు మందసాన్ని మోసేవారు ఈ గోత్రం నుండే రావాలి. దేవుని ఆరాధన దేవుడు చెప్పిన పద్ధతిలోనే జరగాలి.
+            </p>
+            <div class="verse-card">
+                <span class="verse-ref">1 దినవృత్తాంతములు 6:31</span>
+                "యెహోవా మందిరమందు మందసము నిలువరమైన తరువాత దావీదు కీర్తనలు పాడుటకై నియమించినవారు వీరే."
+            </div>
+        </div>
+
+        <!-- Point 5 -->
+        <div class="commentary-block">
+            <h4 class="text-xl font-bold mb-3 text-gray-800 dark:text-gray-200">5. సౌలు మరణం (Death of Saul)</h4>
+            <p class="explanation-text">
+                వంశావళుల తర్వాత (10వ అధ్యాయంలో), అసలు కథ ప్రారంభమవుతుంది. ఇశ్రాయేలు మొదటి రాజైన సౌలు దేవుని మాటకు అవిధేయుడై, కర్ణపిశాచిని అడిగినందున గిల్బోవ పర్వతం మీద ఫిలిష్తీయుల చేతిలో ఘోరంగా మరణించాడు. అవిధేయత సింహాసనాన్ని ఎలా దూరం చేస్తుందో ఇది హెచ్చరిస్తుంది. రాజ్యం దావీదు చేతికి వెళ్ళింది.
+            </p>
+            <div class="verse-card">
+                <span class="verse-ref">1 దినవృత్తాంతములు 10:13</span>
+                "సౌలు యెహోవా ఆజ్ఞను గైకొనక... కర్ణపిశాచియొద్ద విచారణచేసి యెహోవాయొద్ద విచారణ చేయనివాడై తాను చేసిన ద్రోహమునుబట్టి మృతిబొందెను."
+            </div>
+        </div>
+
+        <!-- Point 6 -->
+        <div class="commentary-block">
+            <h4 class="text-xl font-bold mb-3 text-gray-800 dark:text-gray-200">6. దావీదు పట్టాభిషేకం (David Made King)</h4>
+            <p class="explanation-text">
+                ఇశ్రాయేలీయులందరూ హెబ్రోనుకు వచ్చి దావీదును తమకు రాజుగా అభిషేకించారు. "నీవు మా ఎముకవు, మా మాంసము" అని వారు దావీదుతో అన్నారు. దేవుడు సమూయేలు ద్వారా ఇచ్చిన వాగ్దానం చాలా సంవత్సరాల నిరీక్షణ తర్వాత ఇక్కడ నెరవేరింది. దేవుని సమయం ఎప్పుడూ సరైనదే.
+            </p>
+            <div class="verse-card">
+                <span class="verse-ref">1 దినవృత్తాంతములు 11:3</span>
+                "సమూయేలు ద్వారా యెహోవా సెలవిచ్చిన మాటప్రకారము దావీదును ఇశ్రాయేలీయులమీద రాజుగా పట్టాభిషేకము చేసిరి."
+            </div>
+        </div>
+
+        <!-- Point 7 -->
+        <div class="commentary-block">
+            <h4 class="text-xl font-bold mb-3 text-gray-800 dark:text-gray-200">7. యెరూషలేమును జయించుట (Capturing Jerusalem)</h4>
+            <p class="explanation-text">
+                యెబూసీయుల చేతిలో ఉన్న యెబూసు (యెరూషలేము) పట్టణాన్ని దావీదు జయించాడు. దానిని 'దావీదు పురము'గా (City of David) మార్చుకున్నాడు. యోవాబు ముందుగా కోటను జయించి సైన్యాధిపతి అయ్యాడు. దావీదు అంతకంతకూ వృద్ధి చెందాడు, కారణం సైన్యాలకధిపతియగు యెహోవా అతనికి తోడైయున్నాడు.
+            </p>
+            <div class="verse-card">
+                <span class="verse-ref">1 దినవృత్తాంతములు 11:9</span>
+                "సైన్యములకధిపతియగు యెహోవా అతనికి తోడైయుండగా దావీదు అంతకంతకు వర్ధిల్లుచు గొప్పవాడాయెను."
+            </div>
+        </div>
+
+        <!-- Point 8 -->
+        <div class="commentary-block">
+            <h4 class="text-xl font-bold mb-3 text-gray-800 dark:text-gray-200">8. దావీదు శూరులు (David's Mighty Men)</h4>
+            <p class="explanation-text">
+                దావీదు రాజ్యం స్థిరపడటానికి అతని వెనుక ప్రాణాలకు తెగించిన గొప్ప యోధులు (Mighty Men) ఉన్నారు. ఒకడు తన ఈటెతో 300 మందిని చంపాడు. దావీదు దాహంగా ఉందని అన్నప్పుడు, ముగ్గురు శూరులు శత్రువుల దండును చీల్చుకుని పోయి బేత్లెహేము బావి నుండి నీరు తెచ్చారు. దావీదు దాన్ని త్రాగకుండా దేవునికి పానార్పణగా పోశాడు. నాయకుడి పట్ల వారికి ఉన్న నిబద్ధత ఇది.
+            </p>
+            <div class="verse-card">
+                <span class="verse-ref">1 దినవృత్తాంతములు 11:18</span>
+                "ఆ ముగ్గురు ఫిలిష్తీయుల దండును చీల్చుకొనిపోయి, బేత్లెహేము గుమ్మమునొద్దనున్న బావి నీళ్లు చేది దావీదునొద్దకు తీసికొనిరాగా అతడు వాటిని త్రాగనొల్లక యెహోవాకు పానార్పణముగా పోసి..."
+            </div>
+        </div>
+
+        <!-- Point 9 -->
+        <div class="commentary-block">
+            <h4 class="text-xl font-bold mb-3 text-gray-800 dark:text-gray-200">9. దావీదుకు అండగా వచ్చిన సైన్యం (Army Comes to David)</h4>
+            <p class="explanation-text">
+                దావీదు సిక్లగులో అజ్ఞాతవాసంలో ఉన్నప్పుడే, దేవుడు ఇశ్రాయేలు గోత్రాలన్నింటి నుండి గొప్ప యోధులను అతని వద్దకు పంపాడు. వాళ్ళు కుడి ఎడమ చేతులతో రాళ్లు విసరగలరు, సింహాల వంటి ముఖాలు గలవారు. ప్రతిరోజూ దావీదుకు సహాయంగా మనుషులు వస్తూనే ఉన్నారు, అది 'దేవుని సైన్యం అంత గొప్ప సైన్యం' అయింది.
+            </p>
+            <div class="verse-card">
+                <span class="verse-ref">1 దినవృత్తాంతములు 12:22</span>
+                "దేవుని సైన్యమంత గొప్ప సైన్యమగునట్లుగా దావీదునకు సహాయము చేయుటకై దినదినము మనుష్యులు అతని యొద్దకు వచ్చుచుండిరి."
+            </div>
+        </div>
+
+        <!-- Point 10 -->
+        <div class="commentary-block">
+            <h4 class="text-xl font-bold mb-3 text-gray-800 dark:text-gray-200">10. మందసాన్ని తెచ్చుట - ఉజ్జా మరణం (First Attempt with the Ark)</h4>
+            <p class="explanation-text">
+                దావీదు దేవుని మందసాన్ని యెరూషలేముకు తీసుకురావాలనుకున్నాడు. ఉద్దేశం మంచిదే కానీ, దేవుడు చెప్పినట్లు లేవీయులతో మోయించకుండా క్రొత్త బండి మీద పెట్టాడు. ఎద్దులు బెదరినప్పుడు ఉజ్జా మందసాన్ని పట్టుకున్నాడు, వెంటనే దేవుడు వాడిని మొత్తాడు, అక్కడే చనిపోయాడు. దేవుని పనులు దేవుని పద్ధతిలోనే జరగాలి, మన ఇష్టానుసారం కాదు.
+            </p>
+            <div class="verse-card">
+                <span class="verse-ref">1 దినవృత్తాంతములు 13:10</span>
+                "ఉజ్జా మందసముమీద చెయ్యి వేసినందున యెహోవా కోపాగ్ని అతనిమీద రగులుకొనగా, దేవుని సన్నిధిని అతడక్కడనే చనిపోయెను."
+            </div>
+        </div>
+
+        <!-- Point 11 -->
+        <div class="commentary-block">
+            <h4 class="text-xl font-bold mb-3 text-gray-800 dark:text-gray-200">11. ఓబేదెదోము ఇంటికి ఆశీర్వాదం (Blessing on Obed-Edom)</h4>
+            <p class="explanation-text">
+                ఉజ్జా మరణంతో దావీదు భయపడి మందసాన్ని తన వద్దకు తేకుండా, గిత్తీయుడైన ఓబేదెదోము ఇంట్లో ఉంచాడు. దేవుని మందసం అక్కడ మూడు నెలలు ఉన్నప్పుడు, దేవుడు ఆ ఇంటివారిని, వారికి కలిగిన సమస్తాన్ని ఆశీర్వదించాడు. దేవుని సన్నిధి శాపమే కాదు, సరైన రీతిలో ఉంటే గొప్ప ఆశీర్వాదం కూడా తెస్తుంది.
+            </p>
+            <div class="verse-card">
+                <span class="verse-ref">1 దినవృత్తాంతములు 13:14</span>
+                "దేవుని మందసము ఓబేదెదోము ఇంట అతని కుటుంబమునొద్ద మూడు నెలలుండగా యెహోవా ఓబేదెదోము ఇంటివారిని అతనికి కలిగిన దానంతటిని ఆశీర్వదించెను."
+            </div>
+        </div>
+
+        <!-- Point 12 -->
+        <div class="commentary-block">
+            <h4 class="text-xl font-bold mb-3 text-gray-800 dark:text-gray-200">12. మందసం యెరూషలేముకు చేరుట (The Ark Comes to Jerusalem)</h4>
+            <p class="explanation-text">
+                ఈసారి దావీదు తన తప్పు తెలుసుకున్నాడు. "లేవీయులు తప్ప మరెవరూ దేవుని మందసాన్ని మోయకూడదు" అని వారిని ప్రతిష్ఠించాడు. మహా సంతోషంతో, వాద్యాలతో, సంగీతంతో మందసాన్ని యెరూషలేముకు తెచ్చారు. దావీదు సంతోషం పట్టలేక దేవుని సన్నిధిలో గంతులు వేశాడు (నాట్యం చేశాడు). దేవుని కోసం అవమానం భరించడానికైనా సిద్ధపడ్డాడు.
+            </p>
+            <div class="verse-card">
+                <span class="verse-ref">1 దినవృత్తాంతములు 15:2</span>
+                "అప్పుడు దావీదు - లేవీయులు తప్ప మరెవరును దేవుని మందసమును మోయకూడదు అని సెలవిచ్చెను."
+            </div>
+        </div>
+
+        <!-- Point 13 -->
+        <div class="commentary-block">
+            <h4 class="text-xl font-bold mb-3 text-gray-800 dark:text-gray-200">13. దావీదు కృతజ్ఞతా కీర్తన (David's Psalm of Thanksgiving)</h4>
+            <p class="explanation-text">
+                మందసం తీసుకురాబడిన రోజున దావీదు దేవునికి కృతజ్ఞతలు చెబుతూ ఆసాపు చేతికి ఒక కీర్తనను ఇచ్చాడు. "యెహోవాకు కృతజ్ఞతాస్తుతులు చెల్లించుడి, ఆయన కృప నిరంతరముండును" అని అద్భుతంగా ఆరాధించాడు. దేవుడు ఇశ్రాయేలుతో చేసిన నిబంధనను గుర్తుచేసుకున్నాడు. ఆరాధన ఎలా ఉండాలో దావీదు మనకు నేర్పిస్తాడు.
+            </p>
+            <div class="verse-card">
+                <span class="verse-ref">1 దినవృత్తాంతములు 16:34</span>
+                "యెహోవాకు కృతజ్ఞతాస్తుతులు చెల్లించుడి; ఆయన దయాళుడు ఆయన కృప నిరంతరముండును."
+            </div>
+        </div>
+
+        <!-- Point 14 -->
+        <div class="commentary-block">
+            <h4 class="text-xl font-bold mb-3 text-gray-800 dark:text-gray-200">14. దావీదుతో దేవుని నిబంధన (The Davidic Covenant)</h4>
+            <p class="explanation-text">
+                దావీదు దేవునికి ఒక దేవాలయం (ఇల్లు) కట్టాలనుకున్నాడు. కానీ నాతాను ప్రవక్త ద్వారా దేవుడు చెప్పాడు: "నువ్వు నాకు ఇల్లు కట్టవు, నేనే నీకు ఇల్లు (రాజవంశం) కడతాను. నీ సంతానంలో ఒకరిని సింహాసనం మీద కూర్చోబెడతాను, అతని రాజ్యం నిరంతరము స్థిరపడుతుంది." ఇది యేసుక్రీస్తు గురించిన మహా వాగ్దానం (Messianic Covenant).
+            </p>
+            <div class="verse-card">
+                <span class="verse-ref">1 దినవృత్తాంతములు 17:14</span>
+                "నా యింటిలోను నా రాజ్యములోను నిత్యము నేను అతని స్థిరపరచుదును, అతని సింహాసనము నిరంతరము స్థిరపరచబడును."
+            </div>
+        </div>
+
+        <!-- Point 15 -->
+        <div class="commentary-block">
+            <h4 class="text-xl font-bold mb-3 text-gray-800 dark:text-gray-200">15. దావీదు యుద్ధ విజయాలు (David's Military Victories)</h4>
+            <p class="explanation-text">
+                దేవుని వాగ్దానం పొందిన తర్వాత దావీదు శత్రువులందరినీ జయించాడు. ఫిలిష్తీయులు, మోయాబీయులు, సిరియనులు, ఎదోమీయులను ఓడించి రాజ్యాన్ని విస్తరించాడు. వారి దగ్గర నుండి దోచుకున్న వెండి, బంగారాలను దేవునికి ప్రతిష్ఠించాడు. "దావీదు ఎక్కడికి వెళ్ళినా యెహోవా అతనికి విజయం అనుగ్రహించాడు".
+            </p>
+            <div class="verse-card">
+                <span class="verse-ref">1 దినవృత్తాంతములు 18:6</span>
+                "దావీదు ఎక్కడికి పోయినను యెహోవా అతనికి జయము కలుగజేయుచుండెను."
+            </div>
+        </div>
+
+        <!-- Point 16 -->
+        <div class="commentary-block">
+            <h4 class="text-xl font-bold mb-3 text-gray-800 dark:text-gray-200">16. అమ్మోనీయుల అవమానం & విజయం (Defeat of Ammonites)</h4>
+            <p class="explanation-text">
+                అమ్మోనీయుల రాజు చనిపోతే దావీదు సానుభూతి కోసం రాయబారులను పంపాడు. కానీ వాళ్ళు దావీదు సేవకుల గడ్డాలు సగం గొరిగించి, బట్టలు కత్తిరించి అవమానించి పంపారు. దావీదు ఆగ్రహించి యోవాబును పంపాడు. వారు సిరియనులను అద్దెకు తెచ్చుకున్నా సరే, యోవాబు, అబీషైలు ఇద్దరూ కలిసి శత్రువులందరినీ తరిమికొట్టారు.
+            </p>
+            <div class="verse-card">
+                <span class="verse-ref">1 దినవృత్తాంతములు 19:13</span>
+                "ధైర్యము తెచ్చుకొనుము; మన జనుల నిమిత్తమును మన దేవుని పట్టణముల నిమిత్తమును మనము పౌరుషముగా పోరాడుదము, యెహోవా తన దృష్టికి ఏది అనుకూలమో అది చేయును గాక."
+            </div>
+        </div>
+
+        <!-- Point 17 -->
+        <div class="commentary-block">
+            <h4 class="text-xl font-bold mb-3 text-gray-800 dark:text-gray-200">17. రాక్షసుల వధ (Defeating the Giants)</h4>
+            <p class="explanation-text">
+                దావీదు గొల్యాతును చంపినట్లే, అతని సైన్యాధిపతులు కూడా ఫిలిష్తీయులలో ఉన్న రాక్షసులను (Giants) చంపారు. గెజెరులో సిప్పయి, గొల్యాతు సహోదరుడైన లహ్మీ (వీడి ఈటె నేతగాని అడ్డకర్ర అంత పెద్దది), మరియు చేతులకు కాళ్ళకు ఆరు వేళ్లు చొప్పున 24 వేళ్లు ఉన్న ఒక రాక్షసుడు - వీరందరినీ దావీదు సేవకులు హతమార్చారు.
+            </p>
+            <div class="verse-card">
+                <span class="verse-ref">1 దినవృత్తాంతములు 20:8</span>
+                "గాతులోనున్న రాక్షస సంతతివారైన వీరు దావీదు చేతను అతని సేవకుల చేతను హతులైరి."
+            </div>
+        </div>
+
+        <!-- Point 18 -->
+        <div class="commentary-block">
+            <h4 class="text-xl font-bold mb-3 text-gray-800 dark:text-gray-200">18. జనాభా లెక్కల పాపం (David Counts the Fighting Men)</h4>
+            <p class="explanation-text">
+                సాతాను ఇశ్రాయేలు మీద లేచి, జనాభాను లెక్కించేలా దావీదును ప్రేరేపించాడు. సైన్యాధిపతి యోవాబు వద్దని వారించినా వినకుండా దావీదు గర్వంతో లెక్కించాడు. ఇది దేవునికి కోపం తెప్పించింది. దేవుడు తెగులును పంపగా 70,000 మంది చనిపోయారు. దావీదు పశ్చాత్తాపపడి, "పాపము చేసిన వాడను నేనే, ఈ గొర్రెలు ఏమి చేశాయి?" అని ప్రార్థించాడు.
+            </p>
+            <div class="verse-card">
+                <span class="verse-ref">1 దినవృత్తాంతములు 21:1</span>
+                "సాతాను ఇశ్రాయేలీయులకు విరోధముగా లేచి, ఇశ్రాయేలీయులను లెక్కించుటకు దావీదును ప్రేరేపింపగా..."
+            </div>
+        </div>
+
+        <!-- Point 19 -->
+        <div class="commentary-block">
+            <h4 class="text-xl font-bold mb-3 text-gray-800 dark:text-gray-200">19. ఓర్నాను కల్లము కొనుగోలు (Buying Ornan's Threshing Floor)</h4>
+            <p class="explanation-text">
+                తెగులును ఆపడానికి యెబూసీయుడైన ఓర్నాను కల్లము దగ్గర బలిపీఠం కట్టమని దేవుడు ఆజ్ఞాపించాడు. ఓర్నాను ఆ స్థలాన్ని ఉచితంగా ఇస్తానన్నా, దావీదు ఒప్పుకోలేదు. "నాకు వెల లేనిదానిని నేను యెహోవాకు అర్పించను" అని పూర్తి వెల (ఆరువందల తులాల బంగారం) ఇచ్చి కొన్నాడు. దేవునికి ఇచ్చేది త్యాగంతో కూడుకున్నదై ఉండాలి. భవిష్యత్తులో దేవాలయం కట్టబడిన స్థలం ఇదే (మోరీయా కొండ).
+            </p>
+            <div class="verse-card">
+                <span class="verse-ref">1 దినవృత్తాంతములు 21:24</span>
+                "దావీదు రాజు-ఆలాగున కాదు, నీకు నష్టము కలిగించి నేను యెహోవాకు దహనబలి నర్పింపను; నామట్టుకు నేను ఊరకయే దాని తీసికొనను, పూర్తియైన వెల యిచ్చి దాని కొందునని ఓర్నానుతో చెప్పి..."
+            </div>
+        </div>
+
+        <!-- Point 20 -->
+        <div class="commentary-block">
+            <h4 class="text-xl font-bold mb-3 text-gray-800 dark:text-gray-200">20. దేవాలయ నిర్మాణానికి సన్నాహాలు (Preparations for the Temple)</h4>
+            <p class="explanation-text">
+                దావీదు దేవుని ఆలయాన్ని స్వయంగా కట్టకపోయినా (ఎందుకంటే అతను చాలా రక్తం చిందించిన యోధుడు), కట్టడానికి కావలసిన సమస్త సన్నాహాలు చేశాడు. ఎంతో రాయి, లక్ష మణుగుల బంగారం, పది లక్షల మణుగుల వెండి, లెక్కలేనంత ఇత్తడి, ఇనుము, కలప సమకూర్చాడు. దేవుని పని తను చేయకపోయినా ఇతరులు చేయడానికి మార్గం సుగమం చేశాడు.
+            </p>
+            <div class="verse-card">
+                <span class="verse-ref">1 దినవృత్తాంతములు 22:5</span>
+                "నా కుమారుడైన సొలొమోను లేత వయస్సుగల బాలుడు, యెహోవాకు కట్టబోవు మందిరము... అత్యంత ఘనమైనదిగా ఉండవలెను గనుక నేను అతనికి సన్నాహము చేయుదునని..."
+            </div>
+        </div>
+
+        <!-- Point 21 -->
+        <div class="commentary-block">
+            <h4 class="text-xl font-bold mb-3 text-gray-800 dark:text-gray-200">21. సొలొమోనుకు ఇచ్చిన బాధ్యత (Charge to Solomon)</h4>
+            <p class="explanation-text">
+                వృద్ధుడైన దావీదు తన కుమారుడైన సొలొమోనును పిలిచి, దేవాలయం కట్టే బాధ్యతను అతనికి అప్పగించాడు. దేవుని ధర్మశాస్త్రాన్ని అనుసరించి నడవమని, "బలము పొంది ధైర్యముగా ఉండుము, భయపడకుము, దేవుడు నీకు తోడైయుంటాడు" అని దేవుని వాగ్దానాన్ని గుర్తుచేశాడు. దేవుని పనికి దేవుడే అండగా ఉంటాడని ధైర్యం చెప్పాడు.
+            </p>
+            <div class="verse-card">
+                <span class="verse-ref">1 దినవృత్తాంతములు 22:13</span>
+                "బలముపొంది ధైర్యము వహించుము, భయపడకుము, దిగులుపడకుము."
+            </div>
+        </div>
+
+        <!-- Point 22 -->
+        <div class="commentary-block">
+            <h4 class="text-xl font-bold mb-3 text-gray-800 dark:text-gray-200">22. లేవీయులు, యాజకులు, గాయకుల విభాగాలు (Divisions for Worship)</h4>
+            <p class="explanation-text">
+                దావీదు దేవాలయాన్ని భౌతికంగా మాత్రమే కాకుండా, ఆధ్యాత్మికంగా కూడా ఆర్గనైజ్ చేశాడు. వేలాది మంది లేవీయులను, యాజకులను, ద్వారపాలకులను, గాయకులను 24 విభాగాలుగా (Courses) విభజించాడు. ఆసాపు, హేమాను, యెదూతూను వంటి గొప్ప ఆరాధకులను నియమించి దేవుని సన్నిధిలో ఎల్లప్పుడూ సంగీతం, కీర్తనలు ఉండేలా చేశాడు.
+            </p>
+            <div class="verse-card">
+                <span class="verse-ref">1 దినవృత్తాంతములు 25:1</span>
+                "వీరి కుమారులలో సితారాలను స్వరమండలములను తాళములను వాయించుచు, దేవుని వాక్కును ప్రకటించువారిని దావీదును సేనాధిపతులును సేవకొరకు ప్రత్యేకపరచిరి."
+            </div>
+        </div>
+
+        <!-- Point 23 -->
+        <div class="commentary-block">
+            <h4 class="text-xl font-bold mb-3 text-gray-800 dark:text-gray-200">23. దావీదు చివరి సందేశం (David's Final Address)</h4>
+            <p class="explanation-text">
+                దావీదు ఇశ్రాయేలు నాయకులందరినీ సమావేశపరిచి, దేవాలయపు నమూనాను (Blueprints) సొలొమోనుకు ఇచ్చాడు. ఇది దేవుని ఆత్మ ద్వారా తనకు బయలుపరచబడిందని చెప్పాడు. "నీ తండ్రి దేవుణ్ణి తెలుసుకో, పూర్ణ హృదయంతో ఆయనను సేవించు, దేవుడు హృదయాలను పరిశోధిస్తాడు" అని తన కొడుకుకు అద్భుతమైన సలహా ఇచ్చాడు.
+            </p>
+            <div class="verse-card">
+                <span class="verse-ref">1 దినవృత్తాంతములు 28:9</span>
+                "నా కుమారుడా సొలొమోనా, నీ తండ్రి యొక్క దేవుడైన ఆయనను తెలిసికొని, హృదయపూర్వకముగాను ఇష్టపూర్వకముగాను ఆయనను సేవించుము."
+            </div>
+        </div>
+
+        <!-- Point 24 -->
+        <div class="commentary-block">
+            <h4 class="text-xl font-bold mb-3 text-gray-800 dark:text-gray-200">24. ప్రజల ఉదారమైన కానుకలు (The People's Generous Offerings)</h4>
+            <p class="explanation-text">
+                దావీదు తన స్వంత సంపదను దేవునికి ఇచ్చిన తర్వాత, "ఈ రోజు ఎవరైనా దేవునికి ఇష్టపూర్వకంగా ఇస్తారా?" అని ప్రజలను అడిగాడు. నాయకులు, జనులు అత్యంత ఉత్సాహంతో, సంతోషంతో ఎంతో బంగారం, వెండి, రత్నాలు సమర్పించారు. వారు ఇచ్చిన విధానాన్ని చూసి దావీదు ఆనందించి దేవుణ్ణి ఘనంగా స్తుతించాడు.
+            </p>
+            <div class="verse-card">
+                <span class="verse-ref">1 దినవృత్తాంతములు 29:9</span>
+                "జనులు పూర్ణహృదయముతో యెహోవాకు ఇచ్చియుండిరి గనుక వారు ఆలాగు సంతోషముగా ఇచ్చినందుకై జనులు సంతోషించిరి."
+            </div>
+        </div>
+
+        <!-- Point 25 -->
+        <div class="commentary-block">
+            <h4 class="text-xl font-bold mb-3 text-gray-800 dark:text-gray-200">25. దావీదు మరణం (Death of David)</h4>
+            <p class="explanation-text">
+                దావీదు గొప్ప ప్రార్థన చేసి, "సమస్తము నీవి, నీ చేతిలో నుండియే మేము నీకు ఇస్తున్నాము" అని దేవుని సార్వభౌమత్వాన్ని ఒప్పుకున్నాడు. సొలొమోను రెండవసారి రాజుగా పట్టాభిషేకం చేయబడ్డాడు. దావీదు 40 సంవత్సరాలు ఇశ్రాయేలును పాలించి, వృద్ధాప్యంలో ఐశ్వర్యంతో, ఘనతతో నిండినవాడై మరణించాడు.
+            </p>
+            <div class="verse-card">
+                <span class="verse-ref">1 దినవృత్తాంతములు 29:28</span>
+                "అతడు వృద్ధుడై పూర్ణాయుష్కుడై ఐశ్వర్య ఘనతలు కలిగినవాడై చనిపోగా, అతని కుమారుడైన సొలొమోను అతనికి మారుగా రాజాయెను."
+            </div>
+        </div>
+
+        <div class="bg-orange-50 dark:bg-gray-800 p-8 rounded-xl border border-orange-200 dark:border-gray-700 text-center mt-16">
+            <h3 class="text-2xl font-bold mb-4 text-orange-900 dark:text-gold-500">తరువాత ఏంటి?</h3>
+            <p class="mb-6">దావీదు చనిపోయాడు, సొలొమోను సింహాసనం ఎక్కాడు. దావీదు సిద్ధం చేసిన కలప, బంగారం, వస్తువులతో దేవుని మహా దేవాలయాన్ని సొలొమోను ఎలా కట్టాడు? ఆ తర్వాత యూదా రాజుల పాలన, వారి భక్తి, వారి పతనం మరియు బాబిలోను చెర వరకు జరిగిన చరిత్రే "2 దినవృత్తాంతములు" (2 Chronicles) గ్రంథం.</p>
+            <div class="inline-block px-8 py-3 bg-black text-white dark:bg-gold-500 dark:text-black font-bold uppercase tracking-widest rounded-full cursor-pointer hover:scale-105 transition-transform">
+                1 దినవృత్తాంతములు 1వ అధ్యాయం చదవండి
+            </div>
+        </div>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-black text-white py-16 text-center border-t-4 border-gold-500">
+        <h2 class="text-3xl font-brand text-gold-500 mb-6">Word of God (WOG)</h2>
+        <p class="text-gray-400 mb-8 max-w-lg mx-auto">సత్యవాక్యమును సరిగా ఉపదేశించువానిగాను, సిగ్గుపడనక్కరలేని పనివానిగాను నిన్నునీవే దేవునికి కనపరచుకొనుటకు జాగ్రత్తపడుము. 2 తిమోతికి 2:15</p>
+        <p class="text-6xl font-brand text-white/10 tracking-widest mt-8">1 CHRONICLES</p>
+        <p class="text-xs text-gray-600 mt-8">© 2026 WOG Ministries. All Rights Reserved.</p>
+    </footer>
+
+    <script>
+        // --- SETTINGS MENU LOGIC ---
+        const root = document.documentElement;
+        const menu = document.getElementById('settings-menu');
+        const overlay = document.getElementById('menu-overlay');
+        const themeLabel = document.getElementById('theme-label-menu');
+        let currentSize = 20;
+
+        // Toggle Menu Visibility
+        function toggleMenu() {
+            menu.classList.toggle('active');
+            overlay.classList.toggle('active');
+        }
+
+        // Font Adjustment (Restricted to buttons only)
+        function adjustFont(dir) {
+            if (dir === 1 && currentSize < 32) currentSize += 2;
+            if (dir === -1 && currentSize > 16) currentSize -= 2;
+            root.style.setProperty('--content-size', currentSize + 'px');
+        }
+
+        // Initialize Theme from LocalStorage
+        if (localStorage.theme === 'dark') {
+            root.classList.add('dark');
+            if(themeLabel) themeLabel.innerText = 'Light Mode';
+        }
+
+        // Theme Toggle Function
+        function toggleTheme() {
+            if (root.classList.contains('dark')) {
+                root.classList.remove('dark');
+                localStorage.theme = 'light';
+                if(themeLabel) themeLabel.innerText = 'Dark Mode';
+            } else {
+                root.classList.add('dark');
+                localStorage.theme = 'dark';
+                if(themeLabel) themeLabel.innerText = 'Light Mode';
+            }
+        }
+
+        // Scroll Progress Bar
+        window.onscroll = function() {
+            let winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            let height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            let scrolled = (winScroll / height) * 100;
+            document.getElementById("reading-progress").style.width = scrolled + "%";
+        };
+    </script>
+</body>
+</html>
