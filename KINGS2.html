@@ -1,1 +1,745 @@
+<!DOCTYPE html>
+<html lang="te" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <!-- Pinch to zoom disabled strictly -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>2 రాజులు - 25 ముఖ్యమైన ఘట్టాలు</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Anek+Telugu:wght@300;400;500;600;700;800&family=Mallanna&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&display=swap" rel="stylesheet">
+    <!-- Icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'body': ['"Mallanna"', 'serif'],        
+                        'heading': ['"Anek Telugu"', 'sans-serif'],
+                        'brand': ['"Cinzel"', 'serif'],
+                    },
+                    colors: {
+                        gold: {
+                            400: '#facc15', // Bright Gold
+                            500: '#eab308', // Classic Gold
+                            600: '#ca8a04', // Deep Gold
+                        },
+                        paper: '#fffaf0', // Warm White
+                        bible: '#854d0e', // Leather Brown
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        /* --- TYPOGRAPHY SYSTEM --- */
+        :root {
+            --content-size: 20px; /* Default size */
+            --line-height: 2.2;
+        }
+
+        html { scroll-behavior: smooth; }
+        
+        /* NO SELECTION - APP FEEL */
+        .no-select {
+            -webkit-user-select: none; /* Safari */
+            -moz-user-select: none;    /* Firefox */
+            -ms-user-select: none;     /* IE10+/Edge */
+            user-select: none;         /* Standard */
+            -webkit-touch-callout: none; /* iOS Safari */
+        }
+
+        body { 
+            background-color: var(--paper); 
+            color: #292524;
+            font-family: 'Mallanna', serif;
+            line-height: var(--line-height);
+            transition: background-color 0.3s ease, color 0.3s ease;
+            overflow-x: hidden; /* Prevent horizontal scroll */
+        }
+
+        /* Dynamic Font Sizing Class */
+        .content-text { font-size: var(--content-size); }
+        h1, h2, h3, h4, .ref-title, .brand-text { font-family: 'Anek Telugu', sans-serif; }
+
+        /* --- DARK MODE RULES --- */
+        html.dark body { background-color: #0c0a09 !important; color: #e7e5e4 !important; }
+        html.dark .content-text, html.dark p, html.dark li { color: #d6d3d1 !important; }
+        html.dark h1, html.dark h2, html.dark h3, html.dark strong { color: #facc15 !important; }
+        html.dark .verse-card { background-color: #1c1917 !important; border-left-color: #facc15 !important; }
+        html.dark .info-grid { background-color: #1c1917 !important; border-color: #444 !important; }
+        
+        /* Settings Menu Dark Mode */
+        html.dark #settings-menu { background-color: #1c1917; border-color: #444; color: white; }
+        html.dark .setting-btn { background-color: #2d2d2d; color: white; border-color: #444; }
+
+        /* --- COMPONENTS --- */
+        
+        /* WOG Badge - Left Side */
+        .brand-badge {
+            position: fixed; top: 20px; left: 20px; z-index: 60;
+            background: #000; color: #facc15;
+            padding: 8px 16px; font-family: 'Cinzel', serif; font-weight: bold;
+            border: 2px solid #facc15; box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+            backdrop-filter: blur(5px);
+            border-radius: 4px;
+        }
+
+        /* Settings Toggle Button - Top Right */
+        .settings-toggle {
+            position: fixed; top: 20px; right: 20px; z-index: 61;
+            background: rgba(255, 255, 255, 0.9); 
+            color: #333;
+            width: 45px; height: 45px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            cursor: pointer;
+            transition: transform 0.2s;
+            border: 1px solid rgba(0,0,0,0.1);
+        }
+        .settings-toggle:active { transform: scale(0.95); }
+        html.dark .settings-toggle { background: #333; color: #fff; border-color: #555; }
+
+        /* Settings Menu Popover */
+        #settings-menu {
+            display: none; /* Hidden by default */
+            position: fixed; top: 75px; right: 20px; z-index: 60;
+            background: white;
+            padding: 15px;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            width: 220px;
+            border: 1px solid #e5e7eb;
+            animation: fadeIn 0.2s ease-out;
+        }
+        #settings-menu.active { display: block; }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .setting-btn {
+            padding: 8px; border-radius: 6px;
+            border: 1px solid #e5e7eb;
+            background: #f9fafb;
+            font-weight: bold;
+            transition: all 0.2s;
+        }
+        .setting-btn:active { transform: scale(0.95); }
+
+        .hero {
+            height: 70vh;
+            /* Dark Dramatic Historical / Fall of Babylon Theme */
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.9)), url('https://images.unsplash.com/photo-1549488344-1f9b8d2bd1f3?q=80&w=2070&auto=format&fit=crop');
+            background-size: cover; background-position: center; background-attachment: fixed;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            text-align: center; color: white;
+        }
+
+        /* Stats Grid */
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            background: #fff;
+            padding: 2rem;
+            border-radius: 1rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            border: 1px solid #e7e5e4;
+            margin-bottom: 3rem;
+        }
+        .info-item h4 { font-size: 0.8rem; text-transform: uppercase; color: #854d0e; letter-spacing: 0.1em; }
+        .info-item p { font-size: 1.2rem; font-weight: bold; color: #000; font-family: 'Anek Telugu'; }
+        html.dark .info-item h4 { color: #facc15; }
+        html.dark .info-item p { color: #fff; }
+
+        /* Author Note Box - Requested Feature */
+        .author-note {
+            background: #fff7ed; /* Light Orange/Amber */
+            border-left: 4px solid #ea580c;
+            padding: 1.5rem;
+            margin-bottom: 3rem;
+            border-radius: 0 8px 8px 0;
+            font-size: 0.95rem;
+            color: #431407;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+        }
+        html.dark .author-note {
+            background: #431407;
+            border-color: #f97316;
+            color: #ffedd5;
+        }
+
+        /* Commentary Block Structure */
+        .commentary-block { margin-bottom: 4rem; }
+        
+        .explanation-text {
+            color: #44403c;
+            margin-bottom: 1.5rem;
+            border-left: 3px solid transparent;
+            padding-left: 0;
+            line-height: 1.8;
+            text-align: justify;
+        }
+        html.dark .explanation-text { color: #a8a29e; }
+
+        /* Verse Card */
+        .verse-card {
+            background: #fff;
+            border-left: 6px solid #ea580c; /* Orange accent */
+            padding: 25px 30px;
+            border-radius: 0 12px 12px 0;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+            font-style: italic;
+            position: relative;
+        }
+        .verse-ref {
+            position: absolute; top: -12px; left: 20px;
+            background: #ea580c; color: white;
+            padding: 4px 12px; font-size: 0.8rem; font-weight: bold;
+            border-radius: 4px; font-family: 'Anek Telugu';
+        }
+        html.dark .verse-ref { background: #facc15; color: #000; }
+
+        /* Christology Box - DARK GRAY BACKGROUND */
+        .christ-box {
+            background: #262626; /* Dark Gray */
+            color: #ffffff;      /* White Text */
+            border: 1px solid #404040;
+            border-radius: 12px;
+            padding: 2rem;
+            margin: 3rem 0;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        }
+        /* Override specific colors inside Christ Box for readability */
+        .christ-box h3 { color: #facc15 !important; } /* Gold Heading */
+        .christ-box .highlight { color: #facc15 !important; } /* Gold Highlights */
+        .christ-box p, .christ-box li, .christ-box span { color: #e5e5e5; }
+
+        .drop-cap {
+            float: left; font-size: 4.5rem; line-height: 0.8;
+            margin-right: 1rem; margin-top: 0.2rem;
+            font-family: 'Anek Telugu'; font-weight: 800; color: #ea580c;
+        }
+        
+        #reading-progress {
+            position: fixed; top: 0; left: 0; height: 5px;
+            background: linear-gradient(to right, #ea580c, #facc15);
+            width: 0%; z-index: 200;
+        }
+
+        /* Overlay to close menu when clicking outside */
+        #menu-overlay {
+            display: none; position: fixed; inset: 0; z-index: 59;
+            background: transparent;
+        }
+        #menu-overlay.active { display: block; }
+
+    </style>
+</head>
+<body class="no-select">
+
+    <div id="reading-progress"></div>
+    
+    <!-- Brand Badge (Left Side) -->
+    <div class="brand-badge">WOG</div>
+
+    <!-- Settings Toggle Button (Right Side) -->
+    <button onclick="toggleMenu()" class="settings-toggle">
+        <i class="fas fa-font text-xl"></i>
+    </button>
+
+    <!-- Overlay for closing menu -->
+    <div id="menu-overlay" onclick="toggleMenu()"></div>
+
+    <!-- Settings Popup Menu -->
+    <div id="settings-menu">
+        <div class="mb-4">
+            <p class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-2">Text Size</p>
+            <div class="flex gap-2 items-center">
+                <button onclick="adjustFont(-1)" class="setting-btn flex-1 flex justify-center items-center h-10">
+                    <i class="fas fa-minus text-xs"></i>
+                </button>
+                <span class="text-sm font-bold w-8 text-center" id="font-display">Aa</span>
+                <button onclick="adjustFont(1)" class="setting-btn flex-1 flex justify-center items-center h-10">
+                    <i class="fas fa-plus text-xs"></i>
+                </button>
+            </div>
+        </div>
+
+        <div>
+            <p class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-2">Theme</p>
+            <button onclick="toggleTheme()" class="setting-btn w-full flex items-center justify-center gap-2 h-10">
+                <i class="fas fa-moon"></i>
+                <span id="theme-label-menu">Dark Mode</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- HERO -->
+    <header class="hero">
+        <span class="inline-block py-2 px-6 border border-white/40 rounded-full text-sm font-bold uppercase tracking-[0.3em] mb-8 bg-black/30 backdrop-blur-md">
+            The Nation Exiled
+        </span>
+        <!-- Title Fixed -->
+        <h1 class="text-4xl md:text-7xl font-black mb-6 drop-shadow-2xl tracking-tight leading-tight px-4 break-words max-w-full" style="font-family: 'Anek Telugu'">
+            2 రాజులు
+        </h1>
+        <p class="text-xl md:text-2xl font-light italic max-w-4xl px-4 text-white/90" style="font-family: 'Mallanna'">
+            "నా సేవకులైన ప్రవక్తల ద్వారా నేనిచ్చిన ధర్మశాస్త్రమంతటి ప్రకారము నడుచుకొనుడి" (2 KINGS 17:13)
+        </p>
+    </header>
+
+    <main id="main-content" class="content-text max-w-4xl mx-auto px-6 py-16">
+
+        <!-- INFO GRID -->
+        <section class="info-grid">
+            <div class="info-item">
+                <h4>రచయిత</h4>
+                <p>తెలియదు (యిర్మీయా?)</p>
+            </div>
+            <div class="info-item">
+                <h4>కాలం</h4>
+                <p>క్రీ.పూ. 850-586</p>
+            </div>
+            <div class="info-item">
+                <h4>స్థలం</h4>
+                <p>ఇశ్రాయేలు, యూదా & బబులోను</p>
+            </div>
+            <div class="info-item">
+                <h4>అధ్యాయాలు</h4>
+                <p>25</p>
+            </div>
+            <div class="info-item">
+                <h4>కీలక అంశం</h4>
+                <p>చెర (Exile) & తీర్పు</p>
+            </div>
+        </section>
+
+        <!-- AUTHOR NOTE - SPECIAL REQUEST -->
+        <div class="author-note">
+            <h4 class="font-bold mb-2 flex items-center gap-2 text-lg">
+                <i class="fas fa-feather-alt"></i> రచయిత గురించి గమనిక:
+            </h4>
+            <p style="line-height: 1.6;">
+                1 రాజుల గ్రంథంలాగే, 2 రాజుల గ్రంథానికి కూడా రచయిత ఎవరో ఖచ్చితంగా తెలియదు. యూదుల సాంప్రదాయం ప్రకారం ప్రవక్త అయిన <strong>యిర్మీయా (Jeremiah)</strong> ఈ రెండు గ్రంథాలను సంకలనం చేశాడు. 2 రాజులు గ్రంథం ఇశ్రాయేలు చరిత్రలో ఒక చీకటి అధ్యాయాన్ని చూపిస్తుంది. దేవుడు ఎంతగా హెచ్చరించినా వినకుండా విగ్రహారాధనలో పడిపోయినందుకు, ఉత్తర ఇశ్రాయేలు అష్షూరీయుల చేతికి, దక్షిణ యూదా బబులోనీయుల చేతికి ఎలా బానిసలుగా వెళ్ళారో ఈ గ్రంథం కళ్ళకు కట్టినట్లు వివరిస్తుంది.
+            </p>
+        </div>
+
+        <!-- INTRO -->
+        <article class="mb-16">
+            <h2 class="text-4xl font-bold mb-6 text-orange-900 dark:text-gold-500 pb-4 border-b-2 border-orange-200 dark:border-gray-800">
+                చెరలోనికి నెట్టబడిన జనాంగము
+            </h2>
+            <p>
+                <span class="drop-cap">2</span> రాజులు గ్రంథం 1 రాజుల పుస్తకానికి కొనసాగింపు. ఏలీయా అగ్ని రథంలో పరలోకానికి వెళ్ళడంతో ఇది ప్రారంభమవుతుంది. ఆ తర్వాత ఎలీషా దేవుని ఆత్మను రెండంతలుగా పొంది అనేక అద్భుతాలు చేస్తాడు. ఈ గ్రంథం ఇశ్రాయేలు, యూదా రాజుల వరుస పతనాన్ని చూపిస్తుంది. దేవుడు తన ప్రవక్తలను పంపి మరీ మరీ హెచ్చరించినప్పటికీ ప్రజలు, రాజులు మారలేదు. చివరకు వారి పాపం పండినప్పుడు ఇశ్రాయేలీయులు అష్షూరు దేశానికి, యూదా వారు బబులోను దేశానికి బానిసలుగా చెరపట్టబడ్డారు. దేవుని వాక్యానికి అవిధేయులైతే వచ్చే భయంకరమైన పరిణామాలకు ఈ గ్రంథం నిలువెత్తు సాక్ష్యం.
+            </p>
+        </article>
+
+        <!-- CHRIST IN 2 KINGS -->
+        <div class="christ-box">
+            <h3 class="text-2xl font-bold mb-4 flex items-center gap-2">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#facc15" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M2 12h20"/></svg>
+                క్రీస్తును ఎక్కడ వెతకాలి?
+            </h3>
+            <p class="mb-4 text-sm opacity-80">ఈ గ్రంథంలో యేసుక్రీస్తుకు అద్భుతమైన సాదృశ్యం ఎలీషా ప్రవక్తలో కనబడుతుంది:</p>
+            <ul class="space-y-3 list-none">
+                <li class="flex gap-3">
+                    <span class="font-bold highlight">➤ ఎలీషా (Elisha):</span>
+                    <span>'ఎలీషా' అనగా "దేవుడే రక్షణ". ఎలీషా చేసిన ఎన్నో అద్భుతాలు (కుష్టురోగులను స్వస్థపరచడం, చనిపోయినవారిని లేపడం, తక్కువ ఆహారాన్ని ఎక్కువ చేయడం) క్రొత్త నిబంధనలో యేసుక్రీస్తు చేసిన అద్భుతాలకు ముందు ఛాయలుగా (Types of Christ) ఉన్నాయి.</span>
+                </li>
+                <li class="flex gap-3">
+                    <span class="font-bold highlight">➤ రక్షణ దాత (The Savior):</span>
+                    <span>మరణం, వ్యాధులు, మరియు కరువు తాండవిస్తున్న ఆ భయంకరమైన రోజుల్లో దేవుడు ప్రవక్తల ద్వారా ఇచ్చిన జీవం మరియు స్వస్థత, పాపులైన మానవాళికి క్రీస్తు ద్వారా లభించే శాశ్వత రక్షణను సూచిస్తుంది.</span>
+                </li>
+                <li class="flex gap-3">
+                    <span class="font-bold highlight">➤ బబులోను చెర (Babylonian Exile):</span>
+                    <span>దేవుని నుండి దూరమైతే మనిషి పాపానికి బానిస అవుతాడని ఇది తెలియజేస్తుంది. ఆ బానిసత్వం నుండి విడిపించడానికి క్రీస్తు వచ్చాడు.</span>
+                </li>
+            </ul>
+        </div>
+
+        <hr class="border-orange-200 dark:border-gray-800 my-12">
+
+        <!-- 25 POINTS -->
+        <h3 class="text-3xl font-bold mb-10 text-orange-800 dark:text-gold-400">2 రాజులు: 25 ముఖ్యమైన ఘట్టాలు</h3>
+        
+        <!-- Point 1 -->
+        <div class="commentary-block">
+            <h4 class="text-xl font-bold mb-3 text-gray-800 dark:text-gray-200">1. ఏలీయా ఆరోహణము (Elijah Taken to Heaven)</h4>
+            <p class="explanation-text">
+                ఏలీయా భూమిపై తన పరిచర్యను ముగించాడు. అతడు మరణాన్ని రుచి చూడలేదు. ఎలీషాతో కలిసి యొర్దాను నది దాటిన తర్వాత, అగ్ని రథం మరియు అగ్ని గుర్రాలు వచ్చి వారిద్దరినీ వేరు చేశాయి. ఏలీయా సుడిగాలిలో పరలోకానికి ఆరోహణమయ్యాడు. హనోకు తర్వాత దేవుని చేత సజీవంగా తీసుకొనబడిన రెండవ వ్యక్తి ఏలీయా.
+            </p>
+            <div class="verse-card">
+                <span class="verse-ref">2 రాజులు 2:11</span>
+                "ఆ రథమును అగ్నిగుఱ్ఱములను వారిమధ్యకు వచ్చి వారిని వేరుచేయగా ఏలీయా సుడిగాలిచేత ఆకాశమునకు ఆరోహణమాయెను."
+            </div>
+        </div>
+
+        <!-- Point 2 -->
+        <div class="commentary-block">
+            <h4 class="text-xl font-bold mb-3 text-gray-800 dark:text-gray-200">2. ఎలీషాకు రెండంతల ఆత్మ (Double Portion for Elisha)</h4>
+            <p class="explanation-text">
+                ఏలీయా వెళ్లిపోయే ముందు ఎలీషా ఒక ప్రత్యేకమైన వరాన్ని అడిగాడు. ఆస్తిపాస్తులు కాదు గానీ, "నీ ఆత్మలో రెండుపాళ్లు నా మీదికి రానిమ్ము" అని కోరాడు (అంటే జ్యేష్ఠ కుమారుని ఆశీర్వాదం). ఏలీయా పైనుండి పడిన దుప్పటిని తీసుకొని, ఆత్మ శక్తితో ఎలీషా తన పరిచర్యను మొదలుపెట్టాడు.
+            </p>
+            <div class="verse-card">
+                <span class="verse-ref">2 రాజులు 2:9</span>
+                "ఎలీషా - నీ ఆత్మలో రెండుపాళ్లు నా మీదికి రానిమ్మని అడుగగా..."
+            </div>
+        </div>
+
+        <!-- Point 3 -->
+        <div class="commentary-block">
+            <h4 class="text-xl font-bold mb-3 text-gray-800 dark:text-gray-200">3. నీటిని మధురంగా మార్చుట (Healing the Water)</h4>
+            <p class="explanation-text">
+                యెరికో పట్టణంలో నీరు చెడిపోయి, భూమి నిస్సారంగా ఉంది. ఎలీషా ఒక క్రొత్త పాత్రలో ఉప్పు తీసుకొని వెళ్లి, ఆ నీటి ఊటలో వేశాడు. "నేను ఈ నీటిని బాగు చేశాను" అని దేవుని పక్షంగా ప్రకటించాడు. మరణాన్ని తెచ్చే నీరు జీవజలంగా మారింది. ఇది క్రీస్తు మన హృదయాలను శుద్ధి చేసి కొత్త జీవాన్ని ఇస్తాడనడానికి సూచన.
+            </p>
+            <div class="verse-card">
+                <span class="verse-ref">2 రాజులు 2:21</span>
+                "నేను ఈ నీటిని బాగుచేసి యున్నాను గనుక ఇక దీనివలన మరణమైనను భూమికి నిస్సారత్వమైనను కలుగదని యెహోవా సెలవిచ్చుచున్నాడనెను."
+            </div>
+        </div>
+
+        <!-- Point 4 -->
+        <div class="commentary-block">
+            <h4 class="text-xl font-bold mb-3 text-gray-800 dark:text-gray-200">4. విధవరాలి నూనె అద్భుతం (The Widow's Oil)</h4>
+            <p class="explanation-text">
+                ఒక ప్రవక్త భార్య అప్పుల పాలై, తన ఇద్దరు కొడుకులను బానిసలుగా తీసుకెళ్లే పరిస్థితిలో ఎలీషా వద్దకు వచ్చింది. ఇంట్లో కొద్దిగా నూనె మాత్రమే ఉంది. ఎలీషా పొరుగువారి దగ్గర ఖాళీ పాత్రలు అడిగి తెమ్మన్నాడు. ఆమె తెచ్చిన పాత్రలన్నీ నిండే వరకు ఆ చిన్న కుండలో నూనె ఆగకుండా వస్తూనే ఉంది. దేవుని దగ్గర మనకు కావలసిన సమృద్ధి ఎప్పుడూ ఉంటుంది.
+            </p>
+            <div class="verse-card">
+                <span class="verse-ref">2 రాజులు 4:6</span>
+                "పాత్రలన్నియు నిండిన తరువాత... అంతట నూనె నిలిచిపోయెను."
+            </div>
+        </div>
+
+        <!-- Point 5 -->
+        <div class="commentary-block">
+            <h4 class="text-xl font-bold mb-3 text-gray-800 dark:text-gray-200">5. షూనేమీయురాలి కుమారుని బ్రతికించుట (Shunammite's Son Raised)</h4>
+            <p class="explanation-text">
+                షూనేములోని ఒక ఘనురాలైన స్త్రీ దైవజనుడైన ఎలీషాకు తన ఇంట్లో బస చేయడానికి ఒక గదిని కట్టించింది. దేవుడు ఆమె గొడ్రాలితనాన్ని తీసి కుమారుని ఇచ్చాడు. కానీ ఆ బిడ్డ హఠాత్తుగా చనిపోయాడు. ఆమె విశ్వాసంతో ఎలీషా దగ్గరకు వెళ్ళింది. ఎలీషా దేవునికి ప్రార్థించి ఆ బిడ్డను ప్రాణంతో లేపాడు. దేవుడు జీవాధిపతి అని ఇది రుజువు చేస్తుంది.
+            </p>
+            <div class="verse-card">
+                <span class="verse-ref">2 రాజులు 4:35</span>
+                "అంతట ఆ పిల్లకుడు ఏడు మారులు తుమ్మి కండ్లు తెరచెను."
+            </div>
+        </div>
+
+        <!-- Point 6 -->
+        <div class="commentary-block">
+            <h4 class="text-xl font-bold mb-3 text-gray-800 dark:text-gray-200">6. నయమాను కుష్టురోగం స్వస్థత (Naaman's Healing)</h4>
+            <p class="explanation-text">
+                సిరియా సైన్యాధిపతి అయిన నయమానుకు కుష్టురోగం వచ్చింది. ఇశ్రాయేలు దేశపు చిన్న చిన్నది (దాసి) చెప్పిన మాట విని ఎలీషా దగ్గరకు వచ్చాడు. "యొర్దాను నదిలో 7 సార్లు మునుగు" అని ఎలీషా చెప్పాడు. మొదట నయమాను గర్వించి కోపగించుకున్నా, తర్వాత విధేయత చూపి మునిగాడు. అతని దేహం పసిపిల్ల దేహంలా మారిపోయింది. దేవుని మార్గాలు చాలా సింపుల్ గా ఉంటాయి, విధేయతే ముఖ్యం.
+            </p>
+            <div class="verse-card">
+                <span class="verse-ref">2 రాజులు 5:14</span>
+                "అతడు పోయి యొర్దాను నదిలో ఏడుమారుల మునుగగా, అతని దేహము పసిపిల్ల దేహమువలెనై అతడు శుద్ధుడాయెను."
+            </div>
+        </div>
+
+        <!-- Point 7 -->
+        <div class="commentary-block">
+            <h4 class="text-xl font-bold mb-3 text-gray-800 dark:text-gray-200">7. గెహాజీ దురాశ మరియు శిక్ష (Gehazi's Greed)</h4>
+            <p class="explanation-text">
+                నయమాను ఇచ్చిన కానుకలను ఎలీషా తిరస్కరించాడు. కానీ ఎలీషా సేవకుడైన గెహాజీ దురాశపడి, రహస్యంగా వెళ్లి అబద్ధం ఆడి వెండి, బట్టలు తీసుకున్నాడు. ఎలీషా ఆత్మలో ఈ విషయాన్ని చూసి, "నయమాను కుష్టు నీకు అంటుకుంటుంది" అని శపించాడు. దేవుని సేవలో డబ్బు పట్ల దురాశ ఎంత భయంకరమైన శిక్షకు దారితీస్తుందో ఈ ఘటన హెచ్చరిస్తుంది.
+            </p>
+            <div class="verse-card">
+                <span class="verse-ref">2 రాజులు 5:27</span>
+                "కాబట్టి నయమానునకు కలిగిన కుష్ఠరోగము నీకును నీ సంతతివారికిని సదాకాలము అంటుకొని యుండునని చెప్పగా..."
+            </div>
+        </div>
+
+        <!-- Point 8 -->
+        <div class="commentary-block">
+            <h4 class="text-xl font-bold mb-3 text-gray-800 dark:text-gray-200">8. నీళ్లలో తేలిన గొడ్డలి (The Floating Axhead)</h4>
+            <p class="explanation-text">
+                ప్రవక్తల శిష్యులు ఇల్లు కట్టుకోవడానికి యొర్దాను నది దగ్గర చెట్లు నరుకుతుండగా, ఒకని గొడ్డలి ఇనుపు అంచు నీళ్లలో పడిపోయింది. "అయ్యో అది అరువు తెచ్చినది" అని వాడు ఏడ్చాడు. ఎలీషా ఒక కర్ర కొమ్మను నరికి ఆ నీళ్లలో వేయగానే బరువైన ఆ ఇనుప గొడ్డలి తేలింది. మనం పొగొట్టుకున్నది ఏదైనా సరే దేవుడు తిరిగి ఇవ్వగలడు.
+            </p>
+            <div class="verse-card">
+                <span class="verse-ref">2 రాజులు 6:6</span>
+                "అతడొక కొమ్మ నరికి నీళ్లలో వేయగా ఆ యినుపగొడ్డలి తేలెను."
+            </div>
+        </div>
+
+        <!-- Point 9 -->
+        <div class="commentary-block">
+            <h4 class="text-xl font-bold mb-3 text-gray-800 dark:text-gray-200">9. అదృశ్య సైన్యం (Chariots of Fire)</h4>
+            <p class="explanation-text">
+                సిరియా రాజు ఎలీషాను పట్టుకోవడానికి రాత్రికి రాత్రే సైన్యాన్ని పంపి దోతాను పట్టణాన్ని ముట్టడించాడు. ఎలీషా పనివాడు భయపడ్డాడు. అప్పుడు ఎలీషా ప్రార్థించగా, పనివాని కళ్ళు తెరువబడ్డాయి. పర్వతమంతా ఎలీషా చుట్టూ దేవుని అగ్ని గుర్రాలతో, రథాలతో నిండి ఉండటం చూశాడు. "మన పక్షమున ఉన్నవారు వారికంటె అధికులు".
+            </p>
+            <div class="verse-card">
+                <span class="verse-ref">2 రాజులు 6:17</span>
+                "యెహోవా ఆ పనివాని కండ్లను తెరవచేయగా వాడు ఎలీషా చుట్టును పర్వతము అగ్నిగుఱ్ఱములచేతను రథములచేతను నిండియుండుట చూచెను."
+            </div>
+        </div>
+
+        <!-- Point 10 -->
+        <div class="commentary-block">
+            <h4 class="text-xl font-bold mb-3 text-gray-800 dark:text-gray-200">10. షోమ్రోనులో భయంకరమైన కరువు (Famine in Samaria)</h4>
+            <p class="explanation-text">
+                సిరియా రాజు బెన్హదదు షోమ్రోనును ముట్టడించినప్పుడు పట్టణంలో తీవ్రమైన కరువు వచ్చింది. ఎంత ఘోరమంటే ఒక గాడిద తల 80 వెండి నాణేలకు అమ్ముడుపోయింది. తల్లులు తమ సొంత బిడ్డలను వండుకుని తినే దారుణ స్థితికి ఇశ్రాయేలు దిగజారింది. పాపం మరియు దేవుని రక్షణ లేకపోవడం వల్లే ఈ దుస్థితి దాపురించింది.
+            </p>
+            <div class="verse-card">
+                <span class="verse-ref">2 రాజులు 6:28</span>
+                "నీ కుమారుని ఇమ్ము, ఈ దినమందు వానిని తిందము, రేపు నా కుమారుని తిందమని ఈమె నాతో చెప్పగా..."
+            </div>
+        </div>
+
+        <!-- Point 11 -->
+        <div class="commentary-block">
+            <h4 class="text-xl font-bold mb-3 text-gray-800 dark:text-gray-200">11. కుష్టురోగులు తెచ్చిన శుభవార్త (Lepers Bring Good News)</h4>
+            <p class="explanation-text">
+                "రేపు ఇదే సమయానికి ఆహారం చౌకగా దొరుకుతుంది" అని ఎలీషా ప్రవచించాడు. దేవుడు సిరియన్ల సైన్యానికి రథాల శబ్దం వినబడేలా చేసి వారిని పారిపోయేలా చేశాడు. ఆకలితో చావడానికి సిద్ధపడిన నలుగురు కుష్టురోగులు సిరియన్ల గుడారాలకు వెళ్లి ఆహారాన్ని చూసి ఆశ్చర్యపోయారు. "ఈ శుభవార్తను ఇతరులకు చెప్పకపోతే మనకు శిక్ష" అని పట్టణానికి వెళ్లి చెప్పారు. సువార్త ప్రకటించడం మన బాధ్యత.
+            </p>
+            <div class="verse-card">
+                <span class="verse-ref">2 రాజులు 7:9</span>
+                "మనము చేయుచున్న పని మంచిది కాదు; నేటి దినము శుభవార్త తెలుపు దినము..."
+            </div>
+        </div>
+
+        <!-- Point 12 -->
+        <div class="commentary-block">
+            <h4 class="text-xl font-bold mb-3 text-gray-800 dark:text-gray-200">12. యెహూ పట్టాభిషేకం (Jehu Anointed)</h4>
+            <p class="explanation-text">
+                ఆహాబు కుటుంబం చేసిన పాపాలకు తీర్పు తీర్చడానికి దేవుడు సైన్యాధిపతి అయిన యెహూను ఇశ్రాయేలు రాజుగా అభిషేకించాడు. ఎలీషా పంపిన ఒక ప్రవక్త వెళ్లి యెహూకు నూనె రాశాడు. యెహూ ఒక సునామీలా బయలుదేరి ఆహాబు ఇంటివారిని నాశనం చేయడానికి వేగంగా తన రథాన్ని తోలుకుంటూ వెళ్ళాడు.
+            </p>
+            <div class="verse-card">
+                <span class="verse-ref">2 రాజులు 9:6</span>
+                "ఇశ్రాయేలు దేవుడైన యెహోవా సెలవిచ్చునదేమనగా యెహోవా జనులగు ఇశ్రాయేలువారలమీద నిన్ను రాజుగా పట్టాభిషేకము చేసియున్నాను."
+            </div>
+        </div>
+
+        <!-- Point 13 -->
+        <div class="commentary-block">
+            <h4 class="text-xl font-bold mb-3 text-gray-800 dark:text-gray-200">13. యెజెబెలు ఘోర మరణం (Death of Jezebel)</h4>
+            <p class="explanation-text">
+                యెహూ పట్టణంలోకి రాగానే, యెజెబెలు కిటికీలో నుండి చూస్తూ అలంకరించుకుంది. యెహూ ఆజ్ఞతో ఆమె నపుంసకులే ఆమెను కిటికీలో నుండి కిందకు పడవేశారు. గుర్రాలు ఆమెను తొక్కాయి, కుక్కలు ఆమె మాంసాన్ని తిన్నాయి. నాబోతును చంపించినందుకు ఏలీయా చెప్పిన దేవుని తీర్పు అక్షరాలా నెరవేరింది.
+            </p>
+            <div class="verse-card">
+                <span class="verse-ref">2 రాజులు 9:33</span>
+                "అతడుఆమెను క్రిందికి పడద్రోయుడని ఆజ్ఞ ఇయ్యగా... ఆమె రక్తము గోడమీదను గుఱ్ఱములమీదను చిందెను."
+            </div>
+        </div>
+
+        <!-- Point 14 -->
+        <div class="commentary-block">
+            <h4 class="text-xl font-bold mb-3 text-gray-800 dark:text-gray-200">14. బయలు ఆరాధకుల నాశనం (Destruction of Baal Worshipers)</h4>
+            <p class="explanation-text">
+                యెహూ "బయలు దేవతకు మహా బలి అర్పిస్తాను" అని అబద్ధం చెప్పి, బయలు ఆరాధకులందరినీ ఒకే గుడిలోకి రప్పించాడు. బయట వారికి మాత్రమే ప్రత్యేక వస్త్రాలు ఇచ్చి, లోపల ఇశ్రాయేలీయులు ఎవరూ లేకుండా చూశాడు. ఆ తర్వాత సైన్యాన్ని లోపలికి పంపి అందరినీ హతమార్చాడు. ఆ గుడిని పడగొట్టి బహిర్భూమి (Toilet) గా మార్చాడు.
+            </p>
+            <div class="verse-card">
+                <span class="verse-ref">2 రాజులు 10:25</span>
+                "కొట్టండి, ఒక్కనినైనను బయటికి పోనియ్యకుడని ఖడ్గముదూసిన వారితోను అధిపతులతోను చెప్పగా, వారు కత్తివాట వారిని హతముచేసిరి."
+            </div>
+        </div>
+
+        <!-- Point 15 -->
+        <div class="commentary-block">
+            <h4 class="text-xl font-bold mb-3 text-gray-800 dark:text-gray-200">15. అతల్యా కుట్ర మరియు యోవాషు రక్షణ (Athaliah's Plot & Joash Saved)</h4>
+            <p class="explanation-text">
+                దక్షిణ రాజ్యమైన యూదాలో, రాజు చనిపోగానే అతని తల్లి అతల్యా (ఆహాబు కుమార్తె) రాజవంశాన్ని నాశనం చేసి సింహాసనం ఎక్కింది. కానీ యెహోషేబ (రాజు సహోదరి) రాజకుమారుడైన యోవాషును రహస్యంగా కాపాడి దేవాలయంలో 6 సంవత్సరాలు దాచిపెట్టింది. దేవుడు దావీదు వంశాన్ని నిర్మూలనం కాకుండా కాపాడాడు (దీని ద్వారానే క్రీస్తు రావాలి కాబట్టి).
+            </p>
+            <div class="verse-card">
+                <span class="verse-ref">2 రాజులు 11:2</span>
+                "అతల్యా కంటపడకుండ వానిని వాని దాదిని దాచిపెట్టిరి గనుక వాడు హత్యకాబడలేదు."
+            </div>
+        </div>
+
+        <!-- Point 16 -->
+        <div class="commentary-block">
+            <h4 class="text-xl font-bold mb-3 text-gray-800 dark:text-gray-200">16. బాలుడైన యోవాషు రాజు అగుట (Boy King Joash)</h4>
+            <p class="explanation-text">
+                యోవాషుకు 7 ఏళ్లు వచ్చినప్పుడు, ప్రధాన యాజకుడైన యెహోయాదా సైన్యాధిపతులను పిలిపించి, రహస్యంగా దాచిన బాలుడిని వారికి చూపించాడు. ఆ చిన్నారి తల మీద కిరీటం పెట్టి, చేతిలో ధర్మశాస్త్రం ఉంచి రాజుగా అభిషేకించారు. దుర్మార్గురాలైన అతల్యాను చంపేశారు. దేశం తిరిగి దేవుని వైపుకు మళ్లింది.
+            </p>
+            <div class="verse-card">
+                <span class="verse-ref">2 రాజులు 11:12</span>
+                "కిరీటమును వాని తలమీదపెట్టి ధర్మశాస్త్ర గ్రంథమును వానిచేతికియ్యగా వారు వానిని రాజుగా పట్టాభిషేకముచేసిరి..."
+            </div>
+        </div>
+
+        <!-- Point 17 -->
+        <div class="commentary-block">
+            <h4 class="text-xl font-bold mb-3 text-gray-800 dark:text-gray-200">17. యోవాషు దేవాలయ మరమ్మత్తులు (Joash Repairs the Temple)</h4>
+            <p class="explanation-text">
+                యోవాషు యెహోయాదా బ్రతికినంత కాలం యెహోవా దృష్టికి నీతిగా నడిచాడు. మునుపటి రాజుల కాలంలో శిథిలమైపోయిన యెరూషలేము దేవాలయాన్ని బాగు చేయాలని యోవాషు నిశ్చయించుకున్నాడు. ప్రజలు ఉత్సాహంగా కానుకలు తెచ్చారు, ఆలయం తిరిగి పునరుద్ధరించబడింది. దేవుని మందిరం పట్ల పౌరుషం అతనికి ఉంది.
+            </p>
+            <div class="verse-card">
+                <span class="verse-ref">2 రాజులు 12:4</span>
+                "యెహోవా మందిరమునకు తేబడు ప్రతిష్ఠితమైన ద్రవ్యమంతయు... మందిరమును బాగుచేయవలెను."
+            </div>
+        </div>
+
+        <!-- Point 18 -->
+        <div class="commentary-block">
+            <h4 class="text-xl font-bold mb-3 text-gray-800 dark:text-gray-200">18. ఎలీషా మరణం - ఎముకల అద్భుతం (Elisha's Death & Bones Miracle)</h4>
+            <p class="explanation-text">
+                గొప్ప దైవజనుడైన ఎలీషా వ్యాధిగ్రస్తుడై చనిపోయాడు. అతన్ని సమాధి చేశారు. కొన్నాళ్ల తర్వాత ఇశ్రాయేలీయులు ఒక శవాన్ని పాతిపెట్టడానికి వెళ్తుండగా, శత్రు మూకలు రావడం చూసి భయపడి ఆ శవాన్ని ఎలీషా సమాధిలో పడేశారు. ఆ శవం ఎలీషా ఎముకలకు తగలగానే బ్రతికి లేచి నిలబడ్డాడు. దేవుని ఆత్మ శక్తి మరణాన్ని కూడా జయిస్తుంది.
+            </p>
+            <div class="verse-card">
+                <span class="verse-ref">2 రాజులు 13:21</span>
+                "ఆ శవము ఎలీషా శల్యములకు తగులగానే వాడు బ్రతికి తన కాళ్లమీద నిలిచెను."
+            </div>
+        </div>
+
+        <!-- Point 19 -->
+        <div class="commentary-block">
+            <h4 class="text-xl font-bold mb-3 text-gray-800 dark:text-gray-200">19. ఇశ్రాయేలు పతనం (Fall of Israel to Assyria)</h4>
+            <p class="explanation-text">
+                వందల సంవత్సరాల దేవుని ఓపిక నశించింది. ఉత్తర రాజ్యమైన ఇశ్రాయేలు విగ్రహారాధన మానలేదు. ప్రవక్తల మాట వినలేదు. చివరకు క్రీ.పూ. 722 లో అష్షూరు రాజు హోషేయ కాలంలో షోమ్రోనును ముట్టడించి, ఇశ్రాయేలీయులందరినీ బానిసలుగా అష్షూరు దేశానికి లాక్కెళ్ళాడు. పది గోత్రాలు చెల్లాచెదురైపోయాయి.
+            </p>
+            <div class="verse-card">
+                <span class="verse-ref">2 రాజులు 17:6</span>
+                "అష్షూరురాజు షోమ్రోనును పట్టుకొని, ఇశ్రాయేలువారలను అష్షూరుదేశమునకు చెరతీసికొనిపోయి..."
+            </div>
+        </div>
+
+        <!-- Point 20 -->
+        <div class="commentary-block">
+            <h4 class="text-xl font-bold mb-3 text-gray-800 dark:text-gray-200">20. హిజ్కియా రాజు విశ్వాసం (Hezekiah's Faith)</h4>
+            <p class="explanation-text">
+                ఉత్తర రాజ్యం పతనమైన సమయంలో యూదా దేశాన్ని హిజ్కియా పాలిస్తున్నాడు. అతడు గొప్ప భక్తుడు. దావీదు వలె దేవుని హత్తుకుని ఉన్నాడు. మోషే కాలం నాటి ఇత్తడి పామును (నెహుష్టాను) ప్రజలు పూజిస్తుంటే దాన్ని ముక్కలుముక్కలుగా కొట్టేశాడు. దేవుని మీద ఆయన ఉంచిన విశ్వాసం ముందు వెనక ఏ రాజులకు లేదు.
+            </p>
+            <div class="verse-card">
+                <span class="verse-ref">2 రాజులు 18:5</span>
+                "అతడు ఇశ్రాయేలు దేవుడైన యెహోవా యందు విశ్వాసముంచినవాడు; అతని తరువాత వచ్చిన యూదా రాజులలోను... అతనితో సాటియైనవాడొకడును లేడు."
+            </div>
+        </div>
+
+        <!-- Point 21 -->
+        <div class="commentary-block">
+            <h4 class="text-xl font-bold mb-3 text-gray-800 dark:text-gray-200">21. సన్హెరీబు ముట్టడి - అద్భుత రక్షణ (Assyrian Army Destroyed)</h4>
+            <p class="explanation-text">
+                అష్షూరు రాజు సన్హెరీబు యెరూషలేమును ముట్టడించి, దేవుడిని దూషిస్తూ ఒక ఉత్తరాన్ని పంపాడు. హిజ్కియా ఆ ఉత్తరాన్ని దేవాలయంలో దేవుని ముందు పెట్టి కన్నీటితో ప్రార్థించాడు. యెషయా ప్రవక్త ద్వారా దేవుడు జవాబిచ్చాడు. ఆ రాత్రే దేవుని దూత వెళ్లి అష్షూరు శిబిరంలో 1,85,000 మందిని వధించాడు. ప్రార్థనకు ఎంత శక్తి ఉందో ఇది చూపిస్తుంది.
+            </p>
+            <div class="verse-card">
+                <span class="verse-ref">2 రాజులు 19:35</span>
+                "ఆ రాత్రి యెహోవా దూత బయలుదేరి అష్షూరీయుల దండులో లక్షయెనుబది యయిదువేల మందిని హతముచేసెను."
+            </div>
+        </div>
+
+        <!-- Point 22 -->
+        <div class="commentary-block">
+            <h4 class="text-xl font-bold mb-3 text-gray-800 dark:text-gray-200">22. హిజ్కియాకు ఆయుష్షు పెరుగుట (Hezekiah's Life Extended)</h4>
+            <p class="explanation-text">
+                హిజ్కియాకు ప్రాణాంతకమైన జబ్బు చేసింది. "నీవు చనిపోతావు, ఇల్లు చక్కబెట్టుకో" అని యెషయా ప్రవక్త చెప్పాడు. హిజ్కియా గోడ తట్టు ముఖం తిప్పుకొని కన్నీటితో ప్రార్థించాడు. దేవుడు అతని కన్నీళ్లను చూసి కరుణించి, అతని ఆయుష్షును మరొక 15 సంవత్సరాలు పెంచాడు. సూచనగా సూర్య గడియారం నీడ పది మెట్లు వెనక్కి వెళ్ళింది.
+            </p>
+            <div class="verse-card">
+                <span class="verse-ref">2 రాజులు 20:6</span>
+                "నీ ఆయుష్షునకు పదునయిదు సంవత్సరములు నేను ఎక్కువ చేతును."
+            </div>
+        </div>
+
+        <!-- Point 23 -->
+        <div class="commentary-block">
+            <h4 class="text-xl font-bold mb-3 text-gray-800 dark:text-gray-200">23. మనష్షే ఘోరమైన పాపం (Manasseh's Wickedness)</h4>
+            <p class="explanation-text">
+                హిజ్కియా కుమారుడైన మనష్షే తండ్రికి పూర్తి వ్యతిరేకం. యూదా రాజులందరిలో అత్యంత దుర్మార్గుడు. దేవుని ఆలయంలో విగ్రహాలను పెట్టాడు, తన సొంత కుమారులను అగ్నిగుండా (బలి) దాటించాడు. ఎంతో మంది నిరపరాధుల రక్తం చిందించాడు. అతని పాపాల వల్లే దేవుడు యూదా రాజ్యాన్ని బబులోనుకు అప్పగించాలని స్థిర నిర్ణయం తీసుకున్నాడు.
+            </p>
+            <div class="verse-card">
+                <span class="verse-ref">2 రాజులు 21:2</span>
+                "అతడు... అన్యజనుల హేయక్రియలనుబట్టి యెహోవా దృష్టికి చెడుతనము జరిగించెను."
+            </div>
+        </div>
+
+        <!-- Point 24 -->
+        <div class="commentary-block">
+            <h4 class="text-xl font-bold mb-3 text-gray-800 dark:text-gray-200">24. యోషీయా సంస్కరణలు (Josiah's Reforms)</h4>
+            <p class="explanation-text">
+                యోషీయా 8 ఏళ్లకే రాజయ్యాడు. దేవాలయాన్ని మరమ్మత్తు చేస్తుండగా దేవుని ధర్మశాస్త్ర గ్రంథం దొరికింది. దానిని చదివి వినిపించినప్పుడు, ఆ చిన్న వయసులోనే రాజు బట్టలు చింపుకొని పశ్చాత్తాప పడ్డాడు. దేశంలోని విగ్రహాలన్నింటినీ పగలగొట్టి దేవుని వైపుకు యూదాను తిప్పాడు. వాక్యం చదివితే వచ్చే నిజమైన మార్పు ఇది.
+            </p>
+            <div class="verse-card">
+                <span class="verse-ref">2 రాజులు 22:8</span>
+                "ప్రధానయాజకుడైన హిల్కీయా... యెహోవా మందిరమందు ధర్మశాస్త్రగ్రంథము నాకు దొరికినదని చెప్పి..."
+            </div>
+        </div>
+
+        <!-- Point 25 -->
+        <div class="commentary-block">
+            <h4 class="text-xl font-bold mb-3 text-gray-800 dark:text-gray-200">25. యూదా పతనం - బబులోను చెర (Fall of Judah to Babylon)</h4>
+            <p class="explanation-text">
+                చివరికి దేవుని తీర్పు వచ్చేసింది. క్రీ.పూ. 586 లో బబులోను రాజు నెబుకద్నెజరు యెరూషలేముపై దాడి చేశాడు. దేవుని మందిరాన్ని, రాజు నగరును అగ్నితో కాల్చివేశాడు. యెరూషలేము గోడలను పడగొట్టాడు. సిద్కియా రాజు కళ్ళు పీకి సంకెళ్లు వేసి బబులోనుకు తీసుకెళ్ళాడు. ఘనమైన యూదా జనాంగం తమ పాపం వలన బానిసలుగా చెరలోనికి (Exile) వెళ్లారు. గ్రంథం విచారకరంగా ముగుస్తుంది.
+            </p>
+            <div class="verse-card">
+                <span class="verse-ref">2 రాజులు 25:11</span>
+                "పట్టణమందు మిగిలిన జనులను... నెబూజరదాను అను రాజదేహసంరక్షకుల యధిపతి చెరతీసికొనిపోయెను."
+            </div>
+        </div>
+
+        <div class="bg-orange-50 dark:bg-gray-800 p-8 rounded-xl border border-orange-200 dark:border-gray-700 text-center mt-16">
+            <h3 class="text-2xl font-bold mb-4 text-orange-900 dark:text-gold-500">తరువాత ఏంటి?</h3>
+            <p class="mb-6">ఇశ్రాయేలు, యూదా రెండు రాజ్యాలు పతనమయ్యాయి. వాగ్దాన దేశాన్ని పోగొట్టుకున్నారు. అయితే దేవుడు దావీదుకు చేసిన వాగ్దానాన్ని మర్చిపోలేదు. దేవుని ప్రణాళికలో ఇశ్రాయేలు వంశావళి, దావీదు సంతానం, దేవుని ఆలయం గురించి దేవుని కోణంలో మరొక్కసారి వ్రాయబడిన చరిత్రే "1 దినవృత్తాంతములు" (1 Chronicles) గ్రంథం.</p>
+            <div class="inline-block px-8 py-3 bg-black text-white dark:bg-gold-500 dark:text-black font-bold uppercase tracking-widest rounded-full cursor-pointer hover:scale-105 transition-transform">
+                2 రాజులు 1వ అధ్యాయం చదవండి
+            </div>
+        </div>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-black text-white py-16 text-center border-t-4 border-gold-500">
+        <h2 class="text-3xl font-brand text-gold-500 mb-6">Word of God (WOG)</h2>
+        <p class="text-gray-400 mb-8 max-w-lg mx-auto">సత్యవాక్యమును సరిగా ఉపదేశించువానిగాను, సిగ్గుపడనక్కరలేని పనివానిగాను నిన్నునీవే దేవునికి కనపరచుకొనుటకు జాగ్రత్తపడుము. 2 తిమోతికి 2:15</p>
+        <p class="text-6xl font-brand text-white/10 tracking-widest mt-8">2 KINGS</p>
+        <p class="text-xs text-gray-600 mt-8">© 2026 WOG Ministries. All Rights Reserved.</p>
+    </footer>
+
+    <script>
+        // --- SETTINGS MENU LOGIC ---
+        const root = document.documentElement;
+        const menu = document.getElementById('settings-menu');
+        const overlay = document.getElementById('menu-overlay');
+        const themeLabel = document.getElementById('theme-label-menu');
+        let currentSize = 20;
+
+        // Toggle Menu Visibility
+        function toggleMenu() {
+            menu.classList.toggle('active');
+            overlay.classList.toggle('active');
+        }
+
+        // Font Adjustment (Restricted to buttons only)
+        function adjustFont(dir) {
+            if (dir === 1 && currentSize < 32) currentSize += 2;
+            if (dir === -1 && currentSize > 16) currentSize -= 2;
+            root.style.setProperty('--content-size', currentSize + 'px');
+        }
+
+        // Initialize Theme from LocalStorage
+        if (localStorage.theme === 'dark') {
+            root.classList.add('dark');
+            if(themeLabel) themeLabel.innerText = 'Light Mode';
+        }
+
+        // Theme Toggle Function
+        function toggleTheme() {
+            if (root.classList.contains('dark')) {
+                root.classList.remove('dark');
+                localStorage.theme = 'light';
+                if(themeLabel) themeLabel.innerText = 'Dark Mode';
+            } else {
+                root.classList.add('dark');
+                localStorage.theme = 'dark';
+                if(themeLabel) themeLabel.innerText = 'Light Mode';
+            }
+        }
+
+        // Scroll Progress Bar
+        window.onscroll = function() {
+            let winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            let height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            let scrolled = (winScroll / height) * 100;
+            document.getElementById("reading-progress").style.width = scrolled + "%";
+        };
+    </script>
+</body>
+</html>
